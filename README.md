@@ -12,3 +12,6 @@ will show the decryption method - same as the encryption
 
 
 Bombe:
+This is more complex and will be based on the Enigma machine.
+Will we keep a pharse at the end of each message so it will be eaiser to decrypt.
+Test pharse: "Hello World"

@@ -1,10 +1,26 @@
 #Enigma code
+import array
 
-#array for the a
+#array for the alphabet
+alphabet = {(i,j): 0 for i in range(2) for j in range(26)}
+
+#to get the upper case letter corresponding to each num of the alphabet
+charnum = 65
+for x in range(26):
+    alphabet[0, int(x)] = chr(charnum)
+    alphabet[1, int(x)] = chr(charnum)
+    charnum+=1
+for x in range(26):
+    print(0,x)
+    print(1,x)
+
 
 #menu
 #get input message
 plainTestMessage = input("What is the message you would like to input")
+#get rid of spaces
+#make uppercase so chars match with the alphabet
+
 #get settings 
 #plug board
 for x in range(10):

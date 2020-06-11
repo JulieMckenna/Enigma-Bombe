@@ -11,9 +11,8 @@ for x in range(26):
     alphabet[1, int(x)] = chr(charnum)
     charnum+=1
 for x in range(26):
-    print(0,x)
-    print(1,x)
-
+    print(alphabet[0,x])
+    print(alphabet[1,x])
 
 #menu
 #get input message

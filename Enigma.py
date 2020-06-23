@@ -47,4 +47,3 @@ def plugboard(ogletter, swapedletter):
     #serach for where the swapped letter (index)
 
     #swap the two in the array
-

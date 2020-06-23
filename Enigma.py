@@ -48,13 +48,22 @@ for x in range(10):
     OrigLetter = input("What letter would you like to swap?").upper()
     ChangeLetter = input("What is it being changed to?").upper()
     plugboard(OrigLetter, ChangeLetter)
+#prints cipher alphabet after all the changes are made
+printalphabet(1)
+
 #rotors
 rotorarray = []
 for x in range(3):
     rotornum = input("What is the " + x + " you would like to use?")
     rotorarray.append(rotornum)
+#prints cipher alphabet after all the changes are made
+printalphabet(1)
+
 #reflector
 reflector = input("Please choose the reflector")
+
+#prints cipher alphabet after all the changes are made
+printalphabet(1)
 
 print("The encoded message is: ")
 

@@ -62,8 +62,11 @@ printalphabet(1)
 #reflector
 reflector = input("Please choose the reflector")
 
+<<<<<<< HEAD
 #prints cipher alphabet after all the changes are made
 printalphabet(1)
 
+=======
+>>>>>>> master
 print("The encoded message is: ")
 

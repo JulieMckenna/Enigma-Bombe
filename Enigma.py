@@ -56,4 +56,19 @@ for x in range(3):
 #reflector
 reflector = input("Please choose the reflector")
 
+<<<<<<< HEAD
 print("The encoded message is: ")
+=======
+print("The encoded message is: ")
+
+def plugboard(ogletter, swapedletter):
+    print("Plugboard section")
+    print("Swapping letter: " + ogletter + " with: " + swapedletter)
+    #swap the letters
+
+    #search for where the ogletter is (index)
+
+    #serach for where the swapped letter (index)
+
+    #swap the two in the array
+>>>>>>> master

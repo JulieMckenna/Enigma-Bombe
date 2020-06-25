@@ -35,11 +35,15 @@ def plugboard(ogletter, swapedletter):
     #prints cipher alphabet to check that the swap worked
     printalphabet(1)
 
+def removespaces(ustr):
+    return ustr.replace(" ", "")
+
 #menu
 #get input message
-plainTextMessage = input("What is the message you would like to input")
+plainTextMessage = input("What is the message you would like to input").upper()
 #get rid of spaces
-#make uppercase so chars match with the alphabet
+plainTextMessage.removespaces(plainTextMessage)
+
 
 #get settings 
 #plug board
@@ -62,11 +66,8 @@ printalphabet(1)
 #reflector
 reflector = input("Please choose the reflector")
 
-<<<<<<< HEAD
 #prints cipher alphabet after all the changes are made
 printalphabet(1)
 
-=======
->>>>>>> master
 print("The encoded message is: ")
 

@@ -66,9 +66,18 @@ printalphabet(1)
 
 #reflector
 reflector = input("Please choose the reflector")
-
-#prints cipher alphabet after all the changes are made
-printalphabet(1)
+#letter can not be encoded as its self 
 
 print("The encoded message is: ")
+#ciphertext = ""
+#do the transformation from plain to cipher
+for x in len(plainTextMessage):
+    templetter = plainTextMessage[x]
+    for x in range(26):
+        if templetter == alphabet[0][x]:
+            changeletter = alphabet[1][x]
+    ciphertext += changeletter
+
+
+
 

@@ -56,6 +56,7 @@ for x in range(10):
 printalphabet(1)
 
 #rotors
+#goes through 1, 2, 3 - thne reflector - thne back 3, 2, 1
 rotorarray = []
 for x in range(3):
     rotornum = input("What is the " + x + " you would like to use?")

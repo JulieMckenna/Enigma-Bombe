@@ -96,4 +96,42 @@ capMsg.close()
 #close the db connection
 bombeDB.close()
 
-print('Bombe database created')
+print('Created Bombe Database')
+
+
+
+##### ENIGMA #####
+# open db connection for Enigma
+enigmaDB = sqlite3.connect('Enigma.db')
+
+# drop table if it exists before creating it again
+dropTbl = enigmaDB.cursor()
+dropTbl.execute('DROP TABLE IF EXISTS Schedule')
+dropTbl.close()
+
+# create table script for Schedule table
+sched = '''
+CREATE TABLE Schedule
+(
+    ConfigID            INT     PRIMARY KEY NOT NULL,
+    PlugIn              TEXT    NOT NULL,
+    PlugOut             TEXT    NOT NULL,
+    RotorOne            CHAR(1),
+    RotorTwo            CHAR(1),
+    RotorThree          CHAR(1),
+    RotorFour           CHAR(1),
+    RotorFive           CHAR(1),
+    Reflector           INT     NOT NULL,
+    DayOfMonth          INT     NOT NULL,
+    TransposedAlphabet  TEXT    NOT NULL
+);
+'''
+# create Schedule table
+s = enigmaDB.cursor()
+s.execute(sched)
+s.close()
+
+# close the db connection
+enigmaDB.close()
+
+print('Created Enigma Database')

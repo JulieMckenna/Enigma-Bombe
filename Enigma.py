@@ -34,6 +34,37 @@ def plugboard(ogletter, swapedletter):
     alphabet[1, swapletterindex] = ogletter
     #prints cipher alphabet to check that the swap worked
     #printalphabet(1)
+#letter can not ve encoded as its self so swaps letters that are encoded as themselves
+def reflector(reflectortype):
+    #reflector a - will go through cipher array and if the letter is the same as its orignal will swap it
+    if reflectortype == "A":
+        swap = [0]*26
+        reflectionvalid = False
+        #gets all the letters that are encoded as themselves
+        while(reflectionvalid == False):
+            reflectionvalid = True
+            for i in range(26):
+                if alphabet[1,i] == alphabet[0,i]:
+                    reflectionvalid = False
+                    #print("letter is the same as plain text letter" + alphabet[0,i])
+                    swap[i] = 1
+            print(swap)
+            #works if divisible by 2
+            for i in range(26):
+                #if encoded as its self
+                if swap[i] == 1:
+                    #find next instance that is encoded as itself
+                    if i < 26:
+                        for r in range((i+1),26):
+                            if swap[r] == 1:
+                                letterswap(1, i, r)
+                                swap[i] = 0
+                                swap[r] = 0            
+
+def letterswap(alpha,index1,index2):
+    templetter = alphabet[alpha,index1]
+    alphabet[alpha,index1] = alphabet[alpha,index2]
+    alphabet[alpha,index2] = templetter
 
 def removespaces(str):
     return str.replace(" ", "")
@@ -48,7 +79,7 @@ print(plainTextMessage)
 
 #get settings 
 #plug board
-for x in range(2):
+for x in range(3):
     print("Plugboard connection: " + str(x) + "/10")
     OrigLetter = input("What letter would you like to swap?\t").upper()
     ChangeLetter = input("What is it being changed to?\t").upper()
@@ -68,9 +99,8 @@ printalphabet(1)
 """
 
 #reflector
-#reflector = input("Please choose the reflector")
-#letter can not be encoded as its self 
-#reflector a - will go through cipher array and if the letter is the same as its orignal will swap it
+reflectortype = input("Please choose the reflector(A or B):\t")
+reflector(reflectortype)
 
 
 print("The encoded message is: ")
@@ -78,7 +108,6 @@ ciphertext = ""
 #do the transformation from plain to cipher
 for x in range(len(plainTextMessage)):
     templetter = plainTextMessage[x]
-    print(plainTextMessage[x])
     #print(alphabet[0,x])
     for i in range(26):
         #print(alphabet[0,x])

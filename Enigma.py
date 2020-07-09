@@ -33,50 +33,59 @@ def plugboard(ogletter, swapedletter):
     alphabet[1, ogletterindex] = swapedletter
     alphabet[1, swapletterindex] = ogletter
     #prints cipher alphabet to check that the swap worked
-    printalphabet(1)
+    #printalphabet(1)
 
-def removespaces(ustr):
-    return ustr.replace(" ", "")
+def removespaces(str):
+    return str.replace(" ", "")
 
 #menu
 #get input message
-plainTextMessage = input("What is the message you would like to input").upper()
+plainTextMessage = input("What is the message you would like to input\t").upper()
 #get rid of spaces
-plainTextMessage.removespaces(plainTextMessage)
+plainTextMessage = removespaces(plainTextMessage)
+print(plainTextMessage)
 
 
 #get settings 
 #plug board
-for x in range(10):
+for x in range(2):
     print("Plugboard connection: " + str(x) + "/10")
-    OrigLetter = input("What letter would you like to swap?").upper()
-    ChangeLetter = input("What is it being changed to?").upper()
+    OrigLetter = input("What letter would you like to swap?\t").upper()
+    ChangeLetter = input("What is it being changed to?\t").upper()
     plugboard(OrigLetter, ChangeLetter)
 #prints cipher alphabet after all the changes are made
-printalphabet(1)
+#printalphabet(1)
 
 #rotors
 #goes through 1, 2, 3 - thne reflector - thne back 3, 2, 1
+"""
 rotorarray = []
 for x in range(3):
-    rotornum = input("What is the " + x + " you would like to use?")
+    rotornum = input("What is the rotor you would like to use?")
     rotorarray.append(rotornum)
 #prints cipher alphabet after all the changes are made
 printalphabet(1)
+"""
 
 #reflector
-reflector = input("Please choose the reflector")
+#reflector = input("Please choose the reflector")
 #letter can not be encoded as its self 
+#reflector a - will go through cipher array and if the letter is the same as its orignal will swap it
+
 
 print("The encoded message is: ")
-#ciphertext = ""
+ciphertext = ""
 #do the transformation from plain to cipher
-for x in len(plainTextMessage):
+for x in range(len(plainTextMessage)):
     templetter = plainTextMessage[x]
-    for x in range(26):
-        if templetter == alphabet[0][x]:
-            changeletter = alphabet[1][x]
+    print(plainTextMessage[x])
+    #print(alphabet[0,x])
+    for i in range(26):
+        #print(alphabet[0,x])
+        if templetter == alphabet[0,i]:
+            changeletter = alphabet[1,i]
     ciphertext += changeletter
+print(ciphertext)
 
 
 

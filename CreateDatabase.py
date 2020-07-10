@@ -36,7 +36,7 @@ pC.execute(possibleConfig)
 pC.close()
 
 # create table script for KnownConfig table
-knownConfig = '''
+capturedMsg = '''
 CREATE TABLE CapturedMsg
 (
     MessageID       INT     PRIMARY KEY NOT NULL,
@@ -45,10 +45,10 @@ CREATE TABLE CapturedMsg
     DecryptedMsg    TEXT
 );
 '''
-# create KnownConfig table
-kC = bombeDB.cursor()
-kC.execute(knownConfig)
-kC.close()
+# create CapturedMsg table
+capMsg = bombeDB.cursor()
+capMsg.execute(capturedMsg)
+capMsg.close()
 
 # create table script for WrongConfig table
 wrongConfig = '''
@@ -72,7 +72,7 @@ wC.execute(wrongConfig)
 wC.close()
 
 # create table script for CapturedMsg table
-capturedMsg = '''
+knownConfig = '''
 CREATE TABLE KnownConfig
 (
     ConfigID            INT     PRIMARY KEY NOT NULL,
@@ -88,17 +88,15 @@ CREATE TABLE KnownConfig
     TransposedAlphabet  TEXT    NOT NULL
 );
 '''
-# create CapturedMsg table
-capMsg = bombeDB.cursor()
-capMsg.execute(capturedMsg)
-capMsg.close()
+# create KnownConfig table
+kC = bombeDB.cursor()
+kC.execute(knownConfig)
+kC.close()
 
 #close the db connection
 bombeDB.close()
 
 print('Created Bombe Database')
-
-
 
 ##### ENIGMA #####
 # open db connection for Enigma

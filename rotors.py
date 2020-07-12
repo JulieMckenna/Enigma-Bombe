@@ -1,9 +1,3 @@
-################## NOTES #################
-
-## 1. Need to figure out the rotor offset. index = ord(text[i + self.r1]) % 65 ????
-
-
-
 class enigma:
     rotor1 = ""
     rotor2 = ""

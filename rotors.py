@@ -12,7 +12,7 @@ class enigma:
         self.reflector = reflector
 
         ## Setup the rotor with the offset taken into account
-        ## If the rotor was "ABCD" with an offset of 2, the new rotor would be "DCAB"
+        ## If the rotor was "ABCD" with an offset of 2, the new rotor would be "CDAB"
         ## So, the rotor of "ABCD" starts at position 2 of the string, and is looped like a wheel/rotor
 
         for i in range(0, offset1):

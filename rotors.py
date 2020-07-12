@@ -4,7 +4,7 @@
 
 
 
-class rotors:
+class enigma:
     rotor1 = ""
     rotor2 = ""
     rotor3 = ""
@@ -73,10 +73,10 @@ class rotors:
 
         returnString = ""
 
-        print("Rotor I: " + self.rotor1)
-        print("Rotor II: " + self.rotor2)
-        print("Rotor III: " + self.rotor3)
-        print("Initial String: " + text)
+        ##print("Rotor I: " + self.rotor1)
+        ##print("Rotor II: " + self.rotor2)
+        ##print("Rotor III: " + self.rotor3)
+        ##print("Initial String: " + text)
 
 
         ## Loop through each character of the text provided
@@ -104,39 +104,39 @@ class rotors:
             ## charOne is the output from rotor1
             index = ord(text[i]) % 65
             charOne = self.rotor1[index]
-            print("Character " + text[i] + " maps to: " + charOne)
+            #print("Character " + text[i] + " maps to: " + charOne)
 
 
             ## Find the character routing from the index of self.rotor1[i]
             ## So input to second rotor will be the output from the first rotor
             index = ord(charOne) % 65
             charTwo = self.rotor2[index]
-            print("Character " + charOne + " maps to: " + charTwo)
+            #print("Character " + charOne + " maps to: " + charTwo)
 
             index = ord(charTwo) % 65
             charThree = self.rotor3[index]
-            print("Character " + charTwo + " maps to: " + charThree)
+            #print("Character " + charTwo + " maps to: " + charThree)
 
             ## Right before the reflector. So we've gone through R1, R2, R3
 
             ## Go back through rotor3
             index = self.reflector.find(charThree)
             charFour = chr(index + 65)
-            print("Reflector maps " + charThree + " to: " + charFour)
+            #print("Reflector maps " + charThree + " to: " + charFour)
 
             ## Go back through rotor2
             index = self.rotor3.find(charFour)
             charFive = chr(index + 65)
-            print("Character " + charFour + " maps to: " + charFive)
+            #print("Character " + charFour + " maps to: " + charFive)
 
             ## Go back through rotor1
             index = self.rotor2.find(charFive)
             charSix = chr(index + 65)
-            print("Character " + charFive + " maps to: " + charSix)
+            #print("Character " + charFive + " maps to: " + charSix)
 
             index = self.rotor1.find(charSix)
             charSeven = chr(index + 65)
-            print("Character " + charSix + " maps to: " + charSeven)
+            #print("Character " + charSix + " maps to: " + charSeven)
             
             returnString += charSeven
         return returnString
@@ -159,6 +159,18 @@ ROTOR_TEST2 = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
 ROTOR_TEST3 = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
 
 
-rotorTest = rotors(ROTOR_I, ROTOR_II, ROTOR_III, REFLECTOR_B, 1, 1, 1)
-testOne = rotorTest.encrypt("KIMKQHMQUS")
-print(testOne)
+
+def main():
+
+    ## Need two engima machines to both enrypt and decrypt at the same time
+    engimaMachineINPUT = enigma(ROTOR_I, ROTOR_II, ROTOR_III, REFLECTOR_B, 0, 0, 0)
+    engimaMachineOUTPUT = enigma(ROTOR_I, ROTOR_II, ROTOR_III, REFLECTOR_B, 0, 0, 0)
+
+    inputText = input("Enter message: ")
+    outputText = engimaMachineINPUT.encrypt(inputText)
+    originalMessage = engimaMachineOUTPUT.encrypt(outputText)
+
+    print("Original Message: " + originalMessage)
+    print("Encrypted Message: " + outputText)
+
+main()

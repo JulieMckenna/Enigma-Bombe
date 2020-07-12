@@ -77,7 +77,3 @@ for x in len(plainTextMessage):
         if templetter == alphabet[0][x]:
             changeletter = alphabet[1][x]
     ciphertext += changeletter
-
-
-
-

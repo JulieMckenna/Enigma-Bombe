@@ -1,0 +1,52 @@
+from tkinter import *
+
+root = Tk()
+root.title("My progarma")
+
+
+# label = Label(root, text="Hello Wus good")
+# label1 = Label(root, text="EZclap")
+# label.grid(row=0, column=0)
+# label1.grid(row=1, column=5)
+e = Entry(root,width=50, borderwidth=5)
+e.grid(row= 0,column=0,columnspan=3, padx=10,pady=10)
+#e.insert(0,"HEllosdad ")
+
+def buttonclick(number):
+    #e.delete(0,END)
+    current = e.get()
+    e.delete(0,END)
+    e.insert(0,str(current)+str(number))
+    return
+def buttonclear():
+    e.delete(0, END)
+    return
+def buttonadd():
+    current = e.get()
+    e.delete(0,END)
+    global fnum
+    fnum = int(current)
+    return
+def equal():
+    snum = e.get()
+    e.delete(0,END)
+    total = fnum + int(snum)
+    e.insert(0,str(total))
+    return
+
+button_1= Button(root,text="1",padx=40,pady=20,command = lambda: buttonclick(1))
+button_2= Button(root,text="2",padx=40,pady=20,command = lambda: buttonclick(2))
+button_3= Button(root,text="3",padx=39,pady=20,command = lambda: buttonclick(3))
+button_add= Button(root,text="+",padx=39,pady=20,command = lambda: buttonadd())
+button_equal= Button(root,text="=",padx=94,pady=20,command = lambda: equal())
+button_clear= Button(root,text="clear",padx=149,pady=20,command = lambda: buttonclear())
+
+button_1.grid(row=1,column=0)
+button_2.grid(row=1,column=1)
+button_3.grid(row=1,column=2)
+
+button_clear.grid(row=3,column=0,columnspan=3)
+button_add.grid(row=2,column=0)
+button_equal.grid(row=2,column=1,columnspan=2)
+
+root.mainloop()

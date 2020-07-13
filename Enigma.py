@@ -108,14 +108,8 @@ ciphertext = ""
 #do the transformation from plain to cipher
 for x in range(len(plainTextMessage)):
     templetter = plainTextMessage[x]
-    #print(alphabet[0,x])
-    for i in range(26):
-        #print(alphabet[0,x])
-        if templetter == alphabet[0,i]:
-            changeletter = alphabet[1,i]
+    for x in range(26):
+        if templetter == alphabet[0][x]:
+            changeletter = alphabet[1][x]
     ciphertext += changeletter
 print(ciphertext)
-
-
-
-

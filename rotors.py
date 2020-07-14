@@ -1,4 +1,5 @@
 class enigma:
+    inplug = ""
     plug = []
     rotor1 = ""
     rotor2 = ""
@@ -6,8 +7,9 @@ class enigma:
     reflector = ""
     steps = False
 
-    def __init__(self, plug, rotor1, rotor2, rotor3, reflector, offset1, offset2, offset3, steps):
+    def __init__(self, inplug, plug, rotor1, rotor2, rotor3, reflector, offset1, offset2, offset3, steps):
         self.plug = plug
+        self.inplug = inplug
         self.rotor1 = rotor1
         self.rotor2 = rotor2
         self.rotor3 = rotor3
@@ -36,9 +38,10 @@ class enigma:
         return plug  
 
     #if uses enters all of the plugbaord values in one line, seperated by comma
-    def getvalues(self,plug):
-        valuearaay = plug.split(',')
-        #print(valuearaay)
+    def getvalues(self,inplug, pulg):
+        valuearaay = inplug.split(',')
+        plug = []
+        print(valuearaay)
         for i in range(len(valuearaay)):
             plug.append(valuearaay[i][0])
             plug.append(valuearaay[i][1])
@@ -49,9 +52,11 @@ class enigma:
     def swapLetters(self, plug, text):
         swappedtext = ""
         toadd = ''
+        print(text)
         for i in range(0, len(text)):
             found = False
-            for x in range(0,19,2):
+            print("i is" + i + "char at i is " + text[i])
+            for x in range(0,6,2):
                 if text[i] == plug[x]:
                     swappedtext += plug[x+1]
                     found = True
@@ -97,11 +102,15 @@ class enigma:
         # if manually entering it 1 connection at a time
         #self.plug = self.setPlug(self.plug)
         
-        #used for GUI
-        #splits the combos entered from: "AB,FG,LK" to ['A','B','F','G','L','K'] 
-        self.plug = self.getvalues(self.plug)
-        #swaps the letters in the text string with those chnage smade by the plugbaord
-        text = self.swapLetters(self.plug, text)
+        #if the user does not enetr nay values into the plugbaord
+        if(self.inplug == ""):
+            pass
+        else:
+            #used for GUI
+            #splits the combos entered from: "AB,FG,LK" to ['A','B','F','G','L','K'] 
+            self.plug = self.getvalues(self.inplug, self.plug)
+            #swaps the letters in the text string with those chnage smade by the plugbaord
+            text = self.swapLetters(self.plug, text)
         print(text)
         
         ## Count for how many times each rotor is stepped. Don't care how many times rotor3 is stepped
@@ -174,6 +183,14 @@ class enigma:
             #print("Character " + charSix + " maps to: " + charSeven)
             
             returnString += charSeven
+        
+        if(self.inplug == ""):
+            pass
+        else:
+            print("swapping letters back")
+            #swaps the letters in the text string with those chnage smade by the plugbaord
+            text = self.swapLetters(self.plug, returnString)
+    
         return returnString
 
 
@@ -203,8 +220,8 @@ def main():
 
     ## Need two engima machines to both enrypt and decrypt at the same time   
 
-    engimaMachineINPUT = enigma([], ROTOR_I, ROTOR_II, ROTOR_III, REFLECTOR_B, 0, 0, 0, True)
-    engimaMachineOUTPUT = enigma([], ROTOR_I, ROTOR_II, ROTOR_III, REFLECTOR_B, 0, 0, 0, False)
+    engimaMachineINPUT = enigma("AB,GH,LP",[], ROTOR_I, ROTOR_II, ROTOR_III, REFLECTOR_B, 0, 0, 0, True)
+    engimaMachineOUTPUT = enigma("",[], ROTOR_I, ROTOR_II, ROTOR_III, REFLECTOR_B, 0, 0, 0, False)
 
     inputText = (input("Enter message: ")).upper()
     outputText = engimaMachineINPUT.encrypt(inputText)

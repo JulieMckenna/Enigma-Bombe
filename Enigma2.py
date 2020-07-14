@@ -8,7 +8,7 @@ class enigma:
     reflector = ""
     steps = False
 
-    def __init__(self, inplug, plug, rotor1, rotor2, reflector, offset1, offset2, offset3, steps):
+    def __init__(self, inplug, plug, rotor1, rotor2, reflector, offset1, offset2, steps):
         self.plug = plug
         self.inplug = inplug
         self.rotor1 = rotor1
@@ -27,8 +27,10 @@ class enigma:
         for i in range(0, offset2):
             self.rotor2 = self.stepRotorBack(self.rotor2)
 
+        """
         for i in range(0, offset3):
             self.rotor3 = self.stepRotorBack(self.rotor3)
+            """
 
     #gets user input for plug board values
     def setPlug(self, plug):
@@ -237,8 +239,8 @@ def main():
 
     ## Need two engima machines to both enrypt and decrypt at the same time   
 
-    engimaMachineINPUT = enigma("",[], ROTOR_I, ROTOR_II, REFLECTOR_B, 0, 0, 0, True)
-    engimaMachineOUTPUT = enigma("",[], ROTOR_I, ROTOR_II, REFLECTOR_B, 0, 0, 0, True)
+    engimaMachineINPUT = enigma("",[], ROTOR_I, ROTOR_II, REFLECTOR_B, 0, 0, True)
+    engimaMachineOUTPUT = enigma("",[], ROTOR_I, ROTOR_II, REFLECTOR_B, 0, 0, True)
 
     inputText = (input("Enter message: ")).upper()
     outputText = engimaMachineINPUT.encrypt(inputText)
@@ -247,4 +249,4 @@ def main():
     print("Original Message: " + originalMessage)
     print("Encrypted Message: " + outputText)
 
-main()
+#main()

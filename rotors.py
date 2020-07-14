@@ -230,8 +230,8 @@ def main():
 
     ## Need two engima machines to both enrypt and decrypt at the same time   
 
-    engimaMachineINPUT = enigma("AB,GH,LP",[], ROTOR_I, ROTOR_II, ROTOR_III, REFLECTOR_B, 0, 0, 0, True)
-    engimaMachineOUTPUT = enigma("AB,GH,LP",[], ROTOR_I, ROTOR_II, ROTOR_III, REFLECTOR_B, 0, 0, 0, True)
+    engimaMachineINPUT = enigma("",[], ROTOR_I, ROTOR_II, ROTOR_III, REFLECTOR_B, 0, 0, 0, True)
+    engimaMachineOUTPUT = enigma("",[], ROTOR_I, ROTOR_II, ROTOR_III, REFLECTOR_B, 0, 0, 0, True)
 
     inputText = (input("Enter message: ")).upper()
     outputText = engimaMachineINPUT.encrypt(inputText)
@@ -240,4 +240,14 @@ def main():
     print("Original Message: " + originalMessage)
     print("Encrypted Message: " + outputText)
 
+
+    engimaMachineINPUT = enigma("",[], ROTOR_I, ROTOR_II, ROTOR_III, REFLECTOR_B, 5, 0, 0, True)
+    engimaMachineOUTPUT = enigma("",[], ROTOR_I, ROTOR_II, ROTOR_III, REFLECTOR_B, 5, 0, 0, True)
+
+    inputText = (input("Enter message: ")).upper()
+    outputText = engimaMachineINPUT.encrypt(inputText)
+    originalMessage = engimaMachineOUTPUT.encrypt(outputText)
+
+    print("Original Message: " + originalMessage)
+    print("Encrypted Message: " + outputText)
 main()

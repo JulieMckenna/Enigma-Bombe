@@ -25,6 +25,7 @@ class enigma:
         for i in range(0, offset3):
             self.rotor3 = self.stepRotorBack(self.rotor3)
 
+    #gets user input for plug board values
     def setPlug(self, plug):
         for x in range(10):
             print("Plugboard connection: " + str(x) + "/10")
@@ -32,31 +33,22 @@ class enigma:
             plug.append(input("What is it being changed to?\t").upper())
         return plug      
 
+    #this swaps the letters in the input text with what the plug board has been changed to
     def swapLetters(self, plug, text):
         swappedtext = ""
         toadd = ''
         for i in range(0, len(text)):
-            #print(" i = "+ str(i) +" letter is: "+ text[i])
             found = False
             for x in range(0,19,2):
-                #print("x is " + str(x) + "plug at x " + plug[x] + "i is " + str(i) + "letter is " + text[i])
-                #print(found)
                 if text[i] == plug[x]:
-                    #print("plug letter " + plug[x] + "text " + text[i])
                     swappedtext += plug[x+1]
                     found = True
-                    #print(swappedtext)
                 elif text[i] == plug[x+1]:
-                    #print("plug letter " + plug[x+1] +"text: " + text[i])
                     swappedtext += plug[x]
                     found = True
-                    #print(swappedtext)
             if found == False:
                 swappedtext += text[i]
-            #print(swappedtext)
-        #print(swappedtext)
         return swappedtext
-
 
     ## Function to step rotor by 1 position
     ## Input is the rotor string
@@ -184,9 +176,22 @@ ROTOR_TEST1 = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
 ROTOR_TEST2 = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
 ROTOR_TEST3 = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
 
+#gets the values from the inputed plugboard values. 
+#Splits to a single char
+def getvalues(inputs,plug):
+    valuearaay = inputs.split(',')
+    print(valuearaay)
+    for i in range(len(valuearaay)):
+        plug.append(valuearaay[i][0])
+        plug.append(valuearaay[i][1])
+    print(plug)
 
 
 def main():
+    PLUG= []
+    inputs = "AB,CD,FT,LP"
+    #splits the input from the GUI into the plugboard values
+    getvalues(inputs,PLUG)
 
     ## Need two engima machines to both enrypt and decrypt at the same time   
 

@@ -1,3 +1,4 @@
+#has 2 rotors, and 5 plugboard connections
 class enigma:
     inplug = ""
     plug = []
@@ -31,7 +32,7 @@ class enigma:
 
     #gets user input for plug board values
     def setPlug(self, plug):
-        for x in range(10):
+        for x in range(5):
             print("Plugboard connection: " + str(x) + "/10")
             plug.append(input("What letter would you like to swap?\t").upper())
             plug.append(input("What is it being changed to?\t").upper())
@@ -57,7 +58,7 @@ class enigma:
         for i in range(0, len(text)):
             found = False
             print("i is" + str(i) + "char at i is " + text[i])
-            for x in range(0,19,2):
+            for x in range(0,9,2):
                 if text[i] == plug[x]:
                     #print("char in string is "+ text[i] + "char in plug is "+ plug[x] + plug[x+1])
                     swappedtext += plug[x+1]

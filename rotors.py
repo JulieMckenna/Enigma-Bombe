@@ -4,13 +4,15 @@ class enigma:
     rotor2 = ""
     rotor3 = ""
     reflector = ""
+    steps = False
 
-    def __init__(self, plug, rotor1, rotor2, rotor3, reflector, offset1, offset2, offset3):
+    def __init__(self, plug, rotor1, rotor2, rotor3, reflector, offset1, offset2, offset3, steps):
         self.plug = plug
         self.rotor1 = rotor1
         self.rotor2 = rotor2
         self.rotor3 = rotor3
         self.reflector = reflector
+        self.steps = steps
 
         ## Setup the rotor with the offset taken into account
         ## If the rotor was "ABCD" with an offset of 2, the new rotor would be "CDAB"
@@ -31,7 +33,17 @@ class enigma:
             print("Plugboard connection: " + str(x) + "/10")
             plug.append(input("What letter would you like to swap?\t").upper())
             plug.append(input("What is it being changed to?\t").upper())
-        return plug      
+        return plug  
+
+    #if uses enters all of the plugbaord values in one line, seperated by comma
+    def getvalues(self,plug):
+        valuearaay = plug.split(',')
+        #print(valuearaay)
+        for i in range(len(valuearaay)):
+            plug.append(valuearaay[i][0])
+            plug.append(valuearaay[i][1])
+       #print(plug)
+        return plug    
 
     #this swaps the letters in the input text with what the plug board has been changed to
     def swapLetters(self, plug, text):
@@ -80,8 +92,15 @@ class enigma:
         returnString += firstChar
         return returnString
 
-    def encrypt(self, text):      
-        self.plug = self.setPlug(self.plug)
+    def encrypt(self, text):   
+        #to get the plugboard values
+        # if manually entering it 1 connection at a time
+        #self.plug = self.setPlug(self.plug)
+        
+        #used for GUI
+        #splits the combos entered from: "AB,FG,LK" to ['A','B','F','G','L','K'] 
+        self.plug = self.getvalues(self.plug)
+        #swaps the letters in the text string with those chnage smade by the plugbaord
         text = self.swapLetters(self.plug, text)
         print(text)
         
@@ -95,7 +114,6 @@ class enigma:
         ##print("Rotor II: " + self.rotor2)
         ##print("Rotor III: " + self.rotor3)
         ##print("Initial String: " + text)
-
 
         ## Loop through each character of the text provided
         for i in range(0, len(text)):
@@ -178,25 +196,15 @@ ROTOR_TEST3 = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
 
 #gets the values from the inputed plugboard values. 
 #Splits to a single char
-def getvalues(inputs,plug):
-    valuearaay = inputs.split(',')
-    print(valuearaay)
-    for i in range(len(valuearaay)):
-        plug.append(valuearaay[i][0])
-        plug.append(valuearaay[i][1])
-    print(plug)
+
 
 
 def main():
-    PLUG= []
-    inputs = "AB,CD,FT,LP"
-    #splits the input from the GUI into the plugboard values
-    getvalues(inputs,PLUG)
 
     ## Need two engima machines to both enrypt and decrypt at the same time   
 
-    engimaMachineINPUT = enigma([], ROTOR_I, ROTOR_II, ROTOR_III, REFLECTOR_B, 0, 0, 0)
-    engimaMachineOUTPUT = enigma([], ROTOR_I, ROTOR_II, ROTOR_III, REFLECTOR_B, 0, 0, 0)
+    engimaMachineINPUT = enigma([], ROTOR_I, ROTOR_II, ROTOR_III, REFLECTOR_B, 0, 0, 0, True)
+    engimaMachineOUTPUT = enigma([], ROTOR_I, ROTOR_II, ROTOR_III, REFLECTOR_B, 0, 0, 0, False)
 
     inputText = (input("Enter message: ")).upper()
     outputText = engimaMachineINPUT.encrypt(inputText)

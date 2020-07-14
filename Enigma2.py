@@ -4,16 +4,16 @@ class enigma:
     plug = []
     rotor1 = ""
     rotor2 = ""
-    rotor3 = ""
+    #rotor3 = ""
     reflector = ""
     steps = False
 
-    def __init__(self, inplug, plug, rotor1, rotor2, rotor3, reflector, offset1, offset2, offset3, steps):
+    def __init__(self, inplug, plug, rotor1, rotor2, reflector, offset1, offset2, offset3, steps):
         self.plug = plug
         self.inplug = inplug
         self.rotor1 = rotor1
         self.rotor2 = rotor2
-        self.rotor3 = rotor3
+        #self.rotor3 = rotor3
         self.reflector = reflector
         self.steps = steps
 
@@ -143,9 +143,11 @@ class enigma:
                 r1_count = 0
                 r2_count += 1
             ## Step rotor 3 if rotor 2 has been stepped 26 times
+            """ functionality will be added in later
             if(r2_count == 25):
                 r2_count = 0
                 self.rotor3 = self.stepRotorBack(self.rotor3)
+            """
 
             r1_count += 1
 
@@ -165,32 +167,36 @@ class enigma:
             charTwo = self.rotor2[index]
             #print("Character " + charOne + " maps to: " + charTwo)
 
+            """
             index = ord(charTwo) % 65
             charThree = self.rotor3[index]
+            """
             #print("Character " + charTwo + " maps to: " + charThree)
 
             ## Right before the reflector. So we've gone through R1, R2, R3
 
             ## Go back through rotor3
-            index = self.reflector.find(charThree)
+            index = self.reflector.find(charTwo)
             charFour = chr(index + 65)
             #print("Reflector maps " + charThree + " to: " + charFour)
 
             ## Go back through rotor2
+            """
             index = self.rotor3.find(charFour)
             charFive = chr(index + 65)
+            """
             #print("Character " + charFour + " maps to: " + charFive)
 
             ## Go back through rotor1
-            index = self.rotor2.find(charFive)
-            charSix = chr(index + 65)
+            index = self.rotor2.find(charFour)
+            charFive = chr(index + 65)
             #print("Character " + charFive + " maps to: " + charSix)
 
-            index = self.rotor1.find(charSix)
-            charSeven = chr(index + 65)
+            index = self.rotor1.find(charFive)
+            charSix = chr(index + 65)
             #print("Character " + charSix + " maps to: " + charSeven)
             
-            returnString += charSeven
+            returnString += charSix
         
         #swaps the letters back - plugboard
         #if no plugboard was entered - skip
@@ -231,8 +237,8 @@ def main():
 
     ## Need two engima machines to both enrypt and decrypt at the same time   
 
-    engimaMachineINPUT = enigma("AB,GH,LP",[], ROTOR_I, ROTOR_II, ROTOR_III, REFLECTOR_B, 0, 0, 0, True)
-    engimaMachineOUTPUT = enigma("AB,GH,LP",[], ROTOR_I, ROTOR_II, ROTOR_III, REFLECTOR_B, 0, 0, 0, True)
+    engimaMachineINPUT = enigma("",[], ROTOR_I, ROTOR_II, REFLECTOR_B, 0, 0, 0, True)
+    engimaMachineOUTPUT = enigma("",[], ROTOR_I, ROTOR_II, REFLECTOR_B, 0, 0, 0, True)
 
     inputText = (input("Enter message: ")).upper()
     outputText = engimaMachineINPUT.encrypt(inputText)

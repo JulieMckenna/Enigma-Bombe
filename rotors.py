@@ -45,7 +45,8 @@ class enigma:
         for i in range(len(valuearaay)):
             plug.append(valuearaay[i][0])
             plug.append(valuearaay[i][1])
-       #print(plug)
+        print(plug)
+
         return plug    
 
     #this swaps the letters in the input text with what the plug board has been changed to
@@ -55,16 +56,21 @@ class enigma:
         print(text)
         for i in range(0, len(text)):
             found = False
-            print("i is" + i + "char at i is " + text[i])
+            print("i is" + str(i) + "char at i is " + text[i])
             for x in range(0,6,2):
                 if text[i] == plug[x]:
+                    #print("char in string is "+ text[i] + "char in plug is "+ plug[x] + plug[x+1])
                     swappedtext += plug[x+1]
                     found = True
+                    print(swappedtext)
                 elif text[i] == plug[x+1]:
+                    #print("char in string is "+ text[i] + "char in plug is "+ plug[x+1] + plug[x])
                     swappedtext += plug[x]
                     found = True
+                    print(swappedtext)
             if found == False:
                 swappedtext += text[i]
+                print(swappedtext)
         return swappedtext
 
     ## Function to step rotor by 1 position
@@ -106,6 +112,7 @@ class enigma:
         if(self.inplug == ""):
             pass
         else:
+            pass
             #used for GUI
             #splits the combos entered from: "AB,FG,LK" to ['A','B','F','G','L','K'] 
             self.plug = self.getvalues(self.inplug, self.plug)
@@ -184,12 +191,15 @@ class enigma:
             
             returnString += charSeven
         
+        #swaps the letters back - plugboard
+        #if no plugboard was entered - skip
         if(self.inplug == ""):
             pass
+        #swaps the letters according to the plugboard
         else:
             print("swapping letters back")
             #swaps the letters in the text string with those chnage smade by the plugbaord
-            text = self.swapLetters(self.plug, returnString)
+            returnString = self.swapLetters(self.plug, returnString)
     
         return returnString
 
@@ -221,7 +231,7 @@ def main():
     ## Need two engima machines to both enrypt and decrypt at the same time   
 
     engimaMachineINPUT = enigma("AB,GH,LP",[], ROTOR_I, ROTOR_II, ROTOR_III, REFLECTOR_B, 0, 0, 0, True)
-    engimaMachineOUTPUT = enigma("",[], ROTOR_I, ROTOR_II, ROTOR_III, REFLECTOR_B, 0, 0, 0, False)
+    engimaMachineOUTPUT = enigma("AB,GH,LP",[], ROTOR_I, ROTOR_II, ROTOR_III, REFLECTOR_B, 0, 0, 0, True)
 
     inputText = (input("Enter message: ")).upper()
     outputText = engimaMachineINPUT.encrypt(inputText)

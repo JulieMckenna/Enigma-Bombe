@@ -37,9 +37,9 @@ def main():
     crib="HELLOWORLD"
     found = False
     while(found == False):
-        for i in range(10):
-            for j in range(10):
-                machine = enigma("",[], ROTOR_I, ROTOR_II, REFLECTOR_B, i, j, True)
+        for i in range(5):
+            for j in range(5):
+                machine = enigma("",[], ROTOR_I, ROTOR_II, REFLECTOR_B, int(i), int(j), True)
                 outputText = machine.encrypt(inputText)
                 if outputText == crib:
                     found = True
@@ -53,6 +53,6 @@ main()
 """
 message = helloworld
 settings: engimaMachineINPUT = enigma("",[], ROTOR_I, ROTOR_II, REFLECTOR_B, 0, 0, True) = TJJPKKPXZQ
-settings: engimaMachineINPUT = enigma("",[], ROTOR_I, ROTOR_II, REFLECTOR_B, 2, 0, True) = UZHZUYBLRV
+settings: engimaMachineINPUT = enigma("",[], ROTOR_I, ROTOR_II, REFLECTOR_B, 5, 0, True) = UZHZUYBLRV
 """
 

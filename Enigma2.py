@@ -121,7 +121,7 @@ class enigma:
             self.plug = self.getvalues(self.inplug, self.plug)
             #swaps the letters in the text string with those chnage smade by the plugbaord
             text = self.swapLetters(self.plug, text)
-        print(text)
+        #print(text)
         
         ## Count for how many times each rotor is stepped. Don't care how many times rotor3 is stepped
         r1_count = 0

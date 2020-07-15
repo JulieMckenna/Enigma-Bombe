@@ -21,8 +21,8 @@ REFLECTOR_A = "EDCHIJKLMNOPQRSTUVWZYZABGF"
 
 def main():
     #find possible encryptions first - to then solve with decrption 
-    engimaMachineINPUT = enigma("",[], ROTOR_I, ROTOR_II, REFLECTOR_B, 0, 0, True)
-    engimaMachineOUTPUT = enigma("",[], ROTOR_I, ROTOR_II, REFLECTOR_B, 0, 0, True)
+    engimaMachineINPUT = enigma("",[], ROTOR_I, ROTOR_II, REFLECTOR_B, 6, 2, True)
+    engimaMachineOUTPUT = enigma("",[], ROTOR_I, ROTOR_II, REFLECTOR_B, 6, 2, True)
 
     inputText = (input("Enter message: ")).upper()
     outputText = engimaMachineINPUT.encrypt(inputText)
@@ -38,13 +38,45 @@ def main():
     found = False
     while(found == False):
         for i in range(5):
-            for j in range(5):
+            for j in range(26):
                 machine = enigma("",[], ROTOR_I, ROTOR_II, REFLECTOR_B, int(i), int(j), True)
                 outputText = machine.encrypt(inputText)
                 if outputText == crib:
                     found = True
                     print("Settings have been found!")
-                    print("Settings are: Rotor I at offset: "+ str(i) +" Rotor II at offset: "+ str(j))       
+                    print("Settings are: Rotor I at offset: "+ str(i) +" Rotor II at offset: "+ str(j))  
+        for i in range(6,10):
+            for j in range(26):
+                machine = enigma("",[], ROTOR_I, ROTOR_II, REFLECTOR_B, int(i), int(j), True)
+                outputText = machine.encrypt(inputText)
+                if outputText == crib:
+                    found = True
+                    print("Settings have been found!")
+                    print("Settings are: Rotor I at offset: "+ str(i) +" Rotor II at offset: "+ str(j))
+        for i in range(11,15):
+            for j in range(26):
+                machine = enigma("",[], ROTOR_I, ROTOR_II, REFLECTOR_B, int(i), int(j), True)
+                outputText = machine.encrypt(inputText)
+                if outputText == crib:
+                    found = True
+                    print("Settings have been found!")
+                    print("Settings are: Rotor I at offset: "+ str(i) +" Rotor II at offset: "+ str(j)) 
+        for i in range(16,20):
+            for j in range(10):
+                machine = enigma("",[], ROTOR_I, ROTOR_II, REFLECTOR_B, int(i), int(j), True)
+                outputText = machine.encrypt(inputText)
+                if outputText == crib:
+                    found = True
+                    print("Settings have been found!")
+                    print("Settings are: Rotor I at offset: "+ str(i) +" Rotor II at offset: "+ str(j))   
+        for i in range(21,26):
+            for j in range(26):
+                machine = enigma("",[], ROTOR_I, ROTOR_II, REFLECTOR_B, int(i), int(j), True)
+                outputText = machine.encrypt(inputText)
+                if outputText == crib:
+                    found = True
+                    print("Settings have been found!")
+                    print("Settings are: Rotor I at offset: "+ str(i) +" Rotor II at offset: "+ str(j))     
 main()
 
     #enigma machine 1 - test 0-5

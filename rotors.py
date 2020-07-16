@@ -1,5 +1,4 @@
 class enigma:
-    inplug = ""
     plug = []
     rotor1 = ""
     rotor2 = ""
@@ -7,9 +6,8 @@ class enigma:
     reflector = ""
     steps = False
 
-    def __init__(self, inplug, plug, rotor1, rotor2, rotor3, reflector, offset1, offset2, offset3, steps):
+    def __init__(self, plug, rotor1, rotor2, rotor3, reflector, offset1, offset2, offset3, steps):
         self.plug = plug
-        self.inplug = inplug
         self.rotor1 = rotor1
         self.rotor2 = rotor2
         self.rotor3 = rotor3
@@ -35,42 +33,33 @@ class enigma:
             print("Plugboard connection: " + str(x) + "/10")
             plug.append(input("What letter would you like to swap?\t").upper())
             plug.append(input("What is it being changed to?\t").upper())
-        return plug  
+        return plug
 
     #if uses enters all of the plugbaord values in one line, seperated by comma
-    def getvalues(self,inplug, pulg):
-        valuearaay = inplug.split(',')
-        plug = []
-        print(valuearaay)
+    def getvalues(self,plug):
+        valuearaay = plug.split(',')
+        #print(valuearaay)
         for i in range(len(valuearaay)):
             plug.append(valuearaay[i][0])
             plug.append(valuearaay[i][1])
-        print(plug)
-
+       #print(plug)
         return plug    
 
     #this swaps the letters in the input text with what the plug board has been changed to
     def swapLetters(self, plug, text):
         swappedtext = ""
         toadd = ''
-        print(text)
         for i in range(0, len(text)):
             found = False
-            print("i is" + str(i) + "char at i is " + text[i])
             for x in range(0,19,2):
                 if text[i] == plug[x]:
-                    #print("char in string is "+ text[i] + "char in plug is "+ plug[x] + plug[x+1])
                     swappedtext += plug[x+1]
                     found = True
-                    print(swappedtext)
                 elif text[i] == plug[x+1]:
-                    #print("char in string is "+ text[i] + "char in plug is "+ plug[x+1] + plug[x])
                     swappedtext += plug[x]
                     found = True
-                    print(swappedtext)
             if found == False:
                 swappedtext += text[i]
-                print(swappedtext)
         return swappedtext
 
     ## Function to step rotor by 1 position
@@ -108,16 +97,11 @@ class enigma:
         # if manually entering it 1 connection at a time
         #self.plug = self.setPlug(self.plug)
         
-        #if the user does not enetr nay values into the plugbaord
-        if(self.inplug == ""):
-            pass
-        else:
-            pass
-            #used for GUI
-            #splits the combos entered from: "AB,FG,LK" to ['A','B','F','G','L','K'] 
-            self.plug = self.getvalues(self.inplug, self.plug)
-            #swaps the letters in the text string with those chnage smade by the plugbaord
-            text = self.swapLetters(self.plug, text)
+        #used for GUI
+        #splits the combos entered from: "AB,FG,LK" to ['A','B','F','G','L','K'] 
+        self.plug = self.getvalues(self.plug)
+        #swaps the letters in the text string with those chnage smade by the plugbaord
+        text = self.swapLetters(self.plug, text)
         print(text)
         
         ## Count for how many times each rotor is stepped. Don't care how many times rotor3 is stepped
@@ -125,82 +109,136 @@ class enigma:
         r2_count = 0
 
         returnString = ""
+        if(steps):
+            print("Rotor I: " + self.rotor1)
+            print("Rotor II: " + self.rotor2)
+            print("Rotor III: " + self.rotor3)
+            print("Initial String: " + text)
 
-        ##print("Rotor I: " + self.rotor1)
-        ##print("Rotor II: " + self.rotor2)
-        ##print("Rotor III: " + self.rotor3)
-        ##print("Initial String: " + text)
+            ## Loop through each character of the text provided
+            for i in range(0, len(text)):
+                ## Step rotor 1 every iteration
+                self.rotor1 = self.stepRotorBack(self.rotor1)
 
-        ## Loop through each character of the text provided
-        for i in range(0, len(text)):
-            ## Step rotor 1 every iteration
-            self.rotor1 = self.stepRotorBack(self.rotor1)
+                ## Step rotor 2 if rotor 1 has been stepped 26 times
+                if(r1_count == 25):
+                    self.rotor2 = self.stepRotorBack(self.rotor2)
+                    r1_count = 0
+                    r2_count += 1
+                ## Step rotor 3 if rotor 2 has been stepped 26 times
+                if(r2_count == 25):
+                    r2_count = 0
+                    self.rotor3 = self.stepRotorBack(self.rotor3)
 
-            ## Step rotor 2 if rotor 1 has been stepped 26 times
-            if(r1_count == 25):
-                self.rotor2 = self.stepRotorBack(self.rotor2)
-                r1_count = 0
-                r2_count += 1
-            ## Step rotor 3 if rotor 2 has been stepped 26 times
-            if(r2_count == 25):
-                r2_count = 0
-                self.rotor3 = self.stepRotorBack(self.rotor3)
+                r1_count += 1
 
-            r1_count += 1
+                ## Find the index of the current char (CHAR % 65) should give index of an uppercase character
+                ## ord(char) returns unicode of character
 
-            ## Find the index of the current char (CHAR % 65) should give index of an uppercase character
-            ## ord(char) returns unicode of character
-
-            ## Find character routing from index of text[i]
-            ## charOne is the output from rotor1
-            index = ord(text[i]) % 65
-            charOne = self.rotor1[index]
-            #print("Character " + text[i] + " maps to: " + charOne)
+                ## Find character routing from index of text[i]
+                ## charOne is the output from rotor1
+                index = ord(text[i]) % 65
+                charOne = self.rotor1[index]
+                print("Character " + text[i] + " maps to: " + charOne)
 
 
-            ## Find the character routing from the index of self.rotor1[i]
-            ## So input to second rotor will be the output from the first rotor
-            index = ord(charOne) % 65
-            charTwo = self.rotor2[index]
-            #print("Character " + charOne + " maps to: " + charTwo)
+                ## Find the character routing from the index of self.rotor1[i]
+                ## So input to second rotor will be the output from the first rotor
+                index = ord(charOne) % 65
+                charTwo = self.rotor2[index]
+                print("Character " + charOne + " maps to: " + charTwo)
 
-            index = ord(charTwo) % 65
-            charThree = self.rotor3[index]
-            #print("Character " + charTwo + " maps to: " + charThree)
+                index = ord(charTwo) % 65
+                charThree = self.rotor3[index]
+                print("Character " + charTwo + " maps to: " + charThree)
 
-            ## Right before the reflector. So we've gone through R1, R2, R3
+                ## Right before the reflector. So we've gone through R1, R2, R3
 
-            ## Go back through rotor3
-            index = self.reflector.find(charThree)
-            charFour = chr(index + 65)
-            #print("Reflector maps " + charThree + " to: " + charFour)
+                ## Go back through rotor3
+                index = self.reflector.find(charThree)
+                charFour = chr(index + 65)
+                print("Reflector maps " + charThree + " to: " + charFour)
 
-            ## Go back through rotor2
-            index = self.rotor3.find(charFour)
-            charFive = chr(index + 65)
-            #print("Character " + charFour + " maps to: " + charFive)
+                ## Go back through rotor2
+                index = self.rotor3.find(charFour)
+                charFive = chr(index + 65)
+                print("Character " + charFour + " maps to: " + charFive)
 
-            ## Go back through rotor1
-            index = self.rotor2.find(charFive)
-            charSix = chr(index + 65)
-            #print("Character " + charFive + " maps to: " + charSix)
+                ## Go back through rotor1
+                index = self.rotor2.find(charFive)
+                charSix = chr(index + 65)
+                print("Character " + charFive + " maps to: " + charSix)
 
-            index = self.rotor1.find(charSix)
-            charSeven = chr(index + 65)
-            #print("Character " + charSix + " maps to: " + charSeven)
-            
-            returnString += charSeven
-        
-        #swaps the letters back - plugboard
-        #if no plugboard was entered - skip
-        if(self.inplug == ""):
-            pass
-        #swaps the letters according to the plugboard
-        else:
-            print("swapping letters back")
-            #swaps the letters in the text string with those chnage smade by the plugbaord
-            returnString = self.swapLetters(self.plug, returnString)
-    
+                index = self.rotor1.find(charSix)
+                charSeven = chr(index + 65)
+                print("Character " + charSix + " maps to: " + charSeven)
+                
+                returnString += charSeven
+            else:
+                ##print("Rotor I: " + self.rotor1)
+                ##print("Rotor II: " + self.rotor2)
+                ##print("Rotor III: " + self.rotor3)
+                ##print("Initial String: " + text)
+
+                ## Loop through each character of the text provided
+                for i in range(0, len(text)):
+                    ## Step rotor 1 every iteration
+                    self.rotor1 = self.stepRotorBack(self.rotor1)
+
+                    ## Step rotor 2 if rotor 1 has been stepped 26 times
+                    if(r1_count == 25):
+                        self.rotor2 = self.stepRotorBack(self.rotor2)
+                        r1_count = 0
+                        r2_count += 1
+                    ## Step rotor 3 if rotor 2 has been stepped 26 times
+                    if(r2_count == 25):
+                        r2_count = 0
+                        self.rotor3 = self.stepRotorBack(self.rotor3)
+
+                    r1_count += 1
+
+                    ## Find the index of the current char (CHAR % 65) should give index of an uppercase character
+                    ## ord(char) returns unicode of character
+
+                    ## Find character routing from index of text[i]
+                    ## charOne is the output from rotor1
+                    index = ord(text[i]) % 65
+                    charOne = self.rotor1[index]
+                    #print("Character " + text[i] + " maps to: " + charOne)
+
+
+                    ## Find the character routing from the index of self.rotor1[i]
+                    ## So input to second rotor will be the output from the first rotor
+                    index = ord(charOne) % 65
+                    charTwo = self.rotor2[index]
+                    #print("Character " + charOne + " maps to: " + charTwo)
+
+                    index = ord(charTwo) % 65
+                    charThree = self.rotor3[index]
+                    #print("Character " + charTwo + " maps to: " + charThree)
+
+                    ## Right before the reflector. So we've gone through R1, R2, R3
+
+                    ## Go back through rotor3
+                    index = self.reflector.find(charThree)
+                    charFour = chr(index + 65)
+                    #print("Reflector maps " + charThree + " to: " + charFour)
+
+                    ## Go back through rotor2
+                    index = self.rotor3.find(charFour)
+                    charFive = chr(index + 65)
+                    #print("Character " + charFour + " maps to: " + charFive)
+
+                    ## Go back through rotor1
+                    index = self.rotor2.find(charFive)
+                    charSix = chr(index + 65)
+                    #print("Character " + charFive + " maps to: " + charSix)
+
+                    index = self.rotor1.find(charSix)
+                    charSeven = chr(index + 65)
+                    #print("Character " + charSix + " maps to: " + charSeven)
+                    
+                returnString += charSeven
         return returnString
 
 
@@ -230,8 +268,8 @@ def main():
 
     ## Need two engima machines to both enrypt and decrypt at the same time   
 
-    engimaMachineINPUT = enigma("",[], ROTOR_I, ROTOR_II, ROTOR_III, REFLECTOR_B, 0, 0, 0, True)
-    engimaMachineOUTPUT = enigma("",[], ROTOR_I, ROTOR_II, ROTOR_III, REFLECTOR_B, 0, 0, 0, True)
+    engimaMachineINPUT = enigma([], ROTOR_I, ROTOR_II, ROTOR_III, REFLECTOR_B, 0, 0, 0, True)
+    engimaMachineOUTPUT = enigma([], ROTOR_I, ROTOR_II, ROTOR_III, REFLECTOR_B, 0, 0, 0, False)
 
     inputText = (input("Enter message: ")).upper()
     outputText = engimaMachineINPUT.encrypt(inputText)
@@ -240,14 +278,39 @@ def main():
     print("Original Message: " + originalMessage)
     print("Encrypted Message: " + outputText)
 
-
-    engimaMachineINPUT = enigma("",[], ROTOR_I, ROTOR_II, ROTOR_III, REFLECTOR_B, 5, 0, 0, True)
-    engimaMachineOUTPUT = enigma("",[], ROTOR_I, ROTOR_II, ROTOR_III, REFLECTOR_B, 5, 0, 0, True)
-
-    inputText = (input("Enter message: ")).upper()
-    outputText = engimaMachineINPUT.encrypt(inputText)
-    originalMessage = engimaMachineOUTPUT.encrypt(outputText)
-
-    print("Original Message: " + originalMessage)
-    print("Encrypted Message: " + outputText)
 main()
+
+
+
+
+
+## Need to have a function to line up HELLOWORLD to encrypted message. 
+## None of the characters can line up to themselves. That new substring is the string we will use to test
+
+def findCrib(encryptedMessage, testMessage):
+    ## testMessage must be shorter than encrypted message
+    if (len(testMessage) > len(encryptedMessage)):
+        return
+    else:
+        for i in range(len(testMessage) - 1, len(encryptedMessage)):
+            print(i)
+            for j in range(0, len(testMessage)):
+                if (encryptedMessage[i] == testMessage[j]):
+                    print(testMessage[j] + " lines up with " + encryptedMessage[i] + " at starting point of " + str(i))
+                    
+
+def findCrib(encryptedMessage, testMessage):
+    ## testMessage must be shorter than encrypted message
+    if (len(testMessage) > len(encryptedMessage)):
+        return
+    else:
+        for i in range(0, len(encryptedMessage)):
+            print(i)
+            for j in range(0, len(testMessage)):
+                if (encryptedMessage[i] != testMessage[j]):
+                    continue
+                else:
+                    print("Crib cannot start at " + str(i-j))
+
+
+findCrib("TESTTESTTESTFGMKFTESTTESTTEST", "HELLO")

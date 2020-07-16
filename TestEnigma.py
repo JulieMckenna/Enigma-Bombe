@@ -112,7 +112,3 @@ for x in range(len(plainTextMessage)):
         if templetter == alphabet[0][x]:
             changeletter = alphabet[1][x]
     ciphertext += changeletter
-<<<<<<< HEAD:Enigma.py
-print(ciphertext)
-=======
->>>>>>> 0ced8a42576aa2d901d81904c54836ca66dd28ba:TestEnigma.py

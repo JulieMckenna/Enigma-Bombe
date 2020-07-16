@@ -17,25 +17,20 @@ def1 = StringVar(root)
 def2 = StringVar(root)
 def3 = StringVar(root)
 choices = {'1', '2', '3', '4', '5'}
-rotors = [1, 2, 3]
+rotors = [3, 2, 1]
 def1.set('3')
 def2.set('2')
 def3.set('1')
 rotorFlag = 0
 def rotorTest(*args):
-    print(rotors)
     args=args[0].strip("PY_VAR")
-#    print(args)
     args = int(args)
-    if args == 6:
-        tempRotor=int(def1.get())
-        rotors[0] = tempRotor
-    elif args == 7:
-        tempRotor=int(def2.get())
-        rotors[1] = tempRotor
+    if args == 1:
+        rotors[0] = int(def1.get())
+    elif args == 2:
+        rotors[1] = int(def2.get())
     else:
-        tempRotor=int(def3.get())
-        rotors[2] = tempRotor
+        rotors[2] = int(def3.get())
 #   print(rotors)
     if rotors[0] == rotors[1]:
         rW.delete(0, END)
@@ -53,6 +48,7 @@ def rotorTest(*args):
     else:
         rW.delete(0, END)
         rotorFlag = 0
+    print(rotors)
 e1c = Checkbutton(root, text="Show Encryption Steps In Terminal", variable=show)
 e1c.grid(row=10, column=0, columnspan=18)
 dropDown1 = OptionMenu(root, def1, *choices)    #Dropdown menu for rotor selection
@@ -217,30 +213,30 @@ charOut = 'a'
 def incrementCounter():
     global counter
     counter +=1
-def charClick(abc):     #still need to make
-    if rotorFlag == 1:
-        print("Make sure your rotors are valid")
-        return
-    current = ntext.get()
-    #print(abc)
-    rotorPass = ["","",""]
-    for i in range(3):
-        if rotors[i] == 1:
-            rotorPass[i] = ROTOR_I
-        elif rotors[i] == 2:
-            rotorPass[i] = ROTOR_II
-        elif rotors[i] == 3:
-            rotorPass[i] = ROTOR_III
-        #print(rotorPass[i])
-    #print(off1.get()-1+counter)
-    if counter == 0:
-        global charOut
-        charOut = enigma("", [], rotorPass[2], rotorPass[1], rotorPass[0], REFLECTOR_B, off3.get()-1, off2.get()-1, off1.get()-1, True)
-        #print("input", abc)
-        print(charOut.encrypt(abc))
-    else:
-        print(charOut.encrypt(abc))
-    #print(counter)
-    incrementCounter()
+# def charClick(abc):     #still need to make
+#     if rotorFlag == 1:
+#         print("Make sure your rotors are valid")
+#         return
+#     current = ntext.get()
+#     #print(abc)
+#     rotorPass = ["","",""]
+#     for i in range(3):
+#         if rotors[i] == 1:
+#             rotorPass[i] = ROTOR_I
+#         elif rotors[i] == 2:
+#             rotorPass[i] = ROTOR_II
+#         elif rotors[i] == 3:
+#             rotorPass[i] = ROTOR_III
+#         #print(rotorPass[i])
+#     #print(off1.get()-1+counter)
+#     if counter == 0:
+#         global charOut
+#         charOut = enigma("", [], rotorPass[2], rotorPass[1], rotorPass[0], REFLECTOR_B, off3.get()-1, off2.get()-1, off1.get()-1, True)
+#         #print("input", abc)
+#         print(charOut.encrypt(abc))
+#     else:
+#         print(charOut.encrypt(abc))
+#     #print(counter)
+#     incrementCounter()
 
 root.mainloop()

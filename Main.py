@@ -1,5 +1,6 @@
 from tkinter import *
 from rotors import *
+import time
 
 root = Tk()
 root.title("Enigma")
@@ -81,8 +82,8 @@ cU = Button(root, text="U", padx=10, pady=10,bg="black",fg="White")
 cU.grid(row=2, column=12)
 cI = Button(root, text="I", padx=10, pady=10,bg="black",fg="White")
 cI.grid(row=2, column=14)
-c0 = Button(root, text="O", padx=10, pady=10,bg="black",fg="White")
-c0.grid(row=2, column=16)
+cO = Button(root, text="O", padx=10, pady=10,bg="black",fg="White")
+cO.grid(row=2, column=16)
 cP = Button(root, text="P", padx=10, pady=10,bg="black",fg="White")
 cP.grid(row=2, column=18)
 # middlerow
@@ -141,8 +142,8 @@ nU = Button(root, text="U", padx=10, pady=10, command = lambda: charClick("U"))
 nU.grid(row=6, column=12)
 nI = Button(root, text="I", padx=10, pady=10, command = lambda: charClick("I"))
 nI.grid(row=6, column=14)
-n0 = Button(root, text="O", padx=10, pady=10, command = lambda: charClick("O"))
-n0.grid(row=6, column=16)
+nO = Button(root, text="O", padx=10, pady=10, command = lambda: charClick("O"))
+nO.grid(row=6, column=16)
 nP = Button(root, text="P", padx=10, pady=10, command = lambda: charClick("P"))
 nP.grid(row=6, column=18)
 #middlerow
@@ -210,33 +211,48 @@ ptext = Entry(root,width=50, borderwidth=3)
 ptext.grid(row=16,column=0,columnspan=18)
 counter = 0
 charOut = 'a'
+letters = [cA, cB, cC, cD, cE, cF, cG, cH, cI, cJ, cK, cL, cM, cN, cO, cP, cQ, cR, cS, cT, cU, cV, cW, cX, cY, cZ]
 def incrementCounter():
     global counter
     counter +=1
-# def charClick(abc):     #still need to make
-#     if rotorFlag == 1:
-#         print("Make sure your rotors are valid")
-#         return
-#     current = ntext.get()
-#     #print(abc)
-#     rotorPass = ["","",""]
-#     for i in range(3):
-#         if rotors[i] == 1:
-#             rotorPass[i] = ROTOR_I
-#         elif rotors[i] == 2:
-#             rotorPass[i] = ROTOR_II
-#         elif rotors[i] == 3:
-#             rotorPass[i] = ROTOR_III
-#         #print(rotorPass[i])
-#     #print(off1.get()-1+counter)
-#     if counter == 0:
-#         global charOut
-#         charOut = enigma("", [], rotorPass[2], rotorPass[1], rotorPass[0], REFLECTOR_B, off3.get()-1, off2.get()-1, off1.get()-1, True)
-#         #print("input", abc)
-#         print(charOut.encrypt(abc))
-#     else:
-#         print(charOut.encrypt(abc))
-#     #print(counter)
-#     incrementCounter()
+def lightLetter(letter):
+    letterIndex = ord(letter) % 65
+    letters[letterIndex].configure(bg = "Yellow", fg = "Black")
+    root.after(1000, lambda: letters[letterIndex].configure(bg="Black", fg="White"))
+def charClick(abc):     #still need to make
+    if rotorFlag == 1:
+        print("Make sure your rotors are valid")
+        return
+    current = ntext.get()
+    #print(abc)
+    rotorPass = ["","",""]
+    for i in range(3):
+        if rotors[i] == 1:
+            rotorPass[i] = ROTOR_I
+        elif rotors[i] == 2:
+            rotorPass[i] = ROTOR_II
+        elif rotors[i] == 3:
+            rotorPass[i] = ROTOR_III
+        #print(rotorPass[i])
+    #print(off1.get()-1+counter)
+    if counter == 0:
+        global charOut
+        charOut = enigma("", [], rotorPass[2], rotorPass[1], rotorPass[0], REFLECTOR_B, off3.get()-1, off2.get()-1, off1.get()-1, True)
+        #print("input", abc)
+        letter=charOut.encrypt(abc)
+        lightLetter(letter)
+        current = ctext.get()
+        ctext.delete(0, END)
+        ctext.insert(0, str(current) + str(letter))
+        #print(letter)
+    else:
+        letter = charOut.encrypt(abc)
+        lightLetter(letter)
+        current = ctext.get()
+        ctext.delete(0, END)
+        ctext.insert(0, str(current) + str(letter))
+        #print(letter)
+    #print(counter)
+    incrementCounter()
 
 root.mainloop()

@@ -139,14 +139,14 @@ class enigma:
             ## Step rotor 2 if rotor 1 has been stepped 26 times
             if(self.r1_count == 25):
                 self.rotor2 = self.stepRotorBack(self.rotor2)
-                r1_count = 0
-                r2_count += 1
+                self.r1_count = 0
+                self.r2_count += 1
             ## Step rotor 3 if rotor 2 has been stepped 26 times
             if(self.r2_count == 25):
                 r2_count = 0
                 self.rotor3 = self.stepRotorBack(self.rotor3)
 
-            r1_count += 1
+            self.r1_count += 1
 
             ## Find the index of the current char (CHAR % 65) should give index of an uppercase character
             ## ord(char) returns unicode of character

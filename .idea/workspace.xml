@@ -1,9 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="BranchesTreeState">
+    <expand>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="LOCAL_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="GROUP_NODE:origin" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+    </expand>
+    <select />
+  </component>
   <component name="ChangeListManager">
     <list default="true" id="fcd49b67-d152-4d71-97eb-8409a9236d66" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/lights.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Main.py" beforeDir="false" afterPath="$PROJECT_DIR$/Main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/rotors.py" beforeDir="false" afterPath="$PROJECT_DIR$/rotors.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -21,7 +41,13 @@
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="com.intellij.ide.scratch.LRUPopupBuilder$1/New Scratch File" value="Python" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\Ryzin\Documents\GitHub\Enigma-Bombe" />
+    </key>
   </component>
   <component name="RunManager" selected="Python.Main">
     <configuration name="Main" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
@@ -108,50 +134,61 @@
     </task>
     <servers />
   </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
   <component name="WindowStateProjectService">
-    <state width="1696" height="362" key="GridCell.Tab.0.bottom" timestamp="1594942492164">
+    <state width="1696" height="364" key="GridCell.Tab.0.bottom" timestamp="1594947229801">
       <screen x="0" y="0" width="3440" height="1400" />
     </state>
-    <state width="1696" height="362" key="GridCell.Tab.0.bottom/0.0.3440.1400/3440.95.2560.1040@0.0.3440.1400" timestamp="1594942492164" />
+    <state width="1696" height="364" key="GridCell.Tab.0.bottom/0.0.3440.1400/3440.95.2560.1040@0.0.3440.1400" timestamp="1594947229801" />
     <state width="1696" height="365" key="GridCell.Tab.0.bottom/0.0.3440.1400/3440.95.2560.1040@3440.95.2560.1040" timestamp="1594748999045" />
-    <state width="1696" height="362" key="GridCell.Tab.0.center" timestamp="1594942492164">
+    <state width="1696" height="364" key="GridCell.Tab.0.center" timestamp="1594947229801">
       <screen x="0" y="0" width="3440" height="1400" />
     </state>
-    <state width="1696" height="362" key="GridCell.Tab.0.center/0.0.3440.1400/3440.95.2560.1040@0.0.3440.1400" timestamp="1594942492164" />
+    <state width="1696" height="364" key="GridCell.Tab.0.center/0.0.3440.1400/3440.95.2560.1040@0.0.3440.1400" timestamp="1594947229801" />
     <state width="1696" height="365" key="GridCell.Tab.0.center/0.0.3440.1400/3440.95.2560.1040@3440.95.2560.1040" timestamp="1594748999045" />
-    <state width="1696" height="362" key="GridCell.Tab.0.left" timestamp="1594942492164">
+    <state width="1696" height="364" key="GridCell.Tab.0.left" timestamp="1594947229801">
       <screen x="0" y="0" width="3440" height="1400" />
     </state>
-    <state width="1696" height="362" key="GridCell.Tab.0.left/0.0.3440.1400/3440.95.2560.1040@0.0.3440.1400" timestamp="1594942492164" />
+    <state width="1696" height="364" key="GridCell.Tab.0.left/0.0.3440.1400/3440.95.2560.1040@0.0.3440.1400" timestamp="1594947229801" />
     <state width="1696" height="365" key="GridCell.Tab.0.left/0.0.3440.1400/3440.95.2560.1040@3440.95.2560.1040" timestamp="1594748999045" />
-    <state width="1696" height="362" key="GridCell.Tab.0.right" timestamp="1594942492164">
+    <state width="1696" height="364" key="GridCell.Tab.0.right" timestamp="1594947229801">
       <screen x="0" y="0" width="3440" height="1400" />
     </state>
-    <state width="1696" height="362" key="GridCell.Tab.0.right/0.0.3440.1400/3440.95.2560.1040@0.0.3440.1400" timestamp="1594942492164" />
+    <state width="1696" height="364" key="GridCell.Tab.0.right/0.0.3440.1400/3440.95.2560.1040@0.0.3440.1400" timestamp="1594947229801" />
     <state width="1696" height="365" key="GridCell.Tab.0.right/0.0.3440.1400/3440.95.2560.1040@3440.95.2560.1040" timestamp="1594748999045" />
-    <state width="1696" height="491" key="GridCell.Tab.1.bottom" timestamp="1594600843467">
+    <state width="1696" height="491" key="GridCell.Tab.1.bottom" timestamp="1594942835062">
       <screen x="0" y="0" width="3440" height="1400" />
     </state>
-    <state width="1696" height="491" key="GridCell.Tab.1.bottom/0.0.3440.1400/3440.95.2560.1040@0.0.3440.1400" timestamp="1594600843467" />
-    <state width="1696" height="491" key="GridCell.Tab.1.center" timestamp="1594600843467">
+    <state width="1696" height="491" key="GridCell.Tab.1.bottom/0.0.3440.1400/3440.95.2560.1040@0.0.3440.1400" timestamp="1594942835062" />
+    <state width="1696" height="491" key="GridCell.Tab.1.center" timestamp="1594942835062">
       <screen x="0" y="0" width="3440" height="1400" />
     </state>
-    <state width="1696" height="491" key="GridCell.Tab.1.center/0.0.3440.1400/3440.95.2560.1040@0.0.3440.1400" timestamp="1594600843467" />
-    <state width="1696" height="491" key="GridCell.Tab.1.left" timestamp="1594600843467">
+    <state width="1696" height="491" key="GridCell.Tab.1.center/0.0.3440.1400/3440.95.2560.1040@0.0.3440.1400" timestamp="1594942835062" />
+    <state width="1696" height="491" key="GridCell.Tab.1.left" timestamp="1594942835062">
       <screen x="0" y="0" width="3440" height="1400" />
     </state>
-    <state width="1696" height="491" key="GridCell.Tab.1.left/0.0.3440.1400/3440.95.2560.1040@0.0.3440.1400" timestamp="1594600843467" />
-    <state width="1696" height="491" key="GridCell.Tab.1.right" timestamp="1594600843467">
+    <state width="1696" height="491" key="GridCell.Tab.1.left/0.0.3440.1400/3440.95.2560.1040@0.0.3440.1400" timestamp="1594942835062" />
+    <state width="1696" height="491" key="GridCell.Tab.1.right" timestamp="1594942835062">
       <screen x="0" y="0" width="3440" height="1400" />
     </state>
-    <state width="1696" height="491" key="GridCell.Tab.1.right/0.0.3440.1400/3440.95.2560.1040@0.0.3440.1400" timestamp="1594600843467" />
+    <state width="1696" height="491" key="GridCell.Tab.1.right/0.0.3440.1400/3440.95.2560.1040@0.0.3440.1400" timestamp="1594942835062" />
     <state x="432" y="194" width="1273" height="993" key="dock-window-1" timestamp="1594941359281">
       <screen x="0" y="0" width="3440" height="1400" />
     </state>
     <state x="432" y="194" width="1273" height="993" key="dock-window-1/0.0.3440.1400/3440.95.2560.1040@0.0.3440.1400" timestamp="1594941359281" />
-    <state x="1713" y="0" width="1734" height="1407" key="dock-window-2" timestamp="1594942222310">
+    <state x="1713" y="0" width="1734" height="1407" key="dock-window-2" timestamp="1594943772055">
       <screen x="0" y="0" width="3440" height="1400" />
     </state>
-    <state x="1713" y="0" width="1734" height="1407" key="dock-window-2/0.0.3440.1400/3440.95.2560.1040@0.0.3440.1400" timestamp="1594942222310" />
+    <state x="1713" y="0" width="1734" height="1407" key="dock-window-2/0.0.3440.1400/3440.95.2560.1040@0.0.3440.1400" timestamp="1594943772055" />
   </component>
 </project>

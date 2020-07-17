@@ -1,4 +1,4 @@
-<<<<<<< Updated upstream
+from rotors import *
 from tkinter import *
 
 root = Tk()
@@ -485,4 +485,3 @@ def charClick(abc):     #still need to make
         # print(letter)
 
 root.mainloop()
->>>>>>> Stashed changes

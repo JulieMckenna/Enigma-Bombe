@@ -1,40 +1,67 @@
 from tkinter import *
+from rotors import *
+import time
 
 root = Tk()
 root.title("Enigma")
 # root.geometry("400X400")
 # rotor position sliders and displaying on screen
-pRotor1 = Scale(root, from_=1, to=26)
-pRotor1.grid(row=0, column=7)
-pRotor2 = Scale(root, from_=1, to=26)
+off1 = pRotor1 = Scale(root, from_=1, to=26)
+pRotor1.grid(row=0, column=6)
+off2 = pRotor2 = Scale(root, from_=1, to=26)
 pRotor2.grid(row=0, column=8)
-pRotor3 = Scale(root, from_=1, to=26)
-pRotor3.grid(row=0, column=9)
+off3 = pRotor3 = Scale(root, from_=1, to=26)
+pRotor3.grid(row=0, column=10)
 # rotor selection
-var1 = IntVar()
-var2 = IntVar()
-var3 = IntVar()
-var4 = IntVar()
-var5 = IntVar()
 show = IntVar()
-e1c = Checkbutton(root, text="Show Encryption Steps", variable=show)
+def1 = StringVar(root)
+def2 = StringVar(root)
+def3 = StringVar(root)
+choices = {'1', '2', '3', '4', '5'}
+rotors = [3, 2, 1]
+def1.set('3')
+def2.set('2')
+def3.set('1')
+rotorFlag = 0
+def rotorTest(*args):
+    args=args[0].strip("PY_VAR")
+    args = int(args)
+    if args == 1:
+        rotors[0] = int(def1.get())
+    elif args == 2:
+        rotors[1] = int(def2.get())
+    else:
+        rotors[2] = int(def3.get())
+#   print(rotors)
+    if rotors[0] == rotors[1]:
+        rW.delete(0, END)
+        rW.insert(0, "Each rotor must be unique")
+        global rotorFlag
+        rotorFlag = 1
+    elif rotors[0] == rotors[2]:
+        rW.delete(0, END)
+        rW.insert(0, "Each rotor must be unique")
+        rotorFlag = 1
+    elif rotors[1] == rotors[2]:
+        rW.delete(0, END)
+        rW.insert(0, "Each rotor must be unique")
+        rotorFlag = 1
+    else:
+        rW.delete(0, END)
+        rotorFlag = 0
+    print(rotors)
+e1c = Checkbutton(root, text="Show Encryption Steps In Terminal", variable=show)
 e1c.grid(row=10, column=0, columnspan=18)
-r1c = Checkbutton(root, text="1", variable=var1, command = lambda: checkRotor(var1, var2, var3, var4, var5))
-r1c.grid(row=0, column=14)
-r2c = Checkbutton(root, text="2", variable=var2, command = lambda: checkRotor(var1, var2, var3, var4, var5))
-r2c.grid(row=0, column=15)
-r3c = Checkbutton(root, text="3", variable=var3, command = lambda: checkRotor(var1, var2, var3, var4, var5))
-r3c.grid(row=0, column=16)
-r4c = Checkbutton(root, text="4", variable=var4, command = lambda: checkRotor(var1, var2, var3, var4, var5))
-r4c.grid(row=0, column=17)
-r5c = Checkbutton(root, text="5", variable=var5, command = lambda: checkRotor(var1, var2, var3, var4, var5))
-r5c.grid(row=0, column=18)
-s1 = Entry(root, width=2, borderwidth = 3)
-s1.grid(row=1, column=7, columnspan=1)
-s2 = Entry(root, width=2, borderwidth = 3)
-s2.grid(row=1, column=8, columnspan=1)
-s3 = Entry(root, width=2, borderwidth = 3)
-s3.grid(row=1, column=9, columnspan=1)
+dropDown1 = OptionMenu(root, def1, *choices)    #Dropdown menu for rotor selection
+dropDown1.grid(row=1, column=6)                 #
+dropDown2 = OptionMenu(root, def2, *choices)    #
+dropDown2.grid(row=1, column=8)                 #
+dropDown3 = OptionMenu(root, def3, *choices)    #
+dropDown3.grid(row=1, column=10)                #
+def1.trace("w", rotorTest)
+def2.trace("w", rotorTest)
+def3.trace("w", rotorTest)
+
 rW = Entry(root, width=30, borderwidth=3)
 rW.grid(row=1, column=14, columnspan=6)
 # cypher keyboard
@@ -55,8 +82,8 @@ cU = Button(root, text="U", padx=10, pady=10,bg="black",fg="White")
 cU.grid(row=2, column=12)
 cI = Button(root, text="I", padx=10, pady=10,bg="black",fg="White")
 cI.grid(row=2, column=14)
-c0 = Button(root, text="O", padx=10, pady=10,bg="black",fg="White")
-c0.grid(row=2, column=16)
+cO = Button(root, text="O", padx=10, pady=10,bg="black",fg="White")
+cO.grid(row=2, column=16)
 cP = Button(root, text="P", padx=10, pady=10,bg="black",fg="White")
 cP.grid(row=2, column=18)
 # middlerow
@@ -115,8 +142,8 @@ nU = Button(root, text="U", padx=10, pady=10, command = lambda: charClick("U"))
 nU.grid(row=6, column=12)
 nI = Button(root, text="I", padx=10, pady=10, command = lambda: charClick("I"))
 nI.grid(row=6, column=14)
-n0 = Button(root, text="O", padx=10, pady=10, command = lambda: charClick("O"))
-n0.grid(row=6, column=16)
+nO = Button(root, text="O", padx=10, pady=10, command = lambda: charClick("O"))
+nO.grid(row=6, column=16)
 nP = Button(root, text="P", padx=10, pady=10, command = lambda: charClick("P"))
 nP.grid(row=6, column=18)
 #middlerow
@@ -158,7 +185,7 @@ srow8 = Label(root,text="         ")
 srow8.grid(row=9,column=0,columnspan=18)
 
 #Encryption button
-eB = Button(root, text="Run Encryption", padx=2, pady=2)
+eB = Button(root, text="Run Encryption", padx=2, pady=2, command = lambda: charClick("AA"))
 eB.grid(row=12, column=14, columnspan=3)
 
 pB = Button(root, text="Apply Plugboard", padx=2, pady=2)
@@ -182,28 +209,59 @@ plabel.grid(row=15,column=0,columnspan=18)
 
 ptext = Entry(root,width=50, borderwidth=3)
 ptext.grid(row=16,column=0,columnspan=18)
-
-def charClick(abc):
-    current = ntext.get()
-    ntext.delete(0,END)
-    ntext.insert(0, str(current) + str(abc))
+counter = 0
+charOut = 'a'
+letters = [cA, cB, cC, cD, cE, cF, cG, cH, cI, cJ, cK, cL, cM, cN, cO, cP, cQ, cR, cS, cT, cU, cV, cW, cX, cY, cZ]
+def incrementCounter():
+    global counter
+    counter +=1
+def lightLetter(letter):
+    letterIndex = ord(letter) % 65
+    letters[letterIndex].configure(bg = "Yellow", fg = "Black")
+    root.after(1000, lambda: letters[letterIndex].configure(bg="Black", fg="White"))
+def charClick(abc):     #still need to make
+    if rotorFlag == 1:
+        print("Make sure your rotors are valid")
+        return
+    single = len(abc)
     #print(abc)
-def checkRotor(var1, var2, var3, var4, var5):
-    current = [var1.get(), var2.get(), var3.get(), var4.get(), var5.get()]
-    for x in range(5):
-       if current[x] == 1:
-          s1.delete(0, END)
-          s1.insert(0, x + 1 )
-          check1 = x
-    checkVal = var1.get()+var2.get()+var3.get()+var4.get()+var5.get()
-    if (checkVal > 3):
-        rW.delete(0,END)
-        rW.insert(0, "Only 3 Rotors May Be Selected")
-    elif (checkVal < 3):
-        rW.delete(0,END)
-        rW.insert(0, "3 Rotors Need To Be Selected")
+    rotorPass = ["","",""]
+    for i in range(3):
+        if rotors[i] == 1:
+            rotorPass[i] = ROTOR_I
+        elif rotors[i] == 2:
+            rotorPass[i] = ROTOR_II
+        elif rotors[i] == 3:
+            rotorPass[i] = ROTOR_III
+        #print(rotorPass[i])
+    #print(off1.get()-1+counter)
+    if single == 1:
+        if counter == 0:
+            global charOut
+            charOut = enigma("", [], rotorPass[2], rotorPass[1], rotorPass[0], REFLECTOR_B, off3.get()-1, off2.get()-1, off1.get()-1, True)
+            #print("input", abc)
+            letter=charOut.encrypt(abc)
+            lightLetter(letter)
+            current = ctext.get()
+            ctext.delete(0, END)
+            ctext.insert(0, str(current) + str(letter))
+            #print(letter)
+        else:
+            letter = charOut.encrypt(abc)
+            lightLetter(letter)
+            current = ctext.get()
+            ctext.delete(0, END)
+            ctext.insert(0, str(current) + str(letter))
+            #print(letter)
+        #print(counter)
+        incrementCounter()
     else:
-        rW.delete(0,END)
-    old = [var1.get(), var2.get(), var3.get(), var4.get(), var5.get()]
+        charOut2 = enigma("", [], rotorPass[2], rotorPass[1], rotorPass[0], REFLECTOR_B, off3.get() - 1, off2.get() - 1, off1.get() - 1, True)
+        # print("input", abc)
+        letter = charOut2.encrypt(ntext.get())
+        current = ctext.get()
+        ctext.delete(0, END)
+        ctext.insert(0, str(current) + str(letter))
+        # print(letter)
 
 root.mainloop()

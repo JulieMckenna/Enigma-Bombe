@@ -218,7 +218,6 @@ def charClick(abc):
     #print(abc)
 
 root.mainloop()
-=======
 from tkinter import *
 from rotors import *
 import time

@@ -250,4 +250,4 @@ def main():
 
     print("Original Message: " + originalMessage)
     print("Encrypted Message: " + outputText)
-main()
+#main()

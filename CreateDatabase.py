@@ -41,8 +41,9 @@ CREATE TABLE CapturedMsg
 (
     MessageID       INT     PRIMARY KEY NOT NULL,
     EncryptedMsg    TEXT    NOT NULL,
-    IsDecryped      INT     NOT NULL,
-    DecryptedMsg    TEXT
+    IsDecrypted     INT     NOT NULL,
+    DecryptedMsg    TEXT,
+    Day             INT     NOT NULL
 );
 '''
 # create KnownConfig table
@@ -98,8 +99,6 @@ bombeDB.close()
 
 print('Created Bombe Database')
 
-
-
 ##### ENIGMA #####
 # open db connection for Enigma
 enigmaDB = sqlite3.connect('Enigma.db')
@@ -113,17 +112,16 @@ dropTbl.close()
 sched = '''
 CREATE TABLE Schedule
 (
-    ConfigID            INT     PRIMARY KEY NOT NULL,
-    PlugIn              TEXT    NOT NULL,
-    PlugOut             TEXT    NOT NULL,
-    RotorOne            CHAR(1),
-    RotorTwo            CHAR(1),
-    RotorThree          CHAR(1),
-    RotorFour           CHAR(1),
-    RotorFive           CHAR(1),
-    Reflector           INT     NOT NULL,
-    DayOfMonth          INT     NOT NULL,
-    TransposedAlphabet  TEXT    NOT NULL
+    Day                 INT         PRIMARY KEY NOT NULL,
+    PlugIn              CHAR(10)    NOT NULL,
+    PlugOut             CHAR(10)    NOT NULL,
+    ActiveR1            INT         NOT NULL,
+    Offset1             INT         NOT NULL,
+    ActiveR2            INT         NOT NULL,
+    Offset2             INT         NOT NULL,
+    ActiveR3            INT         NOT NULL,
+    Offset3             INT         NOT NULL,
+    Reflector           CHAR(1)     NOT NULL
 );
 '''
 # create Schedule table

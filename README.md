@@ -63,4 +63,5 @@ Steps:
   b. deletes that instance of the Enigma machine and repeats those steps with different setttings until the settings are found
 
 Bombe Database:
+- Will hold the correct settings the enigma machine
 

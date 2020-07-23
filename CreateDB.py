@@ -5,7 +5,7 @@ import sqlite3
 
 ##### BOMBE #####
 # open db connection for Bombe
-bombeDB = sqlite3.connect('BombeDatabase.db')
+bombeDB = sqlite3.connect('BombeDB.db')
 
 # drop tables if they exist before creating them
 tables = ['PossibleConfig', 'KnownConfig', 'WrongConfig', 'CapturedMsg']
@@ -78,7 +78,7 @@ print('Created Bombe Database')
 
 ##### ENIGMA #####
 # open db connection for Enigma
-enigmaDB = sqlite3.connect('EnigmaDatabase.db')
+enigmaDB = sqlite3.connect('EnigmaDB.db')
 
 # drop table if it exists before creating it again
 dropTbl = enigmaDB.cursor()

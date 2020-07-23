@@ -55,11 +55,32 @@ enigmaDB.close()
 bombeDB = sqlite3.connect('Bombe.db')
 
 # insert message captured to database
-def insertCapturedMsg():
-    pass
+def insertCapturedMsg(msg, day):
+    try:
+        # logic to create new message ID
+        getMsgID = 'SELECT MAX(MessageID) FROM CapturedMsg'
+        b = bombeDB.cursor()
+        b.execute(getMsgID)
+        msgID = b.fetchone()
+        b.close()
+        newID = None
+        if msgID[0] == None:
+            newID = 1
+        else:
+            newID = msgID[0] + 1
+        # insert new captured message into the database
+        insertMessage = 'INSERT INTO CapturedMsg VALUES (' + str(newID) + ', \'' + msg + '\', 0, NULL, ' + str(day) + ');'
+        b = bombeDB.cursor()
+        b.execute(insertMessage)
+        b.close()
+        bombeDB.commit()
+    except sqlite3.OperationalError:
+        print('\nError when trying to insert values, please check the database connection and/or values being input.\n')
+    except sqlite3.IntegrityError:
+        print('\nError when trying to insert values, this configuration already exists in the database.\n')
 
 # get CapturedMsg from bombe db
-def getCapturedMsg():
+def getCapturedMsg(msgID):
     pass
 
 # if found, add correct configuration to the possible config table in the bombe db when provided with the correct information
@@ -87,6 +108,8 @@ def insertKnownConfig(day, plugIn, plugOut, activeR1, offset1, activeR2, offset2
         print('\nKnown config found, inserting into Bombe database.\n')
     except sqlite3.OperationalError:
         print('\nError when trying to insert values, please check the database connection and/or values being input.\n')
+    except sqlite3.IntegrityError:
+        print('\nError when trying to insert values, this configuration already exists in the database.\n')
 
 # getting known config from bombe db, this is identical to getSchedule() for enigma, but connected to bombe   
 def getKnownConfig(day):

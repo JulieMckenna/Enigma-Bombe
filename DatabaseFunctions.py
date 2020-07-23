@@ -54,7 +54,7 @@ enigmaDB.close()
 # create bombe db connection
 bombeDB = sqlite3.connect('Bombe.db')
 
-# insert message captured to database
+# insert message captured into database
 def insertCapturedMsg(msg, day):
     try:
         # logic to create new message ID
@@ -74,6 +74,7 @@ def insertCapturedMsg(msg, day):
         b.execute(insertMessage)
         b.close()
         bombeDB.commit()
+        print('Message saved.')
     except sqlite3.OperationalError:
         print('\nError when trying to insert values, please check the database connection and/or values being input.\n')
     except sqlite3.IntegrityError:
@@ -81,7 +82,26 @@ def insertCapturedMsg(msg, day):
 
 # get CapturedMsg from bombe db
 def getCapturedMsg(msgID):
-    pass
+    # find message in database with matching message id
+    getMessage = 'SELECT * FROM CapturedMsg WHERE MessageID = ' + str(msgID)
+    b = bombeDB.cursor()
+    b.execute(getMessage)
+    msgData = b.fetchone()
+    b.close()
+    # if message is not found, print that to the user
+    if msgData == None:
+        returnMsg = 'No message in database with that ID.'
+        return returnMsg
+    else:
+        # if message is not decrypted, just print the encrypted message
+        if msgData[2] == 0:
+            returnMsg = '\nMessage is not decrypted:\nEncrypted message: [' + msgData[1] + ']\n'
+            return returnMsg
+        # if message is decrypted, print both the encryped message and the decrypted message
+        elif msgData[2] == 1:
+            returnMsg = '\nMessage is decrypted:\nEncrypted message: [' + msgData[1] + ']\nDecrypted message: [' + msgData[4] + ']\n'
+        else:
+            pass
 
 # if found, add correct configuration to the possible config table in the bombe db when provided with the correct information
 def insertPossibleConfig(day, plugIn, plugOut, activeR1, offset1, activeR2, offset2, activeR3, offset3, reflector):

@@ -44,36 +44,42 @@ class enigma:
     def getvalues(self,inplug, plug):
         valuearaay = inplug.split(',')
         plug = []
-        print(valuearaay)
+        #print(valuearaay)
         for i in range(len(valuearaay)):
             plug.append(valuearaay[i][0])
             plug.append(valuearaay[i][1])
-        print(plug)
+        #print(plug)
 
         return plug    
 
     #this swaps the letters in the input text with what the plug board has been changed to
-    def swapLetters(self, plug, text):
+    def swapLetters(self, plug, text, steps):
         swappedtext = ""
         toadd = ''
-        print(text)
+        if steps == True:
+            print("The message before swappins is: " + text)
         for i in range(0, len(text)):
             found = False
-            print("i is" + str(i) + "char at i is " + text[i])
-            for x in range(0,19,2):
+            #print("i is" + str(i) + "char at i is " + text[i])
+            for x in range(0,(len(plug)-1),2):
                 if text[i] == plug[x]:
-                    #print("char in string is "+ text[i] + "char in plug is "+ plug[x] + plug[x+1])
+                    if steps == True:
+                        print("Swaping: " + text[i] + " with: " + plug[x+1] + " from the plugboard connections")
+                    #print("char in string is "+ text[i] + "char in plug is "+ plug[x])
                     swappedtext += plug[x+1]
                     found = True
                     print(swappedtext)
                 elif text[i] == plug[x+1]:
+                    if steps == True:
+                        print("Swaping: " + text[i] + " with: " + plug[x] + " from the plugboard connections")
                     #print("char in string is "+ text[i] + "char in plug is "+ plug[x+1] + plug[x])
                     swappedtext += plug[x]
                     found = True
                     print(swappedtext)
             if found == False:
                 swappedtext += text[i]
-                print(swappedtext)
+        if steps == True:
+            print("The message after swapping the plugboard connections is: " + swappedtext)
         return swappedtext
 
     ## Function to step rotor by 1 position
@@ -111,7 +117,7 @@ class enigma:
         # if manually entering it 1 connection at a time
         #self.plug = self.setPlug(self.plug)
         
-        #if the user does not enetr nay values into the plugbaord
+        #if the user does not enter nay values into the plugbaord
         if(self.inplug == ""):
             pass
         else:
@@ -119,8 +125,10 @@ class enigma:
             #used for GUI
             #splits the combos entered from: "AB,FG,LK" to ['A','B','F','G','L','K'] 
             self.plug = self.getvalues(self.inplug, self.plug)
-            #swaps the letters in the text string with those chnage smade by the plugbaord
-            text = self.swapLetters(self.plug, text)
+            if self.steps == True:
+                print("Swapping letters with plugboard connections")
+            #swaps the letters in the text string with those changes made by the plugbaord
+            text = self.swapLetters(self.plug, text, self.steps)
         print(text)
         
         ## Count for how many times each rotor is stepped. Don't care how many times rotor3 is stepped
@@ -200,7 +208,7 @@ class enigma:
                 pass
             #swaps the letters according to the plugboard
             else:
-                print("swapping letters back")
+                #print("swapping letters back")
                 #swaps the letters in the text string with those chnage smade by the plugbaord
                 returnString = self.swapLetters(self.plug, returnString)
         else:
@@ -270,9 +278,10 @@ class enigma:
                 pass
             #swaps the letters according to the plugboard
             else:
-                print("swapping letters back")
-                #swaps the letters in the text string with those chnage smade by the plugbaord
-                returnString = self.swapLetters(self.plug, returnString)
+                print("Swapping letters back")
+            #swaps the letters in the text string with those chnage smade by the plugbaord
+            returnString = self.swapLetters(self.plug, returnString, self.steps)
+
         return returnString
 
 
@@ -304,8 +313,8 @@ def main():
 
     ## Need two engima machines to both enrypt and decrypt at the same time   
 
-    engimaMachineINPUT = enigma("",[], ROTOR_I, ROTOR_II, ROTOR_III, REFLECTOR_B, 0, 0, 0, True)
-    engimaMachineOUTPUT = enigma("",[], ROTOR_I, ROTOR_II, ROTOR_III, REFLECTOR_B, 0, 0, 0, True)
+    engimaMachineINPUT = enigma("AB,ER,LP",[], ROTOR_I, ROTOR_II, ROTOR_III, REFLECTOR_B, 0, 0, 0, True)
+    engimaMachineOUTPUT = enigma("AB,ER,LP",[], ROTOR_I, ROTOR_II, ROTOR_III, REFLECTOR_B, 0, 0, 0, True)
 
     inputText = (input("Enter message: ")).upper()
     outputText = engimaMachineINPUT.encrypt(inputText)
@@ -314,32 +323,7 @@ def main():
     print("Original Message: " + originalMessage)
     print("Encrypted Message: " + outputText)
 
+#main()
 
 ## Need to have a function to line up HELLOWORLD to encrypted message. 
 ## None of the characters can line up to themselves. That new substring is the string we will use to test
-
-def findCrib(encryptedMessage, testMessage):
-    ## testMessage must be shorter than encrypted message
-    if (len(testMessage) > len(encryptedMessage)):
-        return
-    else:
-        for i in range(len(testMessage) - 1, len(encryptedMessage)):
-            print(i)
-            for j in range(0, len(testMessage)):
-                if (encryptedMessage[i] == testMessage[j]):
-                    print(testMessage[j] + " lines up with " + encryptedMessage[i] + " at starting point of " + str(i))
-                    
-
-def findCrib(encryptedMessage, testMessage):
-    ## testMessage must be shorter than encrypted message
-    if (len(testMessage) > len(encryptedMessage)):
-        return
-    else:
-        for i in range(0, len(encryptedMessage)):
-            print(i)
-            for j in range(0, len(testMessage)):
-                if (encryptedMessage[i] != testMessage[j]):
-                    continue
-                else:
-                    print("Crib cannot start at " + str(i-j))
-

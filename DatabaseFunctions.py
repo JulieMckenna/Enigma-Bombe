@@ -34,7 +34,7 @@ def createEnigmaSchedule(filePath):
         enigmaDB.commit()
 
 # get schedule from enigma database when function is provided with a day
-def getSchedule(day):
+def getConfiguration(day):
     # get all row items in row matching day input by user
     getSched = 'SELECT * FROM Schedule WHERE Day = ' + str(day)
     e = enigmaDB.cursor()
@@ -61,6 +61,20 @@ def insertCapturedMsg():
 # get CapturedMsg from bombe db
 def getCapturedMsg():
     pass
+
+# if found, add correct configuration to the possible config table in the bombe db when provided with the correct information
+def insertPossibleConfig(day, plugIn, plugOut, activeR1, offset1, activeR2, offset2, activeR3, offset3, reflector):
+    try:
+        insertConfig = 'INSERT INTO PossibleConfig VALUES (' + str(day) + ', \'' + plugIn + '\', \'' + plugOut + '\', ' + str(activeR1) + ', ' + str(offset1) + ', ' + str(activeR2) + ', ' + str(offset2) + ', ' + str(activeR3) + ', ' + str(offset3) + ', \'' + reflector + '\');'
+        b = bombeDB.cursor()
+        b.execute(insertConfig)
+        b.close()
+        bombeDB.commit()
+        print('\nInserting possible config into the Bombe database.\n')
+    except sqlite3.OperationalError:
+        print('\nError when trying to insert values, please check the database connection and/or values being input.\n')
+    except sqlite3.IntegrityError:
+        print('\nError when trying to insert values, this configuration already exists in the database.\n')
 
 # if found, add correct configuration to the known config table in the bombe db when provided with the correct information
 def insertKnownConfig(day, plugIn, plugOut, activeR1, offset1, activeR2, offset2, activeR3, offset3, reflector):
@@ -90,8 +104,21 @@ def getKnownConfig(day):
         return knownConfig
 
 # delete wrong configuration from the bombe db
-def wrongConfigFound():
-    pass
+def deleteWrongConfig(day, plugIn, plugOut, activeR1, offset1, activeR2, offset2, activeR3, offset3, reflector):
+    findConfig = 'SELECT * FROM PossibleConfig WHERE Day = ' + str(day) + ' AND PlugIn = \'' + plugIn + '\' AND PlugOut = \'' + plugOut + '\' AND ActiveR1 = ' + str(activeR1) + ' AND Offset1 = ' + str(offset1) + ' AND ActiveR2 = ' + str(activeR2) + ' AND Offset2 = ' + str(offset2) + ' AND ActiveR3 = ' + str(activeR3) + ' AND Offset3 = ' + str(offset3) + ' AND Reflector = \'' + str(reflector) + '\''
+    b = bombeDB.cursor()
+    b.execute(findConfig)
+    foundConfig = b.fetchone()
+    b.close()
+    if foundConfig == None:
+        print('\nNo result found for this configuration, please check the database connection and/or values being input.\n')
+    else:
+        deleteConfig = 'DELETE FROM PossibleConfig WHERE Day = ' + str(day) + ' AND PlugIn = \'' + plugIn + '\' AND PlugOut = \'' + plugOut + '\' AND ActiveR1 = ' + str(activeR1) + ' AND Offset1 = ' + str(offset1) + ' AND ActiveR2 = ' + str(activeR2) + ' AND Offset2 = ' + str(offset2) + ' AND ActiveR3 = ' + str(activeR3) + ' AND Offset3 = ' + str(offset3) + ' AND Reflector = \'' + reflector + '\''
+        b = bombeDB.cursor()
+        b.execute(deleteConfig)
+        b.close()
+        bombeDB.commit()
+        print('\nWrong config has been deleted from the possible configs in the database.\n')
 
 # close db connection
 bombeDB.close()

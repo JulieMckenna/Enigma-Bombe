@@ -27,20 +27,20 @@ def createEnigmaSchedule(filePath):
         # query insert configuration into the db
         insertConfig = ('INSERT INTO Schedule VALUES (' + str(getConfig[0]) + ', \'' + getConfig[1] + '\', \'' + getConfig[2] + '\', ' + str(getConfig[3]) + ', ' + str(getConfig[4]) + ', ' + str(getConfig[5]) + ', ' + str(getConfig[6]) + ', ' + str(getConfig[7]) + ', ' + str(getConfig[8]) + ', \'' + getConfig[9] + '\');')
         # run query
-        c = enigmaDB.cursor()
-        c.execute(insertConfig)
+        e = enigmaDB.cursor()
+        e.execute(insertConfig)
         print('Config for day ' + str(getConfig[0]) + ' inserted into db.\n')
-        c.close()
+        e.close()
         enigmaDB.commit()
 
-# get schedule from enigma database
+# get schedule from enigma database when function is provided with a day
 def getSchedule(day):
     # get all row items in row matching day input by user
     getSched = 'SELECT * FROM Schedule WHERE Day = ' + str(day)
-    c = enigmaDB.cursor()
-    c.execute(getSched)
-    schedResult = c.fetchone()
-    c.close()
+    e = enigmaDB.cursor()
+    e.execute(getSched)
+    schedResult = e.fetchone()
+    e.close()
     # if schedResult is null, notify the user
     if not schedResult:
         print('No config found for Day ' + str(day))
@@ -62,9 +62,32 @@ def insertCapturedMsg():
 def getCapturedMsg():
     pass
 
-# if found, add correct configuration to the known config table in the bombe db
-def insertKnownConfig():
-    pass
+# if found, add correct configuration to the known config table in the bombe db when provided with the correct information
+def insertKnownConfig(day, plugIn, plugOut, activeR1, offset1, activeR2, offset2, activeR3, offset3, reflector):
+    try:
+        insertConfig = 'INSERT INTO KnownConfig VALUES (' + str(day) + ', \'' + plugIn + '\', \'' + plugOut + '\', ' + str(activeR1) + ', ' + str(offset1) + ', ' + str(activeR2) + ', ' + str(offset2) + ', ' + str(activeR3) + ', ' + str(offset3) + ', \'' + reflector + '\');'
+        b = bombeDB.cursor()
+        b.execute(insertConfig)
+        b.close()
+        bombeDB.commit()
+        print('\nKnown config found, inserting into Bombe database.\n')
+    except sqlite3.OperationalError:
+        print('\nError when trying to insert values, please check the database connection and/or values being input.\n')
+
+# getting known config from bombe db, this is identical to getSchedule() for enigma, but connected to bombe   
+def getKnownConfig(day):
+    # get all row items in row matching day input by user
+    getConfig = 'SELECT * FROM KnownConfig WHERE Day = ' + str(day)
+    b = bombeDB.cursor()
+    b.execute(getConfig)
+    knownConfig = b.fetchone()
+    b.close()
+    # if knownConfig is null, notify the user
+    if not knownConfig:
+        print('No config found for Day ' + str(day))
+    else:
+        # return known enigma configuration
+        return knownConfig
 
 # delete wrong configuration from the bombe db
 def wrongConfigFound():

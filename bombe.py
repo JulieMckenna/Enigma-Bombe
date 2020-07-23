@@ -51,7 +51,7 @@ def main():
                     print("Settings are: Rotor I at offset: "+ str(i) +" Rotor II at offset: "+ str(j))
                     #this is where the insert query
                     #prints the decrypted message
-                    print("Dcrypted message: " + outputText[0:(len(outputText)-10)]) 
+                    print("Decrypted message: " + outputText[0:(len(outputText)-10)]) 
                 del machine   
         for i in range(6,10):
             for j in range(26):
@@ -66,7 +66,7 @@ def main():
                     print("Settings are: Rotor I at offset: "+ str(i) +" Rotor II at offset: "+ str(j))
                     #this is where the insert query
                     #prints the decrypted message
-                    print("Dcrypted message: " + outputText[0:(len(outputText)-10)]) 
+                    print("Decrypted message: " + outputText[0:(len(outputText)-10)]) 
                 del machine
         for i in range(11,15):
             for j in range(26):
@@ -81,7 +81,7 @@ def main():
                     print("Settings are: Rotor I at offset: "+ str(i) +" Rotor II at offset: "+ str(j)) 
                     #this is where the insert query
                     #prints the decrypted message
-                    print("Dcrypted message: " + outputText[0:(len(outputText)-10)]) 
+                    print("Decrypted message: " + outputText[0:(len(outputText)-10)]) 
                 del machine
         for i in range(16,20):
             for j in range(10):
@@ -95,7 +95,7 @@ def main():
                     print("Settings are: Rotor I at offset: "+ str(i) +" Rotor II at offset: "+ str(j))  
                     #this is where the insert query
                     #prints the decrypted message
-                    print("Dcrypted message: " + outputText[0:(len(outputText)-10)]) 
+                    print("Decrypted message: " + outputText[0:(len(outputText)-10)]) 
                 del machine 
         for i in range(21,26):
             for j in range(26):
@@ -110,7 +110,7 @@ def main():
                     print("Settings are: Rotor I at offset: "+ str(i) +" Rotor II at offset: "+ str(j))  
                     #this is where the insert query
                     #prints the decrypted message
-                    print("Dcrypted message: " + outputText[0:(len(outputText)-10)])  
+                    print("Decrypted message: " + outputText[0:(len(outputText)-10)])  
                 del machine  
                 
 main()

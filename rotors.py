@@ -271,3 +271,4 @@ def findCrib(encryptedMessage, testMessage):
                     continue
                 else:
                     print("Crib cannot start at " + str(i-j))
+

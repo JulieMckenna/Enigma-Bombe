@@ -95,3 +95,11 @@ settings: engimaMachineINPUT = enigma("",[], ROTOR_I, ROTOR_II, REFLECTOR_B, 6, 
 settings: engimaMachineINPUT = enigma("",[], ROTOR_I, ROTOR_II, REFLECTOR_B, 17, 3, True) = ZFMKRERTWH
 settings: engimaMachineINPUT = enigma("",[], ROTOR_I, ROTOR_II, REFLECTOR_B, 21, 3, True) = SWXODXQEIZ
 """
+
+
+
+## Current Bombe goal:
+    ## 2 rotor machine, solve for offset of each
+    ## 1 Rotor is known, solve for the other rotor
+        ## Rotor options could be however many you want
+    ## Want to get everythign in Bombe working and scale up as much as possible

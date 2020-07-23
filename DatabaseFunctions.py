@@ -4,7 +4,7 @@
 import sqlite3, openpyxl
 
 # create enigma db connection
-enigmaDB = sqlite3.connect('Enigma.db')
+enigmaDB = sqlite3.connect('EnigmaDatabase.db')
 
 # file path of test file (Chandler) --- 'G:\\gitrepos\\Enigma-Bombe\\enigma.xlsx'
 
@@ -58,7 +58,7 @@ def getConfiguration(day):
 enigmaDB.close()
 
 # create bombe db connection
-bombeDB = sqlite3.connect('Bombe.db')
+bombeDB = sqlite3.connect('BombeDatabase.db')
 
 # insert message captured into database
 def insertCapturedMsg(msg, day):

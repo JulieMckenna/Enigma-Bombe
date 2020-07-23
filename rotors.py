@@ -252,7 +252,7 @@ def main():
     print("Original Message: " + originalMessage)
     print("Encrypted Message: " + outputText)
 
-main()
+#main()
 
 ## Need to have a function to line up HELLOWORLD to encrypted message. 
 ## None of the characters can line up to themselves. That new substring is the string we will use to test

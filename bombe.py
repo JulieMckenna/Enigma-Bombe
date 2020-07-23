@@ -18,9 +18,10 @@ REFLECTOR_A = "EDCHIJKLMNOPQRSTUVWZYZABGF"
 #will have multiple enigma machines running at once. One will take setting 1 half of positions
 
 def main():
+    reflector = REFLECTOR_B
     #find possible encryptions first - to then solve with decrption 
-    engimaMachineINPUT = enigma("",[], ROTOR_I, ROTOR_II, REFLECTOR_B, 1, 0, True)
-    engimaMachineOUTPUT = enigma("",[], ROTOR_I, ROTOR_II, REFLECTOR_B, 1, 0, True)
+    engimaMachineINPUT = enigma("",[], ROTOR_I, ROTOR_II, reflector, 1, 0, True)
+    engimaMachineOUTPUT = enigma("",[], ROTOR_I, ROTOR_II, reflector, 1, 0, True)
 
     inputText = (input("Enter message: ")).upper()
     #adds this to end of the message - to use to solve fo rthe crib
@@ -41,7 +42,7 @@ def main():
         for i in range(5):
             for j in range(26):
                 #makes a machine with the varied settings
-                machine = enigma("",[], ROTOR_I, ROTOR_II, REFLECTOR_B, int(i), int(j), True)
+                machine = enigma("",[], ROTOR_I, ROTOR_II, reflector, int(i), int(j), True)
                 outputText = machine.encrypt(inputText)
                 #checks if th last 10 letters of the "decrypted" message = helloworld 
                 if outputText[(len(inputText)-10):] == crib:
@@ -56,7 +57,7 @@ def main():
         for i in range(6,10):
             for j in range(26):
                 #makes a machine with the varied settings
-                machine = enigma("",[], ROTOR_I, ROTOR_II, REFLECTOR_B, int(i), int(j), True)
+                machine = enigma("",[], ROTOR_I, ROTOR_II, reflector, int(i), int(j), True)
                 outputText = machine.encrypt(inputText)
                 #checks if th last 10 letters of the "decrypted" message = helloworld 
                 if outputText[(len(inputText)-10):] == crib:
@@ -71,7 +72,7 @@ def main():
         for i in range(11,15):
             for j in range(26):
                 #makes a machine with the varied settings
-                machine = enigma("",[], ROTOR_I, ROTOR_II, REFLECTOR_B, int(i), int(j), True)
+                machine = enigma("",[], ROTOR_I, ROTOR_II, reflector, int(i), int(j), True)
                 outputText = machine.encrypt(inputText)
                 #checks if th last 10 letters of the "decrypted" message = helloworld 
                 if outputText[(len(inputText)-10):] == crib:
@@ -85,7 +86,7 @@ def main():
                 del machine
         for i in range(16,20):
             for j in range(10):
-                machine = enigma("",[], ROTOR_I, ROTOR_II, REFLECTOR_B, int(i), int(j), True)
+                machine = enigma("",[], ROTOR_I, ROTOR_II, reflector, int(i), int(j), True)
                 outputText = machine.encrypt(inputText)
                 #checks if th last 10 letters of the "decrypted" message = helloworld 
                 if outputText[(len(inputText)-10):] == crib:
@@ -100,7 +101,7 @@ def main():
         for i in range(21,26):
             for j in range(26):
                 #makes a machine with the varied settings
-                machine = enigma("",[], ROTOR_I, ROTOR_II, REFLECTOR_B, int(i), int(j), True)
+                machine = enigma("",[], ROTOR_I, ROTOR_II, reflector, int(i), int(j), True)
                 outputText = machine.encrypt(inputText)
                 #checks if th last 10 letters of the "decrypted" message = helloworld 
                 if outputText[(len(inputText)-10):] == crib:

@@ -7,6 +7,7 @@ import sqlite3, openpyxl
 enigmaDB = sqlite3.connect('Enigma.db')
 
 # file path of test file (Chandler) --- 'G:\\gitrepos\\Enigma-Bombe\\enigma.xlsx'
+
 # add enigma schedule to db
 def createEnigmaSchedule(filePath):
     # open xlsx file and get the number of rows, each row indicates an enigma configuration for a particular day
@@ -15,20 +16,37 @@ def createEnigmaSchedule(filePath):
     maxRow = activeSched.max_row
     maxCol = activeSched.max_column
     getConfig = []
-    
     # get the configuration for each day 
     for i in range(1, maxRow + 1):
+        # fill getConfig list with data from the row in the spreadsheet
         for j in range(1, maxCol + 1):
             getCell = activeSched.cell(row = i, column = j)
             getConfig.append(getCell.value)
+        # checking the values in getConfig
         print(*getConfig, sep = '\t')
-        # insert configuration into the db
-        insConfig = ('INSERT INTO Schedule VALUES (' + getConfig[0] + ', \'' + getConfig[1] + '\', \'' ');') # FINISH WRITING THIS OUT
+        # query insert configuration into the db
+        insertConfig = ('INSERT INTO Schedule VALUES (' + str(getConfig[0]) + ', \'' + getConfig[1] + '\', \'' + getConfig[2] + '\', ' + str(getConfig[3]) + ', ' + str(getConfig[4]) + ', ' + str(getConfig[5]) + ', ' + str(getConfig[6]) + ', ' + str(getConfig[7]) + ', ' + str(getConfig[8]) + ', \'' + getConfig[9] + '\');')
+        # run query
         c = enigmaDB.cursor()
-        c.execute(insConfig)
+        c.execute(insertConfig)
+        print('Config for day ' + str(getConfig[0]) + ' inserted into db.\n')
         c.close()
-        # enigmaDB.commit()
-    
+        enigmaDB.commit()
+
+# get schedule from enigma database
+def getSchedule(day):
+    # get all row items in row matching day input by user
+    getSched = 'SELECT * FROM Schedule WHERE Day = ' + str(day)
+    c = enigmaDB.cursor()
+    c.execute(getSched)
+    schedResult = c.fetchone()
+    c.close()
+    # if schedResult is null, notify the user
+    if not schedResult:
+        print('No config found for Day ' + str(day))
+    else:
+        # return enigma configuration
+        return schedResult
 
 # close db connection
 enigmaDB.close()
@@ -37,7 +55,7 @@ enigmaDB.close()
 bombeDB = sqlite3.connect('Bombe.db')
 
 # insert message captured to database
-def insCapturedMsg():
+def insertCapturedMsg():
     pass
 
 # get CapturedMsg from bombe db
@@ -45,7 +63,7 @@ def getCapturedMsg():
     pass
 
 # if found, add correct configuration to the known config table in the bombe db
-def insKnownConfig():
+def insertKnownConfig():
     pass
 
 # delete wrong configuration from the bombe db
@@ -55,7 +73,5 @@ def wrongConfigFound():
 # close db connection
 bombeDB.close()
 
-# testing createEnigmaSchedule
-createEnigmaSchedule('G:\\gitrepos\\Enigma-Bombe\\enigma.xlsx')
-
+# Sources:
 # help with xlsx file support found at https://www.geeksforgeeks.org/python-reading-excel-file-using-openpyxl-module/#:~:text=Openpyxl%20is%20a%20Python%20library,changes%20based%20on%20some%20criteria.

@@ -127,81 +127,152 @@ class enigma:
 
         returnString = ""
 
-        ##print("Rotor I: " + self.rotor1)
-        ##print("Rotor II: " + self.rotor2)
-        ##print("Rotor III: " + self.rotor3)
-        ##print("Initial String: " + text)
 
-        ## Loop through each character of the text provided
-        for i in range(0, len(text)):
-            ## Step rotor 1 every iteration
-            self.rotor1 = self.stepRotorBack(self.rotor1)
+        if(steps):
 
-            ## Step rotor 2 if rotor 1 has been stepped 26 times
-            if(self.r1_count == 25):
-                self.rotor2 = self.stepRotorBack(self.rotor2)
-                r1_count = 0
-                self.r2_count += 1
-            ## Step rotor 3 if rotor 2 has been stepped 26 times
-            if(self.r2_count == 25):
-                r2_count = 0
-                self.rotor3 = self.stepRotorBack(self.rotor3)
+            print("Rotor I: " + self.rotor1)
+            print("Rotor II: " + self.rotor2)
+            print("Rotor III: " + self.rotor3)
+            print("Initial String: " + text)
+            ## Loop through each character of the text provided
+            for i in range(0, len(text)):
+                ## Step rotor 1 every iteration
+                self.rotor1 = self.stepRotorBack(self.rotor1)
 
-            self.r1_count += 1
+                ## Step rotor 2 if rotor 1 has been stepped 26 times
+                if(self.r1_count == 25):
+                    self.rotor2 = self.stepRotorBack(self.rotor2)
+                    r1_count = 0
+                    self.r2_count += 1
+                ## Step rotor 3 if rotor 2 has been stepped 26 times
+                if(self.r2_count == 25):
+                    r2_count = 0
+                    self.rotor3 = self.stepRotorBack(self.rotor3)
 
-            ## Find the index of the current char (CHAR % 65) should give index of an uppercase character
-            ## ord(char) returns unicode of character
+                self.r1_count += 1
 
-            ## Find character routing from index of text[i]
-            ## charOne is the output from rotor1
-            index = ord(text[i]) % 65
-            charOne = self.rotor1[index]
-            #print("Character " + text[i] + " maps to: " + charOne)
+                ## Find the index of the current char (CHAR % 65) should give index of an uppercase character
+                ## ord(char) returns unicode of character
+
+                ## Find character routing from index of text[i]
+                ## charOne is the output from rotor1
+                index = ord(text[i]) % 65
+                charOne = self.rotor1[index]
+                print("Character " + text[i] + " maps to: " + charOne)
 
 
-            ## Find the character routing from the index of self.rotor1[i]
-            ## So input to second rotor will be the output from the first rotor
-            index = ord(charOne) % 65
-            charTwo = self.rotor2[index]
-            #print("Character " + charOne + " maps to: " + charTwo)
+                ## Find the character routing from the index of self.rotor1[i]
+                ## So input to second rotor will be the output from the first rotor
+                index = ord(charOne) % 65
+                charTwo = self.rotor2[index]
+                print("Character " + charOne + " maps to: " + charTwo)
 
-            index = ord(charTwo) % 65
-            charThree = self.rotor3[index]
-            #print("Character " + charTwo + " maps to: " + charThree)
+                index = ord(charTwo) % 65
+                charThree = self.rotor3[index]
+                print("Character " + charTwo + " maps to: " + charThree)
 
-            ## Right before the reflector. So we've gone through R1, R2, R3
+                ## Right before the reflector. So we've gone through R1, R2, R3
 
-            ## Go back through rotor3
-            index = self.reflector.find(charThree)
-            charFour = chr(index + 65)
-            #print("Reflector maps " + charThree + " to: " + charFour)
+                ## Go back through rotor3
+                index = self.reflector.find(charThree)
+                charFour = chr(index + 65)
+                print("Reflector maps " + charThree + " to: " + charFour)
 
-            ## Go back through rotor2
-            index = self.rotor3.find(charFour)
-            charFive = chr(index + 65)
-            #print("Character " + charFour + " maps to: " + charFive)
+                ## Go back through rotor2
+                index = self.rotor3.find(charFour)
+                charFive = chr(index + 65)
+                print("Character " + charFour + " maps to: " + charFive)
 
-            ## Go back through rotor1
-            index = self.rotor2.find(charFive)
-            charSix = chr(index + 65)
-            #print("Character " + charFive + " maps to: " + charSix)
+                ## Go back through rotor1
+                index = self.rotor2.find(charFive)
+                charSix = chr(index + 65)
+                print("Character " + charFive + " maps to: " + charSix)
 
-            index = self.rotor1.find(charSix)
-            charSeven = chr(index + 65)
-            #print("Character " + charSix + " maps to: " + charSeven)
+                index = self.rotor1.find(charSix)
+                charSeven = chr(index + 65)
+                print("Character " + charSix + " maps to: " + charSeven)
+                
+                returnString += charSeven
             
-            returnString += charSeven
-        
-        #swaps the letters back - plugboard
-        #if no plugboard was entered - skip
-        if(self.inplug == ""):
-            pass
-        #swaps the letters according to the plugboard
+            #swaps the letters back - plugboard
+            #if no plugboard was entered - skip
+            if(self.inplug == ""):
+                pass
+            #swaps the letters according to the plugboard
+            else:
+                print("swapping letters back")
+                #swaps the letters in the text string with those chnage smade by the plugbaord
+                returnString = self.swapLetters(self.plug, returnString)
         else:
-            print("swapping letters back")
-            #swaps the letters in the text string with those chnage smade by the plugbaord
-            returnString = self.swapLetters(self.plug, returnString)
-    
+            ## Loop through each character of the text provided
+            for i in range(0, len(text)):
+                ## Step rotor 1 every iteration
+                self.rotor1 = self.stepRotorBack(self.rotor1)
+
+                ## Step rotor 2 if rotor 1 has been stepped 26 times
+                if(self.r1_count == 25):
+                    self.rotor2 = self.stepRotorBack(self.rotor2)
+                    r1_count = 0
+                    self.r2_count += 1
+                ## Step rotor 3 if rotor 2 has been stepped 26 times
+                if(self.r2_count == 25):
+                    r2_count = 0
+                    self.rotor3 = self.stepRotorBack(self.rotor3)
+
+                self.r1_count += 1
+
+                ## Find the index of the current char (CHAR % 65) should give index of an uppercase character
+                ## ord(char) returns unicode of character
+
+                ## Find character routing from index of text[i]
+                ## charOne is the output from rotor1
+                index = ord(text[i]) % 65
+                charOne = self.rotor1[index]
+                ##print("Character " + text[i] + " maps to: " + charOne)
+
+
+                ## Find the character routing from the index of self.rotor1[i]
+                ## So input to second rotor will be the output from the first rotor
+                index = ord(charOne) % 65
+                charTwo = self.rotor2[index]
+                ##print("Character " + charOne + " maps to: " + charTwo)
+
+                index = ord(charTwo) % 65
+                charThree = self.rotor3[index]
+                ##print("Character " + charTwo + " maps to: " + charThree)
+
+                ## Right before the reflector. So we've gone through R1, R2, R3
+
+                ## Go back through rotor3
+                index = self.reflector.find(charThree)
+                charFour = chr(index + 65)
+                ##print("Reflector maps " + charThree + " to: " + charFour)
+
+                ## Go back through rotor2
+                index = self.rotor3.find(charFour)
+                charFive = chr(index + 65)
+                ##print("Character " + charFour + " maps to: " + charFive)
+
+                ## Go back through rotor1
+                index = self.rotor2.find(charFive)
+                charSix = chr(index + 65)
+                ##print("Character " + charFive + " maps to: " + charSix)
+
+                index = self.rotor1.find(charSix)
+                charSeven = chr(index + 65)
+                ##print("Character " + charSix + " maps to: " + charSeven)
+                
+                returnString += charSeven
+            
+            #swaps the letters back - plugboard
+            #if no plugboard was entered - skip
+            if(self.inplug == ""):
+                pass
+            #swaps the letters according to the plugboard
+            else:
+                print("swapping letters back")
+                #swaps the letters in the text string with those chnage smade by the plugbaord
+                returnString = self.swapLetters(self.plug, returnString)
         return returnString
 
 

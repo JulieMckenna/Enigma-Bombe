@@ -136,7 +136,7 @@ class enigma:
         returnString = ""
 
 
-        if(steps):
+        if(self.steps):
 
             print("Rotor I: " + self.rotor1)
             print("Rotor II: " + self.rotor2)
@@ -208,9 +208,9 @@ class enigma:
                 pass
             #swaps the letters according to the plugboard
             else:
-                #print("swapping letters back")
+                print("Swapping letters back")
                 #swaps the letters in the text string with those chnage smade by the plugbaord
-                returnString = self.swapLetters(self.plug, returnString)
+                returnString = self.swapLetters(self.plug, returnString, self.steps)
         else:
             ## Loop through each character of the text provided
             for i in range(0, len(text)):
@@ -278,9 +278,8 @@ class enigma:
                 pass
             #swaps the letters according to the plugboard
             else:
-                print("Swapping letters back")
-            #swaps the letters in the text string with those chnage smade by the plugbaord
-            returnString = self.swapLetters(self.plug, returnString, self.steps)
+                #swaps the letters in the text string with those chnage smade by the plugbaord
+                returnString = self.swapLetters(self.plug, returnString, self.steps)
 
         return returnString
 

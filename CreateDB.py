@@ -19,15 +19,11 @@ possibleConfig = '''
 CREATE TABLE PossibleConfig
 (
     Day                 INT         PRIMARY KEY NOT NULL,
-    PlugIn              CHAR(10)    NOT NULL,
-    PlugOut             CHAR(10)    NOT NULL,
     ActiveR1            INT         NOT NULL,
     Offset1             INT         NOT NULL,
     ActiveR2            INT         NOT NULL,
     Offset2             INT         NOT NULL,
-    ActiveR3            INT         NOT NULL,
-    Offset3             INT         NOT NULL,
-    Reflector           CHAR(1)     NOT NULL
+    Reflector           TEXT        NOT NULL
 );
 '''
 # create PossibleConfig table
@@ -40,15 +36,11 @@ knownConfig = '''
 CREATE TABLE KnownConfig
 (
     Day                 INT         PRIMARY KEY NOT NULL,
-    PlugIn              CHAR(10)    NOT NULL,
-    PlugOut             CHAR(10)    NOT NULL,
     ActiveR1            INT         NOT NULL,
     Offset1             INT         NOT NULL,
     ActiveR2            INT         NOT NULL,
     Offset2             INT         NOT NULL,
-    ActiveR3            INT         NOT NULL,
-    Offset3             INT         NOT NULL,
-    Reflector           CHAR(1)     NOT NULL
+    Reflector           TEXT        NOT NULL
 );
 '''
 # create KnownConfig table
@@ -98,7 +90,7 @@ CREATE TABLE Schedule
     Offset2             INT         NOT NULL,
     ActiveR3            INT         NOT NULL,
     Offset3             INT         NOT NULL,
-    Reflector           CHAR(1)     NOT NULL
+    Reflector           TEXT        NOT NULL
 );
 '''
 # create Schedule table

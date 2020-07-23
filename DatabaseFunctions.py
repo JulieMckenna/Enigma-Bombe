@@ -33,6 +33,8 @@ def createEnigmaSchedule(filePath):
         e.close()
         enigmaDB.commit()
 
+# createEnigmaSchedule('G:\\gitrepos\\Enigma-Bombe\\enigma.xlsx')
+
 # get schedule from enigma database when function is provided with a day
 def getConfiguration(day):
     # get all row items in row matching day input by user
@@ -45,8 +47,12 @@ def getConfiguration(day):
     if not schedResult:
         print('No config found for Day ' + str(day))
     else:
+        # save plugboard setting 
+        plugString = schedResult[1][0] + schedResult[2][0] + ',' + schedResult[1][1] + schedResult[2][1] + ',' + schedResult[1][2] + schedResult[2][2] + ',' + schedResult[1][3] + schedResult[2][3] + ',' + schedResult[1][4] + schedResult[2][4] + ',' + schedResult[1][5] + schedResult[2][5] + ',' + schedResult[1][6] + schedResult[2][6] + ',' + schedResult[1][7] + schedResult[2][7] + ',' + schedResult[1][8] + schedResult[2][8] + ',' + schedResult[1][9] + schedResult[2][9]
+        # save list of settings in a usable format for the rest of enigma
+        configuration = (schedResult[0], plugString, schedResult[3], schedResult[4], schedResult[5], schedResult[6], schedResult[7], schedResult[8], schedResult[9])
         # return enigma configuration
-        return schedResult
+        return configuration
 
 # close db connection
 enigmaDB.close()

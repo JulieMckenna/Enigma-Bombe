@@ -105,13 +105,16 @@ def getKnownConfig(day):
 
 # delete wrong configuration from the bombe db
 def deleteWrongConfig(day, plugIn, plugOut, activeR1, offset1, activeR2, offset2, activeR3, offset3, reflector):
+    # find configuration in PossibleConfig
     findConfig = 'SELECT * FROM PossibleConfig WHERE Day = ' + str(day) + ' AND PlugIn = \'' + plugIn + '\' AND PlugOut = \'' + plugOut + '\' AND ActiveR1 = ' + str(activeR1) + ' AND Offset1 = ' + str(offset1) + ' AND ActiveR2 = ' + str(activeR2) + ' AND Offset2 = ' + str(offset2) + ' AND ActiveR3 = ' + str(activeR3) + ' AND Offset3 = ' + str(offset3) + ' AND Reflector = \'' + str(reflector) + '\''
     b = bombeDB.cursor()
     b.execute(findConfig)
     foundConfig = b.fetchone()
     b.close()
+    # if query result is null, check inputs/connection
     if foundConfig == None:
         print('\nNo result found for this configuration, please check the database connection and/or values being input.\n')
+    # if query result is found, delete the row from the database
     else:
         deleteConfig = 'DELETE FROM PossibleConfig WHERE Day = ' + str(day) + ' AND PlugIn = \'' + plugIn + '\' AND PlugOut = \'' + plugOut + '\' AND ActiveR1 = ' + str(activeR1) + ' AND Offset1 = ' + str(offset1) + ' AND ActiveR2 = ' + str(activeR2) + ' AND Offset2 = ' + str(offset2) + ' AND ActiveR3 = ' + str(activeR3) + ' AND Offset3 = ' + str(offset3) + ' AND Reflector = \'' + reflector + '\''
         b = bombeDB.cursor()

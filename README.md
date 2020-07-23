@@ -22,7 +22,7 @@ Database usage:
 - We will also use a database for the Bombe, and will help keep track "cracked" Enigma settings.
 # ADD HERE
 
-Enigma:
+# Enigma:
 Required Parts - a plugboard(allows up to 10 letters to be swapped), 3 rotors(offset the alphabet), a reflector(the final step)
 User input: Date of message(can be used to auto fill the variables from a database), 10 letter swaps, the 3 rotors(I - V), the reflector (A or B), and the message.
 - There is an option that the user can check to show steps of the encryption
@@ -43,7 +43,7 @@ Fields in the database:
 - The 3 rotors
 - The reflector
 
-Bombe:
+# Bombe:
 - This is a very complicated machine. We had to simplify it down or else it would have taken too long to do
 - To start all the encrypted messages need to have helloworld at the end of then ("messagehelloworld" -> then encrypt that)
   - This is needed for when the machine is checking the crib - if the last 10 letters of the decrptyed message = helloworld 

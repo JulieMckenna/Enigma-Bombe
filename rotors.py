@@ -6,6 +6,9 @@ class enigma:
     rotor3 = ""
     reflector = ""
     steps = False
+    r1_count = 0
+    r2_count = 0
+
 
     def __init__(self, inplug, plug, rotor1, rotor2, rotor3, reflector, offset1, offset2, offset3, steps):
         self.plug = plug
@@ -38,7 +41,7 @@ class enigma:
         return plug  
 
     #if uses enters all of the plugbaord values in one line, seperated by comma
-    def getvalues(self,inplug, pulg):
+    def getvalues(self,inplug, plug):
         valuearaay = inplug.split(',')
         plug = []
         print(valuearaay)
@@ -121,8 +124,6 @@ class enigma:
         print(text)
         
         ## Count for how many times each rotor is stepped. Don't care how many times rotor3 is stepped
-        r1_count = 0
-        r2_count = 0
 
         returnString = ""
 
@@ -137,16 +138,16 @@ class enigma:
             self.rotor1 = self.stepRotorBack(self.rotor1)
 
             ## Step rotor 2 if rotor 1 has been stepped 26 times
-            if(r1_count == 25):
+            if(self.r1_count == 25):
                 self.rotor2 = self.stepRotorBack(self.rotor2)
                 r1_count = 0
-                r2_count += 1
+                self.r2_count += 1
             ## Step rotor 3 if rotor 2 has been stepped 26 times
-            if(r2_count == 25):
+            if(self.r2_count == 25):
                 r2_count = 0
                 self.rotor3 = self.stepRotorBack(self.rotor3)
 
-            r1_count += 1
+            self.r1_count += 1
 
             ## Find the index of the current char (CHAR % 65) should give index of an uppercase character
             ## ord(char) returns unicode of character
@@ -207,6 +208,8 @@ class enigma:
 ROTOR_I =   "EKMFLGDQVZNTOWYHXUSPAIBRCJ"
 ROTOR_II =  "AJDKSIRUXBLHWTMCQGZNPYFVOE"
 ROTOR_III = "BDFHJLCPRTXVZNYEIWGAKMUSQO"
+
+
 ## A comes out of R3 then goes to the reflector
 REFLECTOR_B = "YRUHQSLDPXNGOKMIEBFZCWVJAT"
 REFLECTOR_A = "EDCHIJKLMNOPQRSTUVWZYZABGF"
@@ -241,13 +244,31 @@ def main():
     print("Encrypted Message: " + outputText)
 
 
-    engimaMachineINPUT = enigma("",[], ROTOR_I, ROTOR_II, ROTOR_III, REFLECTOR_B, 5, 0, 0, True)
-    engimaMachineOUTPUT = enigma("",[], ROTOR_I, ROTOR_II, ROTOR_III, REFLECTOR_B, 5, 0, 0, True)
+## Need to have a function to line up HELLOWORLD to encrypted message. 
+## None of the characters can line up to themselves. That new substring is the string we will use to test
 
-    inputText = (input("Enter message: ")).upper()
-    outputText = engimaMachineINPUT.encrypt(inputText)
-    originalMessage = engimaMachineOUTPUT.encrypt(outputText)
+def findCrib(encryptedMessage, testMessage):
+    ## testMessage must be shorter than encrypted message
+    if (len(testMessage) > len(encryptedMessage)):
+        return
+    else:
+        for i in range(len(testMessage) - 1, len(encryptedMessage)):
+            print(i)
+            for j in range(0, len(testMessage)):
+                if (encryptedMessage[i] == testMessage[j]):
+                    print(testMessage[j] + " lines up with " + encryptedMessage[i] + " at starting point of " + str(i))
+                    
 
-    print("Original Message: " + originalMessage)
-    print("Encrypted Message: " + outputText)
-#main()
+def findCrib(encryptedMessage, testMessage):
+    ## testMessage must be shorter than encrypted message
+    if (len(testMessage) > len(encryptedMessage)):
+        return
+    else:
+        for i in range(0, len(encryptedMessage)):
+            print(i)
+            for j in range(0, len(testMessage)):
+                if (encryptedMessage[i] != testMessage[j]):
+                    continue
+                else:
+                    print("Crib cannot start at " + str(i-j))
+

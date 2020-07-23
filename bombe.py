@@ -128,3 +128,10 @@ DBWHTEIQJJPVVAF
 fgpxcfgzmuiklyz
 """
 
+
+
+## Current Bombe goal:
+    ## 2 rotor machine, solve for offset of each
+    ## 1 Rotor is known, solve for the other rotor
+        ## Rotor options could be however many you want
+    ## Want to get everythign in Bombe working and scale up as much as possible

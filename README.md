@@ -4,8 +4,9 @@ Creating an Enigma Machine and Bombe Machine
 Will be using Python and creating a user interface for people to encrypt and decrypt messages as they would like.
 
 To use this: 
-- Download the code(rotors.py, Main,py, Enigma2.py(simplier Enigma for Bombe), bombe,py).
+- Download the code(enigma.py, Main,py, Enigma2.py(simplier Enigma for Bombe), bombe,py).
 - Need to also download the databases to update and save settings.
+#  - !!ADD HERE!!
 - Use Main.py to run the Engima through a GUI - settings are set by the user through the GUI
 - Use rotors.py to run an Enigma machine - settings are set in the main loop at the bottom
 - Use bombe.py to run a Bombe machine - This ended up using a less complicated enigma machine
@@ -19,8 +20,9 @@ To use this:
 Database usage:
 - We will use databases to keep track of daily settings for the Enigma. 
 - We will also use a database for the Bombe, and will help keep track "cracked" Enigma settings.
+# ADD HERE
 
-Enigma:
+# Enigma:
 Required Parts - a plugboard(allows up to 10 letters to be swapped), 3 rotors(offset the alphabet), a reflector(the final step)
 User input: Date of message(can be used to auto fill the variables from a database), 10 letter swaps, the 3 rotors(I - V), the reflector (A or B), and the message.
 - There is an option that the user can check to show steps of the encryption
@@ -38,10 +40,10 @@ Enigma Database:
 - The user can input the day in the user input - and the program can autofill the settings for that day. 
 Fields in the database: 
 - There are fields for the 10 plugboard switches
-- The 3 rotord
+- The 3 rotors
 - The reflector
 
-Bombe:
+# Bombe:
 - This is a very complicated machine. We had to simplify it down or else it would have taken too long to do
 - To start all the encrypted messages need to have helloworld at the end of then ("messagehelloworld" -> then encrypt that)
   - This is needed for when the machine is checking the crib - if the last 10 letters of the decrptyed message = helloworld 

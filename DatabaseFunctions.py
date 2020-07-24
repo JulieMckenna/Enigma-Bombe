@@ -4,18 +4,6 @@
 import sqlite3, openpyxl
 
 class CreateDatabases:
-
-    # initialize class
-    def __init__(self):
-        # create enigma db connection
-        self.enigma = sqlite3.connect('EnigmaDB.db')
-        print('enigma database connection established')
-        # create bombe db connection
-        self.bombe = sqlite3.connect('BombeDB.db')
-        print('bombe database connection established')
-        # create empty databases
-        self.createEnigmaDB()
-        self.createBombeDB()
         
     # create the enigma database, this can also be used to reset the database
     def createEnigmaDB(self):
@@ -45,7 +33,7 @@ class CreateDatabases:
         s.execute(sched)
         s.close()
 
-        print('Created Enigma Database')
+        print('created enigma database')
 
     # create the bombe database, this can also be used to reset the database
     def createBombeDB(self):
@@ -100,18 +88,30 @@ class CreateDatabases:
             DecryptedMsg    TEXT,
             Day             INT     NOT NULL
         );
-        '''
+        '''        
         # create CapturedMsg table
         capMsg = self.bombe.cursor()
         capMsg.execute(capturedMsg)
         capMsg.close()
 
-        print('Created Bombe Database')
+        print('created bombe database')
+
+    # initialize class
+    def __init__(self):
+        # create enigma db connection
+        self.enigma = sqlite3.connect('EnigmaDB.db')
+        print('enigma database connection established')
+        # create bombe db connection
+        self.bombe = sqlite3.connect('BombeDB.db')
+        print('bombe database connection established\n')
+        # create empty databases
+        self.createEnigmaDB()
+        self.createBombeDB()
 
     # close db connections
     def __del__(self):
         self.enigma.close()
-        print('enigma database connection closed')
+        print('\nenigma database connection closed')
         self.bombe.close()
         print('bombe database connection closed')
 
@@ -124,7 +124,7 @@ class EnigmaDatabase:
         self.connection = sqlite3.connect('EnigmaDB.db')
         print('enigma database connection established')
 
-    # add enigma schedule to db
+    # add enigma schedule to db with data provided by an excel file
     # file path of test file (Chandler) --- 'G:\\gitrepos\\Enigma-Bombe\\enigma.xlsx'
     def createEnigmaSchedule(self, filePath):
         # open xlsx file and get the number of rows, each row indicates an enigma configuration for a particular day
@@ -235,9 +235,9 @@ class BombeDatabase:
                 pass
 
     # if found, add correct configuration to the possible config table in the bombe db when provided with the correct information
-    def insertPossibleConfig(self, day, plugIn, plugOut, activeR1, offset1, activeR2, offset2, activeR3, offset3, reflector):
+    def insertPossibleConfig(self, day, activeR1, offset1, activeR2, offset2, reflector):
         try:
-            insertConfig = 'INSERT INTO PossibleConfig VALUES (' + str(day) + ', \'' + plugIn + '\', \'' + plugOut + '\', ' + str(activeR1) + ', ' + str(offset1) + ', ' + str(activeR2) + ', ' + str(offset2) + ', ' + str(activeR3) + ', ' + str(offset3) + ', \'' + reflector + '\');'
+            insertConfig = 'INSERT INTO PossibleConfig VALUES (' + str(day) + ', ' + str(activeR1) + ', ' + str(offset1) + ', ' + str(activeR2) + ', ' + str(offset2) + ', \'' + reflector + '\');'
             b = self.connection.cursor()
             b.execute(insertConfig)
             b.close()
@@ -249,9 +249,9 @@ class BombeDatabase:
             print('\nError when trying to insert values, this configuration already exists in the database.\n')
 
     # if found, add correct configuration to the known config table in the bombe db when provided with the correct information
-    def insertKnownConfig(self, day, plugIn, plugOut, activeR1, offset1, activeR2, offset2, activeR3, offset3, reflector):
+    def insertKnownConfig(self, day, activeR1, offset1, activeR2, offset2, reflector):
         try:
-            insertConfig = 'INSERT INTO KnownConfig VALUES (' + str(day) + ', \'' + plugIn + '\', \'' + plugOut + '\', ' + str(activeR1) + ', ' + str(offset1) + ', ' + str(activeR2) + ', ' + str(offset2) + ', ' + str(activeR3) + ', ' + str(offset3) + ', \'' + reflector + '\');'
+            insertConfig = 'INSERT INTO KnownConfig VALUES (' + str(day) + ', ' + str(activeR1) + ', ' + str(offset1) + ', ' + str(activeR2) + ', ' + str(offset2) + ', \'' + reflector + '\');'
             b = self.connection.cursor()
             b.execute(insertConfig)
             b.close()
@@ -278,9 +278,9 @@ class BombeDatabase:
             return knownConfig
 
     # delete wrong configuration from the bombe db
-    def deleteWrongConfig(self, day, plugIn, plugOut, activeR1, offset1, activeR2, offset2, activeR3, offset3, reflector):
+    def deleteWrongConfig(self, day, activeR1, offset1, activeR2, offset2, reflector):
         # find configuration in PossibleConfig
-        findConfig = 'SELECT * FROM PossibleConfig WHERE Day = ' + str(day) + ' AND PlugIn = \'' + plugIn + '\' AND PlugOut = \'' + plugOut + '\' AND ActiveR1 = ' + str(activeR1) + ' AND Offset1 = ' + str(offset1) + ' AND ActiveR2 = ' + str(activeR2) + ' AND Offset2 = ' + str(offset2) + ' AND ActiveR3 = ' + str(activeR3) + ' AND Offset3 = ' + str(offset3) + ' AND Reflector = \'' + str(reflector) + '\''
+        findConfig = 'SELECT * FROM PossibleConfig WHERE Day = ' + str(day) + ' AND ActiveR1 = ' + str(activeR1) + ' AND Offset1 = ' + str(offset1) + ' AND ActiveR2 = ' + str(activeR2) + ' AND Offset2 = ' + str(offset2) + ' AND Reflector = \'' + str(reflector) + '\''
         b = self.connection.cursor()
         b.execute(findConfig)
         foundConfig = b.fetchone()
@@ -290,7 +290,7 @@ class BombeDatabase:
             print('\nNo result found for this configuration, please check the database connection and/or values being input.\n')
         # if query result is found, delete the row from the database
         else:
-            deleteConfig = 'DELETE FROM PossibleConfig WHERE Day = ' + str(day) + ' AND PlugIn = \'' + plugIn + '\' AND PlugOut = \'' + plugOut + '\' AND ActiveR1 = ' + str(activeR1) + ' AND Offset1 = ' + str(offset1) + ' AND ActiveR2 = ' + str(activeR2) + ' AND Offset2 = ' + str(offset2) + ' AND ActiveR3 = ' + str(activeR3) + ' AND Offset3 = ' + str(offset3) + ' AND Reflector = \'' + reflector + '\''
+            deleteConfig = 'DELETE FROM PossibleConfig WHERE Day = ' + str(day) + ' AND ActiveR1 = ' + str(activeR1) + ' AND Offset1 = ' + str(offset1) + ' AND ActiveR2 = ' + str(activeR2) + ' AND Offset2 = ' + str(offset2) + ' AND Reflector = \'' + reflector + '\''
             b = self.connection.cursor()
             b.execute(deleteConfig)
             b.close()

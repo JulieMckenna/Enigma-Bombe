@@ -1,3 +1,3 @@
-# run this to create or refresh the enigma and bombe databases
+# run this to create/refresh the enigma and bombe databases
 import DatabaseFunctions
 db = DatabaseFunctions.CreateDatabases()

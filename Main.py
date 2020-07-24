@@ -1,10 +1,19 @@
 from tkinter import *
 from enigma import *
+from PIL import Image, ImageTk
 import time
 
 root = Tk()
 root.title("Enigma")
 # root.geometry("400X400")
+image = Image.open("enigma.gif")
+photo = ImageTk.PhotoImage(image)
+
+Limage = Label(image=photo)
+Limage.image = photo
+Limage.grid(row=0,column=0,columnspan =6,sticky=W+N)
+
+
 # rotor position sliders and displaying on screen
 off1 = pRotor1 = Scale(root, from_=1, to=26)
 pRotor1.grid(row=0, column=6)

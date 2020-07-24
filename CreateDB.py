@@ -8,7 +8,7 @@ import sqlite3
 bombeDB = sqlite3.connect('BombeDB.db')
 
 # drop tables if they exist before creating them
-tables = ['PossibleConfig', 'KnownConfig', 'WrongConfig', 'CapturedMsg']
+tables = ['PossibleConfig', 'KnownConfig', 'CapturedMsg']
 for t in tables:
     tbl = bombeDB.cursor()
     tbl.execute('DROP TABLE IF EXISTS ' + t)

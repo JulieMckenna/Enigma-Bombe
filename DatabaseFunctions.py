@@ -104,9 +104,6 @@ class CreateDatabases:
         # create bombe db connection
         self.bombe = sqlite3.connect('BombeDB.db')
         print('bombe database connection established\n')
-        # create empty databases
-        self.createEnigmaDB()
-        self.createBombeDB()
 
     # close db connections
     def __del__(self):

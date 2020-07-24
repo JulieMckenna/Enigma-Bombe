@@ -6,6 +6,7 @@ import time
 root = Tk()
 root.title("Enigma")
 # root.geometry("400X400")
+#adding image to window
 image = Image.open("enigma.gif")
 photo = ImageTk.PhotoImage(image)
 
@@ -278,5 +279,28 @@ def charClick(abc):     #still need to make
         ctext.delete(0, END)
         ctext.insert(0, str(current) + str(letter))
         # print(letter)
+# Section for Bombe
+bombebutton = Button(root,text="Go to Bombe Window",command = lambda: bombewindow())
+bombebutton.grid(row=0,column=15,columnspan = 4)
+def bombewindow():
+    secondwindow = Toplevel()#creating second window
+    cLabel = Label(secondwindow,text="Enter the encrypted message into Bombe")
+    cLabel.grid(row=0,column=0)
+    cMessage = Entry(secondwindow, width=50, borderwidth=3)
+    cMessage.grid(row=1,column=0)
+    decryptb = Button(secondwindow,text = "Run decryption",)#need to add decryptget()
+    decryptb.grid(row=1,column=1)
+    space1 = Label(secondwindow, text="                   ")
+    space1.grid(row=2, column=0)
+    combination = Label(secondwindow, text="The combination of rotors found")
+    combination.grid(row=3, column=0)
+    ncombination = Entry(secondwindow, width=10, borderwidth=3)
+    ncombination.grid(row=4, column=0)
+    space2 = Label(secondwindow, text="                   ")
+    space2.grid(row=5, column=0)
+    nLabel = Label(secondwindow, text="Decrypted message")
+    nLabel.grid(row=6, column=0)
+    decryptm = Entry(secondwindow, width=50, borderwidth=3)
+    decryptm.grid(row=7, column=0)
 
-root.mainloop()
+mainloop()

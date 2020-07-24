@@ -1,4 +1,4 @@
-# functions for the enigma/bombe machines to interface with their respective databases
+# classes of functions to create the enigma/bombe databases and interface with them
 # author: Chandler Berry
 
 import sqlite3, openpyxl
@@ -13,7 +13,10 @@ class CreateDatabases:
         # create bombe db connection
         self.bombe = sqlite3.connect('BombeDB.db')
         print('bombe database connection established')
-
+        # create empty databases
+        self.createEnigmaDB()
+        self.createBombeDB()
+        
     # create the enigma database, this can also be used to reset the database
     def createEnigmaDB(self):
         # drop table if it exists before creating it again
@@ -42,8 +45,6 @@ class CreateDatabases:
         s.execute(sched)
         s.close()
 
-        # close the db connection
-        self.enigma.close()
         print('Created Enigma Database')
 
     # create the bombe database, this can also be used to reset the database
@@ -105,8 +106,6 @@ class CreateDatabases:
         capMsg.execute(capturedMsg)
         capMsg.close()
 
-        #close the db connection
-        self.bombe.close()
         print('Created Bombe Database')
 
     # close db connections
@@ -187,14 +186,17 @@ class BombeDatabase:
     def insertCapturedMsg(self, msg, day):
         try:
             # logic to create new message ID
+            # get the largest value message ID that is stored in the database, if there are no messages stored, this query will return null
             getMsgID = 'SELECT MAX(MessageID) FROM CapturedMsg'
             b = self.connection.cursor()
             b.execute(getMsgID)
             msgID = b.fetchone()
             b.close()
             newID = None
+            # if there are no messages stored in the database, then the message ID will be 1
             if msgID[0] == None:
                 newID = 1
+            # if there are messages stored in the database, then take the largest value message ID and add 1
             else:
                 newID = msgID[0] + 1
             # insert new captured message into the database

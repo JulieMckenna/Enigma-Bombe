@@ -7,40 +7,6 @@ root = Tk()
 root.title("Enigma")
 #adding image to window
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 # rotor position sliders and displaying on screen
 off1 = pRotor1 = Scale(root, from_=1, to=26)
 pRotor1.grid(row=0, column=6)
@@ -59,28 +25,6 @@ def1.set('3')
 def2.set('2')
 def3.set('1')
 rotorFlag = 0
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 def rotorTest(*args):
     args=args[0].strip("PY_VAR")
     args = int(args)

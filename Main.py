@@ -5,7 +5,8 @@ import DatabaseFunctions
 import time
 root = Tk()
 root.title("Enigma")
-#adding image to windowframe = 0
+#adding image to window
+frame = 0
 def gif():
     while True:
         try:

@@ -158,13 +158,14 @@ class EnigmaDatabase:
         # if schedResult is null, notify the user
         if not schedResult:
             print('No config found for Day ' + str(day))
+            configuration = None
         else:
             # save plugboard setting 
             plugString = schedResult[1][0] + schedResult[2][0] + ',' + schedResult[1][1] + schedResult[2][1] + ',' + schedResult[1][2] + schedResult[2][2] + ',' + schedResult[1][3] + schedResult[2][3] + ',' + schedResult[1][4] + schedResult[2][4] + ',' + schedResult[1][5] + schedResult[2][5] + ',' + schedResult[1][6] + schedResult[2][6] + ',' + schedResult[1][7] + schedResult[2][7] + ',' + schedResult[1][8] + schedResult[2][8] + ',' + schedResult[1][9] + schedResult[2][9]
             # save list of settings in a usable format for the rest of enigma
             configuration = (schedResult[0], plugString, schedResult[3], schedResult[4], schedResult[5], schedResult[6], schedResult[7], schedResult[8], schedResult[9])
             # return enigma configuration
-            return configuration
+        return configuration
 
     # close db connection
     def __del__(self):
@@ -174,7 +175,7 @@ class EnigmaDatabase:
 class BombeDatabase:
 
     # initialize class
-    def __init__(self):
+    def __init__(self): 
         # create bombe db connection
         self.connection = sqlite3.connect('BombeDB.db')
         print('bombe database connection established')
@@ -219,17 +220,14 @@ class BombeDatabase:
         # if message is not found, print that to the user
         if msgData == None:
             returnMsg = 'No message in database with that ID.'
-            return returnMsg
         else:
             # if message is not decrypted, just print the encrypted message
             if msgData[2] == 0:
                 returnMsg = '\nMessage is not decrypted:\nEncrypted message: [' + msgData[1] + ']\n'
-                return returnMsg
             # if message is decrypted, print both the encryped message and the decrypted message
             elif msgData[2] == 1:
                 returnMsg = '\nMessage is decrypted:\nEncrypted message: [' + msgData[1] + ']\nDecrypted message: [' + msgData[4] + ']\n'
-            else:
-                pass
+        return returnMsg
 
     # if found, add correct configuration to the possible config table in the bombe db when provided with the correct information
     def insertPossibleConfig(self, day, activeR1, offset1, activeR2, offset2, reflector):
@@ -270,6 +268,7 @@ class BombeDatabase:
         # if knownConfig is null, notify the user
         if not knownConfig:
             print('No config found for Day ' + str(day))
+            return None
         else:
             # return known enigma configuration
             return knownConfig

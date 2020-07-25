@@ -3,8 +3,15 @@ from enigma import *
 from PIL import Image, ImageTk
 import DatabaseFunctions
 import time
+edb = DatabaseFunctions.EnigmaDatabase()
+
 root = Tk()
-root.title("Enigma")
+def closeEvent(edb):
+    print("DB is gon gon")
+    del edb
+root.protocol("WM_DELETE_WINDOW",closeEvent(edb))
+root.title("Enigma/Bombe")
+
 #adding image to window
 frame = 0
 def gif():
@@ -320,7 +327,6 @@ def bombewindow():
     decryptm = Entry(secondwindow, width=50, borderwidth=3)
     decryptm.grid(row=7, column=0)
 
-edb = DatabaseFunctions.EnigmaDatabase()
 
 #Day selection from database
 options = [1,2,3,4,5,6,7,8,9,10]
@@ -330,8 +336,8 @@ var.set("Choose a Day")
 day = OptionMenu(root,var,*options)
 day.grid(row=0,column=11,columnspan=3,sticky=N)
 
-daye = Entry(root,width=30,borderwidth=3)
-daye.grid(row=0,column= 14,columnspan=6 )
+daye = Entry(root,width=50,borderwidth=3)
+daye.grid(row=0,column= 14,columnspan=21 )
 
 chooseday = Button(root,text="Confirm Day",command = lambda:insertday())
 chooseday.grid(row=0,column=11,columnspan=3)
@@ -343,5 +349,7 @@ def insertday():
     sdayfinal = str(dayfinal)
     daye.delete(0, END)
     daye.insert(0, str(en) + sdayfinal)
+
+
 
 mainloop()

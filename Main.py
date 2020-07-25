@@ -5,7 +5,6 @@ import DatabaseFunctions
 import time
 root = Tk()
 root.title("Enigma")
-# root.geometry("400X400")
 #adding image to window
 
 

@@ -8,7 +8,7 @@ del db
 i = input('insert default enigma schedule? (y/n): ')
 if i.upper() == 'Y':
     e_db = DatabaseFunctions.EnigmaDatabase()
-    e_db.createEnigmaSchedule('G:\\gitrepos\\Enigma-Bombe\\enigma.xlsx')
+    e_db.createEnigmaSchedule('enigma.xlsx')
     del e_db
 elif i.upper() == 'N':
     exit()

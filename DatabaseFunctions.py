@@ -135,7 +135,6 @@ class EnigmaDatabase:
                 for j in range(1, activeSched.max_column + 1):
                     getCell = activeSched.cell(row = i, column = j)
                     getConfig.append(getCell.value)
-                # checking the values in getConfig
                 # query insert configuration into the db
                 insertConfig = ('INSERT INTO Schedule VALUES (' + str(getConfig[0]) + ', \'' + getConfig[1] + '\', \'' + getConfig[2] + '\', ' + str(getConfig[3]) + ', ' + str(getConfig[4]) + ', ' + str(getConfig[5]) + ', ' + str(getConfig[6]) + ', ' + str(getConfig[7]) + ', ' + str(getConfig[8]) + ', \'' + getConfig[9] + '\');')
                 # run query

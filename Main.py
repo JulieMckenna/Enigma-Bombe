@@ -7,6 +7,33 @@ root = Tk()
 root.title("Enigma")
 #adding image to window
 
+frame = 0
+def gif():
+    while True:
+        try:
+            global photo
+            global frame
+            global label
+            photo = PhotoImage(file = "enigma.gif", format = "gif - {}".format(frame))
+            label.configure(image = photo)
+            frame = frame + 1
+            break
+        except Exception:
+            frame = 1
+            break
+def setBlank():
+    global label
+    global frame
+    while frame <22:
+        time.sleep(.2)
+        root.after(500, lambda: gif())
+        label.update()
+photo = PhotoImage(file = "enigma.gif",)
+label = Label(image = photo)
+label.grid(row = 0, column = 0, columnspan = 6, sticky= W+N)
+animate = Button(root, text = "animate", command = setBlank)
+animate.grid(row= 20, column = 0)
+
 # rotor position sliders and displaying on screen
 off1 = pRotor1 = Scale(root, from_=1, to=26)
 pRotor1.grid(row=0, column=6)

@@ -1,18 +1,45 @@
 from tkinter import *
 from enigma import *
 from PIL import Image, ImageTk
+import DatabaseFunctions
 import time
-
 root = Tk()
 root.title("Enigma")
 # root.geometry("400X400")
 #adding image to window
-image = Image.open("enigma.gif")
-photo = ImageTk.PhotoImage(image)
 
-Limage = Label(image=photo)
-Limage.image = photo
-Limage.grid(row=0,column=0,columnspan =6,sticky=W+N)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 # rotor position sliders and displaying on screen
@@ -33,6 +60,28 @@ def1.set('3')
 def2.set('2')
 def3.set('1')
 rotorFlag = 0
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 def rotorTest(*args):
     args=args[0].strip("PY_VAR")
     args = int(args)
@@ -281,7 +330,7 @@ def charClick(abc):     #still need to make
         # print(letter)
 # Section for Bombe
 bombebutton = Button(root,text="Go to Bombe Window",command = lambda: bombewindow())
-bombebutton.grid(row=0,column=15,columnspan = 4)
+bombebutton.grid(row=14,column=0,columnspan = 4)
 def bombewindow():
     secondwindow = Toplevel()#creating second window
     cLabel = Label(secondwindow,text="Enter the encrypted message into Bombe")
@@ -302,5 +351,29 @@ def bombewindow():
     nLabel.grid(row=6, column=0)
     decryptm = Entry(secondwindow, width=50, borderwidth=3)
     decryptm.grid(row=7, column=0)
+
+edb = DatabaseFunctions.EnigmaDatabase()
+
+#Day selection from database
+options = [1,2,3,4,5,6,7,8,9,10]
+var = StringVar()
+var.set("Choose a Day")
+
+day = OptionMenu(root,var,*options)
+day.grid(row=0,column=11,columnspan=3,sticky=N)
+
+daye = Entry(root,width=30,borderwidth=3)
+daye.grid(row=0,column= 14,columnspan=6 )
+
+chooseday = Button(root,text="Confirm Day",command = lambda:insertday())
+chooseday.grid(row=0,column=11,columnspan=3)
+def insertday():
+    en = daye.get()
+    selection = var.get()
+    iselection = int(selection)
+    dayfinal= edb.getConfiguration(iselection)
+    sdayfinal = str(dayfinal)
+    daye.delete(0, END)
+    daye.insert(0, str(en) + sdayfinal)
 
 mainloop()

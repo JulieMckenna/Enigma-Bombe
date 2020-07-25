@@ -20,8 +20,8 @@ REFLECTOR_A = "EDCHIJKLMNOPQRSTUVWZYZABGF"
 def main():
     reflector = REFLECTOR_B
     #find possible encryptions first - to then solve with decrption 
-    engimaMachineINPUT = enigma("",[], ROTOR_I, ROTOR_II, reflector, 10, 0, True)
-    engimaMachineOUTPUT = enigma("",[], ROTOR_I, ROTOR_II, reflector, 10, 0, True)
+    engimaMachineINPUT = enigma("",[], ROTOR_I, ROTOR_II, reflector, 10, 10, True)
+    engimaMachineOUTPUT = enigma("",[], ROTOR_I, ROTOR_II, reflector, 10, 10, True)
 
     inputText = (input("Enter message: ")).upper()
     #adds this to end of the message - to use to solve fo rthe crib
@@ -35,13 +35,14 @@ def main():
 
     #to decrypt throwing weird error not sure why!!!
 
-    inputText = input("Enter the message you would like to decrypt:\t").upper()
+    inputText = input("Enter the message you would like to decrypt: ").upper()
     crib="HELLOWORLD"
-    for i in range(0, 5):
-        for j in range(0, 26):
+    for i in range(0, 6):
+        for j in range(0, 25):
             #makes a machine with the varied settings
             machine = enigma("",[], ROTOR_I, ROTOR_II, reflector, int(i), int(j), True)
             outputText = machine.encrypt(inputText)
+            print(outputText)
             #checks if th last 10 letters of the "decrypted" message = helloworld 
             if outputText[(len(inputText)-10):] == crib:
                 #means that the correct settings have been found
@@ -51,12 +52,13 @@ def main():
                 #prints the decrypted message
                 print("Decrypted message: " + outputText[0:(len(outputText)-10)]) 
                 return
-            del machine   
-    for i in range(6,10):
-        for j in range(0, 26):
+            del machine
+    for i in range(6,11):
+        for j in range(0, 25):
             #makes a machine with the varied settings
             machine = enigma("",[], ROTOR_I, ROTOR_II, reflector, int(i), int(j), True)
             outputText = machine.encrypt(inputText)
+            print(outputText)
             #checks if th last 10 letters of the "decrypted" message = helloworld 
             if outputText[(len(inputText)-10):] == crib:
                 #means that the correct settings have been found
@@ -67,11 +69,12 @@ def main():
                 print("Decrypted message: " + outputText[0:(len(outputText)-10)])
                 return
             del machine
-    for i in range(11,15):
-        for j in range(0, 26):
+    for i in range(11,16):
+        for j in range(0, 25):
             #makes a machine with the varied settings
             machine = enigma("",[], ROTOR_I, ROTOR_II, reflector, int(i), int(j), True)
             outputText = machine.encrypt(inputText)
+            print(outputText)
             #checks if th last 10 letters of the "decrypted" message = helloworld 
             if outputText[(len(inputText)-10):] == crib:
                 #means that the correct settings have been found
@@ -82,10 +85,11 @@ def main():
                 print("Decrypted message: " + outputText[0:(len(outputText)-10)])
                 return
             del machine
-    for i in range(16,20):
-        for j in range(0, 10):
+    for i in range(16,21):
+        for j in range(0, 25):
             machine = enigma("",[], ROTOR_I, ROTOR_II, reflector, int(i), int(j), True)
             outputText = machine.encrypt(inputText)
+            print(outputText)
             #checks if th last 10 letters of the "decrypted" message = helloworld 
             if outputText[(len(inputText)-10):] == crib:
                 #means that the correct settings have been found
@@ -96,13 +100,15 @@ def main():
                 print("Decrypted message: " + outputText[0:(len(outputText)-10)]) 
                 return
             del machine 
-    for i in range(21,26):
-        for j in range(0, 26):
+    for i in range(21,25):
+        for j in range(0, 25):
             #makes a machine with the varied settings
             machine = enigma("",[], ROTOR_I, ROTOR_II, reflector, int(i), int(j), True)
             outputText = machine.encrypt(inputText)
+            print(outputText)
             #checks if th last 10 letters of the "decrypted" message = helloworld 
             if outputText[(len(inputText)-10):] == crib:
+                print(outputText[(len(inputText)-10):])
                 #means that the correct settings have been found
                 print("Settings have been found!")
                 print("Settings are: Rotor I at offset: "+ str(i) +" Rotor II at offset: "+ str(j))  

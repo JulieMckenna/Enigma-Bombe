@@ -6,7 +6,6 @@ steps of to create - will be simplier than an actual Bombe machine
 1. 2 rotors - know the which rotors but no their position(limited positions(0-10))
 2. add in full possition range
 3. add in 3rd rotors - if we get to it
-
 """
 
 
@@ -23,7 +22,7 @@ REFLECTOR_A = "EDCHIJKLMNOPQRSTUVWZYZABGF"
 def main():
     numOfAttempts = 0
     reflector = REFLECTOR_B
-    #find possible encryptions first - to then solve with decrption 
+    #find possible encryptions first - to then solve with decrption
     engimaMachineINPUT = enigma("",[], ROTOR_I, ROTOR_II, ROTOR_III, reflector, 5, 0, 25, False)
     engimaMachineOUTPUT = enigma("",[], ROTOR_I, ROTOR_II, ROTOR_III, reflector, 5, 0, 25, False)
 
@@ -49,7 +48,7 @@ def main():
                 #makes a machine with the varied settings
                 machine = enigma("",[], ROTOR_I, ROTOR_II, ROTOR_III, reflector, int(i), int(j), int(k), False)
                 outputText = machine.encrypt(inputText)
-                #checks if th last 10 letters of the "decrypted" message = helloworld 
+                #checks if th last 10 letters of the "decrypted" message = helloworld
                 if outputText[(len(inputText)-10):] == crib:
                     #means that the correct settings have been found
                     print("Settings have been found!")
@@ -67,7 +66,7 @@ def main():
                 #makes a machine with the varied settings
                 machine = enigma("",[], ROTOR_I, ROTOR_II, ROTOR_III, reflector, int(i), int(j), int(k), False)
                 outputText = machine.encrypt(inputText)
-                #checks if th last 10 letters of the "decrypted" message = helloworld 
+                #checks if th last 10 letters of the "decrypted" message = helloworld
                 if outputText[(len(inputText)-10):] == crib:
                     #means that the correct settings have been found
                     print("Settings have been found!")
@@ -85,7 +84,7 @@ def main():
                 #makes a machine with the varied settings
                 machine = enigma("",[], ROTOR_I, ROTOR_II, ROTOR_III, reflector, int(i), int(j), int(k), False)
                 outputText = machine.encrypt(inputText)
-                #checks if th last 10 letters of the "decrypted" message = helloworld 
+                #checks if th last 10 letters of the "decrypted" message = helloworld
                 if outputText[(len(inputText)-10):] == crib:
                     #means that the correct settings have been found
                     print("Settings have been found!")
@@ -103,7 +102,7 @@ def main():
                 #makes a machine with the varied settings
                 machine = enigma("",[], ROTOR_I, ROTOR_II, ROTOR_III, reflector, int(i), int(j), int(k), False)
                 outputText = machine.encrypt(inputText)
-                #checks if th last 10 letters of the "decrypted" message = helloworld 
+                #checks if th last 10 letters of the "decrypted" message = helloworld
                 if outputText[(len(inputText)-10):] == crib:
                     #means that the correct settings have been found
                     print("Settings have been found!")
@@ -121,7 +120,7 @@ def main():
                 #makes a machine with the varied settings
                 machine = enigma("",[], ROTOR_I, ROTOR_II, ROTOR_III, reflector, int(i), int(j), int(k), False)
                 outputText = machine.encrypt(inputText)
-                #checks if th last 10 letters of the "decrypted" message = helloworld 
+                #checks if th last 10 letters of the "decrypted" message = helloworld
                 if outputText[(len(inputText)-10):] == crib:
                     #means that the correct settings have been found
                     print("Settings have been found!")
@@ -131,7 +130,7 @@ def main():
                     print("Decrypted message: " + outputText[0:(len(outputText)-10)])
                     print("Number of combinations tried: " + str(numOfAttempts))
                     return
-                del machine 
+                del machine
     print("Nothing found")
 main()
 

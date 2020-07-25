@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
+    <data-source source="LOCAL" name="BombeDB" uuid="fcb9dcf0-ead8-4c2f-b559-87042fa2fa81">
+      <driver-ref>sqlite.xerial</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>org.sqlite.JDBC</jdbc-driver>
+      <jdbc-url>jdbc:sqlite:C:\Users\muham\PycharmProjects\Enigma-Bombe\BombeDB.db</jdbc-url>
+    </data-source>
+  </component>
+</project>

@@ -5,9 +5,7 @@ import DatabaseFunctions
 import time
 root = Tk()
 root.title("Enigma")
-#adding image to window
-
-frame = 0
+#adding image to windowframe = 0
 def gif():
     while True:
         try:
@@ -33,7 +31,6 @@ label = Label(image = photo)
 label.grid(row = 0, column = 0, columnspan = 6, sticky= W+N)
 animate = Button(root, text = "animate", command = setBlank)
 animate.grid(row= 20, column = 0)
-
 # rotor position sliders and displaying on screen
 off1 = pRotor1 = Scale(root, from_=1, to=26)
 pRotor1.grid(row=0, column=6)

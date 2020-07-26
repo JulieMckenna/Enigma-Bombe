@@ -31,7 +31,7 @@ User input: Date of message(can be used to auto fill the variables from a databa
 
 ### Enigma Database:
 - Will keep track of the engima settings for that day. 
-- A schedule can be created by importing from an excel file, and loading in the GUI, or by creating your own configuration in the GUI
+- There is a schedule of enigma configurations for 10 different days in the database
 
 #### Fields in the database: 
 - There are fields for the 10 plugboard switches:
@@ -64,9 +64,7 @@ User input: Date of message(can be used to auto fill the variables from a databa
   b. deletes that instance of the Enigma machine and repeats those steps with different setttings until the settings are found
 
 ### Bombe Database:
-- Will hold the correct settings the enigma machine
-- The PossibleConfigs table will log all configurations that the Bombe machine iterates through
-- When the correct configuration is found, the correct configuration is inserted into KnownConfigs,and the rest of the configurations for that particular day is that are incorrect will be deleted from the PossibleConfigs table.
+- Will hold the correct configurations from the enigma machine that it is trying to emulate
 
 ### Tutorial:
 -Engima https://youtu.be/4P57gY-H6rU

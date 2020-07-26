@@ -1,0 +1,37 @@
+
+
+Enigma:
+1.  Select a day from the drop down menu in the top right
+2.  Press the confirm day button directly below it
+3.  Copy the string of letters from the textbox without the ''
+4.  Paste the string into the Plugboard Pairs text box at the bottom
+5.  Click Apply Plugboard to the right of the text book
+6.  Look at the first number after the Plugboard settings for rotor 1
+	(This would be 3 if day 2 is selected)
+7.  Click the drop down below R1 and select the appropriate number
+8.  The slider under Off1 should be equal to the number directly next to rotor 1's selection
+	(This would be 13 if day 2 is selected)
+9.  Go through and repeat this for rotors 2 and 3
+11. After the rotor settings are configured, decide if the encryption steps should be shown or not
+12. Check the Show Encryption Steps in Terminal if you want to see them
+
+	Using a regular keyboard:
+	1.  Click in the Normal Message text box and type in a message to be encrypted
+		(THE LETTERS MUST ALL BE UPPERCASE, and no spaces)
+	2.  Click Run Encryption to run the text through the enigma machine
+	3.  The encrypted text will be displayed in the Encrypted Message text box
+	
+	Using the onscreen keyboard:
+	1.  Click a letter with a gray background
+	2.  Observe the black background letter that lights up yellow for 1 second
+	3.  The letter that lit up is also printed to the Encrypted Message text box
+	4.  The Encrypted Message box will show the full string entered through the onscreen keyboard
+	
+Bombe:
+(Plugboard pairs must be left blank for Bombe to work)
+1.  Enter a message into Enigma with HELLOWORLD at the end
+2.  Run the encryption
+3.  Click the Go To Bombe Window in the bottom left corner
+4.  Copy and paste the encrypted message into the top text box in Bombe
+5.  Click the Run decryption button
+6.  If everything worked correctly, the original message will be displayed at the bottom of the window

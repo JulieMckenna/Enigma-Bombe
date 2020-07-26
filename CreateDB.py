@@ -5,12 +5,12 @@ db.createBombeDB()
 db.createEnigmaDB()
 del db
 
-i = input('insert default enigma schedule? (y/n): ')
-if i.upper() == 'Y':
-    e_db = DatabaseFunctions.EnigmaDatabase()
-    e_db.createEnigmaSchedule('enigma.xlsx')
-    del e_db
-elif i.upper() == 'N':
-    exit()
-else:
-    pass
+# i = input('insert default enigma schedule? (y/n): ')
+# if i.upper() == 'Y':
+#     e_db = DatabaseFunctions.EnigmaDatabase()
+#     e_db.createEnigmaSchedule('enigma.xlsx')
+#     del e_db
+# elif i.upper() == 'N':
+#     exit()
+# else:
+#     pass

@@ -67,3 +67,7 @@ User input: Date of message(can be used to auto fill the variables from a databa
 - Will hold the correct settings the enigma machine
 - The PossibleConfigs table will log all configurations that the Bombe machine iterates through
 - When the correct configuration is found, the correct configuration is inserted into KnownConfigs,and the rest of the configurations for that particular day is that are incorrect will be deleted from the PossibleConfigs table.
+
+### Tutorial:
+-Engima https://youtu.be/4P57gY-H6rU
+-Bombe https://youtu.be/akjj7EOkeg4

@@ -49,11 +49,11 @@ User input: Date of message(can be used to auto fill the variables from a databa
     means the settings have been found.
 - The machine needs to go through and check all of the settings until the correct ones are found
 - What we did to simplify it:
-  - Only used 2 rotors (adding in a 3rd makes for a lot more possibilities to check)
-  - The 2 rotors are known(i.e using rotor I and rotors III, etc.)
+  - Used 3 rotors
+  - The 3 rotors are known(i.e using Rotor I, Rotor II, and Rotor III, etc.)
   - There is no Plug board
     - adding this in required a lot more checking that needed to be done
-   - The only thing the program needs to find is the offset of both of the rotors
+   - The only thing the program needs to find is the offset of all three rotors
 
 #### Steps:
 1. Give the Bombe the encrypted message(helloworld is the last 10 letters)

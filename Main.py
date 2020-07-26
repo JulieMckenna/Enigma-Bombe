@@ -1,13 +1,12 @@
 from tkinter import *
 from enigma import *
 from bombegui import *
-from PIL import Image, ImageTk
 import DatabaseFunctions
 import time
 edb = DatabaseFunctions.EnigmaDatabase()
 root = Tk()
 def closeEvent(edb):
-    print("DB is gon gon")
+    #print("DB is gon gon")
     del edb
 root.protocol("WM_DELETE_WINDOW",closeEvent(edb))
 root.title("Enigma")
@@ -67,7 +66,7 @@ pRotor2.grid(row=0, column=8)
 off3 = pRotor3 = Scale(root, from_=1, to=26)
 pRotor3.grid(row=0, column=10)
 # rotor selection
-show = IntVar()
+showHide = IntVar()
 def1 = StringVar(root)
 def2 = StringVar(root)
 def3 = StringVar(root)
@@ -104,7 +103,7 @@ def rotorTest(*args):
         rW.delete(0, END)
         rotorFlag = 0
     print(rotors)
-e1c = Checkbutton(root, text="Show Encryption Steps In Terminal", variable=show)
+e1c = Checkbutton(root, text="Show Encryption Steps In Terminal", variable=showHide)
 e1c.grid(row=10, column=0, columnspan=18)
 dropDown1 = OptionMenu(root, def1, *choices)    #Dropdown menu for rotor selection
 dropDown1.grid(row=1, column=6)                 #
@@ -288,6 +287,7 @@ def charClick(abc):     #still need to make
     if rotorFlag == 1:
         print("Make sure your rotors are valid")
         return
+    show = int(showHide.get())
     single = len(abc)
     #print(abc)
     global rotorPass
@@ -310,7 +310,10 @@ def charClick(abc):     #still need to make
         if counter == 0:
             global charOut
             applyplug()
-            charOut = enigma(settings, [], rotorPass[2], rotorPass[1], rotorPass[0], REFLECTOR_B, off3.get()-1, off2.get()-1, off1.get()-1, True)
+            if show == 1:
+                charOut = enigma(settings, [], rotorPass[2], rotorPass[1], rotorPass[0], REFLECTOR_B, off3.get()-1, off2.get()-1, off1.get()-1, True)
+            else:
+                charOut = enigma(settings, [], rotorPass[2], rotorPass[1], rotorPass[0], REFLECTOR_B, off3.get()-1, off2.get() - 1, off1.get() - 1, False)
             #print("input", abc)
             letter=charOut.encrypt(abc)
             lightLetter(letter)
@@ -335,7 +338,10 @@ def charClick(abc):     #still need to make
         incrementCounter()
     else:
         applyplug()
-        charOut2 = enigma(settings, [], rotorPass[2], rotorPass[1], rotorPass[0], REFLECTOR_B, off3.get() - 1, off2.get() - 1, off1.get() - 1, True)
+        if show == 1:
+            charOut2 = enigma(settings, [], rotorPass[2], rotorPass[1], rotorPass[0], REFLECTOR_B, off3.get() - 1, off2.get() - 1, off1.get() - 1, True)
+        else:
+            charOut2 = enigma(settings, [], rotorPass[2], rotorPass[1], rotorPass[0], REFLECTOR_B, off3.get() - 1, off2.get() - 1, off1.get() - 1, False)
         # print("input", abc)
         letter = charOut2.encrypt(ntext.get())
         current = ctext.get()

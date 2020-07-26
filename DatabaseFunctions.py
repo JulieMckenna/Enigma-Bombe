@@ -81,7 +81,6 @@ class CreateDatabases:
         self.bombe.close()
         print('bombe database connection closed')
 
-
 class EnigmaDatabase: 
     
     # initialize class
@@ -152,7 +151,7 @@ class BombeDatabase:
     def insertKnownConfig(self, activeR1, offset1, activeR2, offset2, activeR3, offset3, reflector):
         try:
             # create ID for primary key of db tuple
-            getMaxConfigID = 'SELECT MAX(MessageID) FROM CapturedMsg'
+            getMaxConfigID = 'SELECT MAX(ID) FROM KnownConfig'
             b = self.connection.cursor()
             b.execute(getMaxConfigID)
             maxID = b.fetchone()
@@ -169,7 +168,7 @@ class BombeDatabase:
             b.execute(insertConfig)
             b.close()
             self.connection.commit()
-            print('\nKnown config found, inserting into Bombe database.\n')
+            print('Settings have been found! Saving configuartion in database.')
         except sqlite3.OperationalError:
             print('\nError when trying to insert values, please check the database connection and/or values being input.\n')
         except sqlite3.IntegrityError:

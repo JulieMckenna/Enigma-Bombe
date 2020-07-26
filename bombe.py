@@ -1,4 +1,5 @@
 from enigma import enigma
+import DatabaseFunctions
 
 #Bombe
 """
@@ -50,10 +51,12 @@ def main():
                 outputText = machine.encrypt(inputText)
                 #checks if th last 10 letters of the "decrypted" message = helloworld
                 if outputText[(len(inputText)-10):] == crib:
-                    #means that the correct settings have been found
-                    print("Settings have been found!")
-                    print("Settings are: Rotor I at offset: "+ str(i) +" Rotor II at offset: "+ str(j) + " Rotor III at offset: " + str(k))
-                    #this is where the insert query
+                    # means that the correct settings have been found
+                    b_db = DatabaseFunctions.BombeDatabase()
+                    b_db.insertKnownConfig(1, str(i), 2, str(j), 3, str(k), 'B')
+                    settingsList = b_db.getKnownConfig(1, str(i), 2, str(j), 3, str(k), 'B')
+                    print("Settings are: Rotor I at offset: "+ str(settingsList[2]) +" Rotor II at offset: "+ str(settingsList[4]) + " Rotor III at offset: " + str(settingsList[6]))
+                    del b_db
                     #prints the decrypted message
                     print("Decrypted message: " + outputText[0:(len(outputText)-10)])
                     print("Number of combinations tried: " + str(numOfAttempts))
@@ -68,10 +71,12 @@ def main():
                 outputText = machine.encrypt(inputText)
                 #checks if th last 10 letters of the "decrypted" message = helloworld
                 if outputText[(len(inputText)-10):] == crib:
-                    #means that the correct settings have been found
-                    print("Settings have been found!")
-                    print("Settings are: Rotor I at offset: "+ str(i) +" Rotor II at offset: "+ str(j))
-                    #this is where the insert query
+                    # means that the correct settings have been found
+                    b_db = DatabaseFunctions.BombeDatabase()
+                    b_db.insertKnownConfig(1, str(i), 2, str(j), 3, str(k), 'B')
+                    settingsList = b_db.getKnownConfig(1, str(i), 2, str(j), 3, str(k), 'B')
+                    print("Settings are: Rotor I at offset: "+ str(settingsList[2]) +" Rotor II at offset: "+ str(settingsList[4]) + " Rotor III at offset: " + str(settingsList[6]))
+                    del b_db
                     #prints the decrypted message
                     print("Decrypted message: " + outputText[0:(len(outputText)-10)])
                     print("Number of combinations tried: " + str(numOfAttempts))
@@ -86,10 +91,12 @@ def main():
                 outputText = machine.encrypt(inputText)
                 #checks if th last 10 letters of the "decrypted" message = helloworld
                 if outputText[(len(inputText)-10):] == crib:
-                    #means that the correct settings have been found
-                    print("Settings have been found!")
-                    print("Settings are: Rotor I at offset: "+ str(i) +" Rotor II at offset: "+ str(j))
-                    #this is where the insert query
+                    # means that the correct settings have been found
+                    b_db = DatabaseFunctions.BombeDatabase()
+                    b_db.insertKnownConfig(1, str(i), 2, str(j), 3, str(k), 'B')
+                    settingsList = b_db.getKnownConfig(1, str(i), 2, str(j), 3, str(k), 'B')
+                    print("Settings are: Rotor I at offset: "+ str(settingsList[2]) +" Rotor II at offset: "+ str(settingsList[4]) + " Rotor III at offset: " + str(settingsList[6]))
+                    del b_db
                     #prints the decrypted message
                     print("Decrypted message: " + outputText[0:(len(outputText)-10)])
                     print("Number of combinations tried: " + str(numOfAttempts))
@@ -104,10 +111,12 @@ def main():
                 outputText = machine.encrypt(inputText)
                 #checks if th last 10 letters of the "decrypted" message = helloworld
                 if outputText[(len(inputText)-10):] == crib:
-                    #means that the correct settings have been found
-                    print("Settings have been found!")
-                    print("Settings are: Rotor I at offset: "+ str(i) +" Rotor II at offset: "+ str(j))
-                    #this is where the insert query
+                    # means that the correct settings have been found
+                    b_db = DatabaseFunctions.BombeDatabase()
+                    b_db.insertKnownConfig(1, str(i), 2, str(j), 3, str(k), 'B')
+                    settingsList = b_db.getKnownConfig(1, str(i), 2, str(j), 3, str(k), 'B')
+                    print("Settings are: Rotor I at offset: "+ str(settingsList[2]) +" Rotor II at offset: "+ str(settingsList[4]) + " Rotor III at offset: " + str(settingsList[6]))
+                    del b_db
                     #prints the decrypted message
                     print("Decrypted message: " + outputText[0:(len(outputText)-10)])
                     print("Number of combinations tried: " + str(numOfAttempts))
@@ -122,10 +131,12 @@ def main():
                 outputText = machine.encrypt(inputText)
                 #checks if th last 10 letters of the "decrypted" message = helloworld
                 if outputText[(len(inputText)-10):] == crib:
-                    #means that the correct settings have been found
-                    print("Settings have been found!")
-                    print("Settings are: Rotor I at offset: "+ str(i) +" Rotor II at offset: "+ str(j))
-                    #this is where the insert query
+                    # means that the correct settings have been found
+                    b_db = DatabaseFunctions.BombeDatabase()
+                    b_db.insertKnownConfig(1, str(i), 2, str(j), 3, str(k), 'B')
+                    settingsList = b_db.getKnownConfig(1, str(i), 2, str(j), 3, str(k), 'B')
+                    print("Settings are: Rotor I at offset: "+ str(settingsList[2]) +" Rotor II at offset: "+ str(settingsList[4]) + " Rotor III at offset: " + str(settingsList[6]))
+                    del b_db
                     #prints the decrypted message
                     print("Decrypted message: " + outputText[0:(len(outputText)-10)])
                     print("Number of combinations tried: " + str(numOfAttempts))

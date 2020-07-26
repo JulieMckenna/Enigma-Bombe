@@ -10,7 +10,7 @@ def closeEvent(edb):
     print("DB is gon gon")
     del edb
 root.protocol("WM_DELETE_WINDOW",closeEvent(edb))
-root.title("Enigma/Bombe")
+root.title("Enigma")
 
 #adding image to window
 frame = 0
@@ -39,6 +39,26 @@ label = Label(image = photo)
 label.grid(row = 0, column = 0, columnspan = 6, sticky= W+N)
 animate = Button(root, text = "animate", command = setBlank)
 animate.grid(row= 20, column = 0)
+#labeling rotors
+
+labelr3 = Label(root,text="R3")
+labelr3.grid(row=0,column=6,sticky=S)
+
+labelr2 = Label(root,text="R2")
+labelr2.grid(row=0,column=8,sticky=S)
+
+labelr1 = Label(root,text="R1")
+labelr1.grid(row=0,column=10,sticky=S)
+
+labeloff3 = Label(root,text="Off3")
+labeloff3.grid(row=0,column=6,sticky=N+E)
+
+labeloff2 = Label(root,text="Off2")
+labeloff2.grid(row=0,column=8,sticky=N+E)
+
+labeloff1 = Label(root,text="Off1")
+labeloff1.grid(row=0,column=10,sticky=N+E)
+
 # rotor position sliders and displaying on screen
 off1 = pRotor1 = Scale(root, from_=1, to=26)
 pRotor1.grid(row=0, column=6)
@@ -222,7 +242,7 @@ srow8.grid(row=9,column=0,columnspan=18)
 eB = Button(root, text="Run Encryption", padx=2, pady=2, command = lambda: charClick("AA"))
 eB.grid(row=12, column=14, columnspan=3)
 
-pB = Button(root, text="Apply Plugboard", padx=2, pady=2)
+pB = Button(root, text="Apply Plugboard", padx=2, pady=2,command = lambda: applyplug())
 pB.grid(row=15, column=14, columnspan=3)
 
 #textboxes
@@ -246,6 +266,17 @@ ptext.grid(row=16,column=0,columnspan=18)
 counter = 0
 charOut = 'a'
 letters = [cA, cB, cC, cD, cE, cF, cG, cH, cI, cJ, cK, cL, cM, cN, cO, cP, cQ, cR, cS, cT, cU, cV, cW, cX, cY, cZ]
+global settings
+
+
+def applyplug():
+    global settings
+    settings = ptext.get()
+    print(settings)
+    return
+
+
+
 def incrementCounter():
     global counter
     counter +=1
@@ -267,12 +298,17 @@ def charClick(abc):     #still need to make
             rotorPass[i] = ROTOR_II
         elif rotors[i] == 3:
             rotorPass[i] = ROTOR_III
+        elif rotors[i] == 4:
+            rotorPass[i] = ROTOR_IV
+        elif rotors[i] == 5:
+            rotorPass[i] = ROTOR_V
+
         #print(rotorPass[i])
     #print(off1.get()-1+counter)
     if single == 1:
         if counter == 0:
             global charOut
-            charOut = enigma("", [], rotorPass[2], rotorPass[1], rotorPass[0], REFLECTOR_B, off3.get()-1, off2.get()-1, off1.get()-1, True)
+            charOut = enigma(settings, [], rotorPass[2], rotorPass[1], rotorPass[0], REFLECTOR_B, off3.get()-1, off2.get()-1, off1.get()-1, True)
             #print("input", abc)
             letter=charOut.encrypt(abc)
             lightLetter(letter)
@@ -296,7 +332,7 @@ def charClick(abc):     #still need to make
         #print(counter)
         incrementCounter()
     else:
-        charOut2 = enigma("", [], rotorPass[2], rotorPass[1], rotorPass[0], REFLECTOR_B, off3.get() - 1, off2.get() - 1, off1.get() - 1, True)
+        charOut2 = enigma(settings, [], rotorPass[2], rotorPass[1], rotorPass[0], REFLECTOR_B, off3.get() - 1, off2.get() - 1, off1.get() - 1, True)
         # print("input", abc)
         letter = charOut2.encrypt(ntext.get())
         current = ctext.get()
@@ -308,6 +344,7 @@ bombebutton = Button(root,text="Go to Bombe Window",command = lambda: bombewindo
 bombebutton.grid(row=14,column=0,columnspan = 4)
 def bombewindow():
     secondwindow = Toplevel()#creating second window
+    secondwindow.title("Bombe")
     cLabel = Label(secondwindow,text="Enter the encrypted message into Bombe")
     cLabel.grid(row=0,column=0)
     cMessage = Entry(secondwindow, width=50, borderwidth=3)
@@ -336,11 +373,18 @@ var.set("Choose a Day")
 day = OptionMenu(root,var,*options)
 day.grid(row=0,column=11,columnspan=3,sticky=N)
 
+labelday = Label(root,text="(Day,'p1,p2,p3,p4,p5,p6,p7,p7,p9,p10',r1,off1,r2,off2,r3,off3,n/a")
+labelday.grid(row=0,column=14,columnspan=21,stick=N)
+
 daye = Entry(root,width=50,borderwidth=3)
 daye.grid(row=0,column= 14,columnspan=21 )
 
 chooseday = Button(root,text="Confirm Day",command = lambda:insertday())
 chooseday.grid(row=0,column=11,columnspan=3)
+
+pluglabel = Label(root,text="p1,p2,p3,p4,p5,p6,p7,p8,p9,p10")
+pluglabel.grid(row=20,column=4,columnspan=10)
+
 def insertday():
     en = daye.get()
     selection = var.get()
@@ -348,7 +392,7 @@ def insertday():
     dayfinal= edb.getConfiguration(iselection)
     sdayfinal = str(dayfinal)
     daye.delete(0, END)
-    daye.insert(0, str(en) + sdayfinal)
+    daye.insert(0,sdayfinal)
 
 
 

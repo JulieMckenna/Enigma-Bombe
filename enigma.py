@@ -129,7 +129,7 @@ class enigma:
                 print("Swapping letters with plugboard connections")
             #swaps the letters in the text string with those changes made by the plugbaord
             text = self.swapLetters(self.plug, text, self.steps)
-        print(text)
+        #print(text)
         
         ## Count for how many times each rotor is stepped. Don't care how many times rotor3 is stepped
 

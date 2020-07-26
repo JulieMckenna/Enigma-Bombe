@@ -1,10 +1,10 @@
 from tkinter import *
 from enigma import *
+from bombegui import *
 from PIL import Image, ImageTk
 import DatabaseFunctions
 import time
 edb = DatabaseFunctions.EnigmaDatabase()
-
 root = Tk()
 def closeEvent(edb):
     print("DB is gon gon")
@@ -38,7 +38,7 @@ photo = PhotoImage(file = "enigma.gif",)
 label = Label(image = photo)
 label.grid(row = 0, column = 0, columnspan = 6, sticky= W+N)
 animate = Button(root, text = "animate", command = setBlank)
-animate.grid(row= 20, column = 0)
+animate.grid(row= 1, column = 2,columnspan=2,sticky = N)
 #labeling rotors
 
 labelr3 = Label(root,text="R3")
@@ -290,6 +290,7 @@ def charClick(abc):     #still need to make
         return
     single = len(abc)
     #print(abc)
+    global rotorPass
     rotorPass = ["","",""]
     for i in range(3):
         if rotors[i] == 1:
@@ -308,6 +309,7 @@ def charClick(abc):     #still need to make
     if single == 1:
         if counter == 0:
             global charOut
+            applyplug()
             charOut = enigma(settings, [], rotorPass[2], rotorPass[1], rotorPass[0], REFLECTOR_B, off3.get()-1, off2.get()-1, off1.get()-1, True)
             #print("input", abc)
             letter=charOut.encrypt(abc)
@@ -332,6 +334,7 @@ def charClick(abc):     #still need to make
         #print(counter)
         incrementCounter()
     else:
+        applyplug()
         charOut2 = enigma(settings, [], rotorPass[2], rotorPass[1], rotorPass[0], REFLECTOR_B, off3.get() - 1, off2.get() - 1, off1.get() - 1, True)
         # print("input", abc)
         letter = charOut2.encrypt(ntext.get())
@@ -347,23 +350,39 @@ def bombewindow():
     secondwindow.title("Bombe")
     cLabel = Label(secondwindow,text="Enter the encrypted message into Bombe")
     cLabel.grid(row=0,column=0)
+    global cMessage
     cMessage = Entry(secondwindow, width=50, borderwidth=3)
     cMessage.grid(row=1,column=0)
-    decryptb = Button(secondwindow,text = "Run decryption",)#need to add decryptget()
+    decryptb = Button(secondwindow,text = "Run decryption",command = lambda: callbombe())
     decryptb.grid(row=1,column=1)
     space1 = Label(secondwindow, text="                   ")
     space1.grid(row=2, column=0)
     combination = Label(secondwindow, text="The combination of rotors found")
     combination.grid(row=3, column=0)
-    ncombination = Entry(secondwindow, width=10, borderwidth=3)
+    global ncombination
+    ncombination = Entry(secondwindow, width=50, borderwidth=3)
     ncombination.grid(row=4, column=0)
     space2 = Label(secondwindow, text="                   ")
     space2.grid(row=5, column=0)
     nLabel = Label(secondwindow, text="Decrypted message")
     nLabel.grid(row=6, column=0)
+    global decryptm
     decryptm = Entry(secondwindow, width=50, borderwidth=3)
     decryptm.grid(row=7, column=0)
-
+def setcombo(s):
+    ncombination.delete(0, END)
+    ncombination.insert(0, s)
+def setdecrpt(m):
+    decryptm.delete(0, END)
+    decryptm.insert(0, m)
+def callbombe():
+    mess = cMessage.get()
+    #print(mess)
+    bombe3(mess, rotorPass[2], rotorPass[1], rotorPass[0])#calling from bombegui.py
+    s = retrivesettings()
+    m = retrivemessage()
+    setcombo(s)
+    setdecrpt(m)
 
 #Day selection from database
 options = [1,2,3,4,5,6,7,8,9,10]

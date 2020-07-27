@@ -1,5 +1,9 @@
 from enigma import enigma
 import DatabaseFunctions
+from random import seed
+from random import randint
+
+seed(1)
 
 #Bombe
 """
@@ -24,17 +28,17 @@ def main():
     numOfAttempts = 0
     reflector = REFLECTOR_B
     #find possible encryptions first - to then solve with decrption
-    engimaMachineINPUT = enigma("",[], ROTOR_I, ROTOR_II, ROTOR_III, reflector, 5, 0, 25, False)
-    engimaMachineOUTPUT = enigma("",[], ROTOR_I, ROTOR_II, ROTOR_III, reflector, 5, 0, 25, False)
+    engimaMachineINPUT = enigma("",[], ROTOR_I, ROTOR_II, ROTOR_III, reflector, randint(0,26), randint(0,26), randint(0,26), False)
+    #engimaMachineOUTPUT = enigma("",[], ROTOR_I, ROTOR_II, ROTOR_III, reflector, 5, 0, 25, False)
 
     inputText = (input("Enter message: ")).upper()
     #adds this to end of the message - to use to solve fo rthe crib
     inputText += "HELLOWORLD"
     #gets the encoded message - to then "break" with Bombe
     outputText = engimaMachineINPUT.encrypt(inputText)
-    originalMessage = engimaMachineOUTPUT.encrypt(outputText)
+    #originalMessage = engimaMachineOUTPUT.encrypt(outputText)
 
-    print("Original Message: " + originalMessage)
+    #print("Original Message: " + originalMessage)
     print("Encrypted Message: " + outputText)
 
     #to decrypt throwing weird error not sure why!!!

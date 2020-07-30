@@ -4,7 +4,7 @@ Creating an Enigma Machine and Bombe Machine
 Will be using Python and creating a user interface for people to encrypt and decrypt messages as they would like.
 
 To use this: 
-- Download the code(enigma.py, Main,py, bombe,py).
+- Download the code(Clone this repo)
 - Run CreateDB.py to create the database 
 - Use Main.py to run the Engima through a GUI - settings are set by the user through the GUI
 - Use rotors.py to run an Enigma machine - settings are set in the main loop at the bottom

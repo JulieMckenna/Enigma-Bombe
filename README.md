@@ -7,7 +7,7 @@ To use this:
 - Download the code(Clone this repo)
 - Run CreateDB.py to create the database 
 - Use Main.py to run the Engima through a GUI - settings are set by the user through the GUI
-- Use rotors.py to run an Enigma machine - settings are set in the main loop at the bottom
+- Use enigma.py to run an Enigma machine - settings are set in the main loop at the bottom
 - Use bombe.py to run a Bombe machine - This ended up using a less complicated enigma machine
   - To use this it will ask for the users message - which in plain text - it will encode it to unkown settings(This is to ensure that the message being inputted to the bombe 
   was once put through an Enigma - make sure the settings can be found). It will concatenate the inputted string with HelloWorld - which will be used to crack the settings 

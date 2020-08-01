@@ -85,7 +85,22 @@ The package we used for our GUI was TkInter. TkInter is the default GUI package 
 
 •	Entry() – Creates a text box on the window that users can enter values into
 
+<img src="https://github.com/JulieMckenna/Enigma-Bombe/blob/master/gui%20enigma%20labels.png" width="750" height="650" />
+Legend:
 
+R1-R3: Rotor 1-3
+
+Off1-Off3: Offset of rotor 1-3
+
+p1-p10: Plugboard pair 1-10
+
+
+### The GUI is split into two windows: Enigma and Bombe
+
+#### Enigma:
+  The enigma portion of the GUI uses all the functions stated above. The labels are used to define the various parts of the enigma machine, like defining the contents of an entry box or labeling a rotor. Users can interact with the buttons by simply pressing it. For example, if the button ‘H’ is pressed, the program will perform the function that is triggered by pressing ‘H’. In this case, the function is called CharcterClick(“H”), Which passes in ‘H’ as a parameter. Scale is used primarily to set the offset of our rotors in the enigma machine. OptionMenu is used for two things: to select a day to retrieve settings for that day or to choose which rotors are operating. Clicking “Choose a Day” will reveal a drop-down menu of the days that are available for selection (only 10 days). Pressing a rotor will display the 5 rotors that are available to use. The entry boxes are dependent on the actions of a button. When a character is pressed, the normal character and encrypted character are display in their respective entry boxes. If the user is typing a message into an entry field, a button should be linked to the entry box to retrieve the message and perform the desired function.
+#### Bombe:
+  The Bombe window can only be accessed by pressing the button ‘Go to Bombe Window’ on the enigma terminal. This window is much simpler than the enigma window. When the user enters the encrypted message, pressing the button “Run Encryption” will retrieve the message from the entry box and pass it into the Bombe machine
 
 ## Tutorial:
 -Engima https://youtu.be/4P57gY-H6rU

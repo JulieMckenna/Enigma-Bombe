@@ -22,9 +22,6 @@ To use this:
     before encoding it to ensure that the bombe will work.
   - It will then ask to input the encrypted message and will print out the settings that machine was set to and the decrypted message.
 
-## GUI
-- How to interact, what the boxes mean, etc. ----> Tim/Muhammad
-
 ## Enigma:
 Required Parts - a plugboard(allows up to 10 letters to be swapped), 3 rotors(offset the alphabet), a reflector(the final step)
 User input: Date of message(can be used to auto fill the variables from a database), 10 letter swaps, the 3 rotors(I - V), the reflector (A or B), and the message.
@@ -73,6 +70,22 @@ User input: Date of message(can be used to auto fill the variables from a databa
 
 ### Bombe Database:
 - Will hold the correct configurations from the enigma machine that it is trying to emulate
+
+## GUI
+The package we used for our GUI was TkInter. TkInter is the default GUI package that comes with Python. There are many functions that come along with the package, the functions we used are:
+
+###
+•	Label() – displays text or image anywhere in the window
+
+•	Button() – displays a pushable block with text. When pressed, performs a certain function
+
+•	Scale() – displays a slider with a range of values
+
+•	OptionMenu() – displays a block that when pressed reveals a dropdown menu with multiple options
+
+•	Entry() – Creates a text box on the window that users can enter values into
+
+
 
 ## Tutorial:
 -Engima https://youtu.be/4P57gY-H6rU

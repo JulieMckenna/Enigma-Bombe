@@ -103,5 +103,8 @@ p1-p10: Plugboard pair 1-10
   The Bombe window can only be accessed by pressing the button ‘Go to Bombe Window’ on the enigma terminal. This window is much simpler than the enigma window. When the user enters the encrypted message, pressing the button “Run Encryption” will retrieve the message from the entry box and pass it into the Bombe machine
 
 ## Tutorial:
+### Step by step guide:
+  https://github.com/JulieMckenna/Enigma-Bombe/blob/master/UserGuide.txt
+### Video Tutorials:
 -Engima https://youtu.be/4P57gY-H6rU
 -Bombe https://youtu.be/akjj7EOkeg4

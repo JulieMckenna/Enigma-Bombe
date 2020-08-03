@@ -7,6 +7,8 @@ import DatabaseFunctions
 import time
 edb = DatabaseFunctions.EnigmaDatabase()
 root = Tk()
+
+root['background']= '#9C9C9C'
 def closeEvent(edb):
     #print("DB is gon gon")
     del edb
@@ -36,36 +38,36 @@ def setBlank():
         root.after(500, lambda: gif())
         label.update()
 photo = PhotoImage(file = "enigma.gif",)
-label = Label(image = photo)
+label = Label(image = photo,highlightcolor="black")
 label.grid(row = 0, column = 0, columnspan = 6, sticky= W+N)
-animate = Button(root, text = "animate", command = setBlank)
+animate = Button(root, text = "animate",bg= "#D0D0D0" ,command = setBlank)
 animate.grid(row= 1, column = 2,columnspan=2,sticky = N)
 #labeling rotors
 
-labelr3 = Label(root,text="R3")
+labelr3 = Label(root,text="R3",background="#9C9C9C" )
 labelr3.grid(row=0,column=6,sticky=S)
 
-labelr2 = Label(root,text="R2")
+labelr2 = Label(root,text="R2",background="#9C9C9C")
 labelr2.grid(row=0,column=8,sticky=S)
 
-labelr1 = Label(root,text="R1")
+labelr1 = Label(root,text="R1",background="#9C9C9C")
 labelr1.grid(row=0,column=10,sticky=S)
 
-labeloff3 = Label(root,text="Off3")
+labeloff3 = Label(root,text="Off3",background="#9C9C9C")
 labeloff3.grid(row=0,column=6,sticky=N+E)
 
-labeloff2 = Label(root,text="Off2")
+labeloff2 = Label(root,text="Off2",background="#9C9C9C")
 labeloff2.grid(row=0,column=8,sticky=N+E)
 
-labeloff1 = Label(root,text="Off1")
+labeloff1 = Label(root,text="Off1",background="#9C9C9C")
 labeloff1.grid(row=0,column=10,sticky=N+E)
 
 # rotor position sliders and displaying on screen
-off1 = pRotor1 = Scale(root, from_=1, to=26)
+off1 = pRotor1 = Scale(root, from_=1, to=26, highlightbackground = "black",background = "black",fg = "White")
 pRotor1.grid(row=0, column=6)
-off2 = pRotor2 = Scale(root, from_=1, to=26)
+off2 = pRotor2 = Scale(root, from_=1, to=26, highlightbackground = "black",background = "black",fg = "White")
 pRotor2.grid(row=0, column=8)
-off3 = pRotor3 = Scale(root, from_=1, to=26)
+off3 = pRotor3 = Scale(root, from_=1, to=26, highlightbackground = "black",background = "black",fg = "White")
 pRotor3.grid(row=0, column=10)
 # rotor selection
 showHide = IntVar()
@@ -105,7 +107,7 @@ def rotorTest(*args):
         rW.delete(0, END)
         rotorFlag = 0
     print(rotors)
-e1c = Checkbutton(root, text="Show Encryption Steps In Terminal", variable=showHide)
+e1c = Checkbutton(root, text="Show Encryption Steps In Terminal", variable=showHide,bg="#9C9C9C",highlightbackground="#9C9C9C")
 e1c.grid(row=10, column=0, columnspan=18)
 dropDown1 = OptionMenu(root, def1, *choices)    #Dropdown menu for rotor selection
 dropDown1.grid(row=1, column=6)                 #
@@ -117,7 +119,7 @@ def1.trace("w", rotorTest)
 def2.trace("w", rotorTest)
 def3.trace("w", rotorTest)
 
-rW = Entry(root, width=30, borderwidth=3)
+rW = Entry(root, width=30, borderwidth=5,highlightcolor = "#000000")
 rW.grid(row=1, column=14, columnspan=6)
 # cypher keyboard
 # toprow
@@ -176,93 +178,94 @@ cN.grid(row=4, column=12)
 cM = Button(root, text="M", padx=10, pady=10,bg="black",fg="White")
 cM.grid(row=4, column=14)
 #space between 1st and second key
-srow4 = Label(root,text="         ")
-srow4.grid(row=5,column=0,columnspan=18)
+srow4 = Label(root,bg = "#575757",bd=0,highlightbackground="Black",text="                                                                                                                                                                                                                                                                                                                                          ")
+
+srow4.grid(row=5,column=0,columnspan=30)
 
 #normal keyboard
 #top row
-nQ = Button(root, text="Q", padx=10, pady=10, command = lambda: charClick("Q"))
+nQ = Button(root, text="Q", padx=10, pady=10,relief=RIDGE ,command = lambda: charClick("Q"))
 nQ.grid(row=6, column=0)
-nW = Button(root, text="W", padx=10, pady=10, command = lambda: charClick("W"))
+nW = Button(root, text="W", padx=10, pady=10,relief=RIDGE, command = lambda: charClick("W"))
 nW.grid(row=6, column=2)
-nE = Button(root, text="E", padx=10, pady=10, command = lambda: charClick("E"))
+nE = Button(root, text="E", padx=10, pady=10,relief=RIDGE, command = lambda: charClick("E"))
 nE.grid(row=6, column=4)
-nR = Button(root, text="R", padx=10, pady=10, command = lambda: charClick("R"))
+nR = Button(root, text="R", padx=10, pady=10,relief=RIDGE, command = lambda: charClick("R"))
 nR.grid(row=6, column=6)
-nT = Button(root, text="T", padx=10, pady=10, command = lambda: charClick("T"))
+nT = Button(root, text="T", padx=10, pady=10,relief=RIDGE, command = lambda: charClick("T"))
 nT.grid(row=6, column=8)
-nY = Button(root, text="Y", padx=10, pady=10, command = lambda: charClick("Y"))
+nY = Button(root, text="Y", padx=10, pady=10,relief=RIDGE, command = lambda: charClick("Y"))
 nY.grid(row=6, column=10)
-nU = Button(root, text="U", padx=10, pady=10, command = lambda: charClick("U"))
+nU = Button(root, text="U", padx=10, pady=10,relief=RIDGE, command = lambda: charClick("U"))
 nU.grid(row=6, column=12)
-nI = Button(root, text="I", padx=10, pady=10, command = lambda: charClick("I"))
+nI = Button(root, text="I", padx=10, pady=10,relief=RIDGE, command = lambda: charClick("I"))
 nI.grid(row=6, column=14)
-nO = Button(root, text="O", padx=10, pady=10, command = lambda: charClick("O"))
+nO = Button(root, text="O", padx=10, pady=10,relief=RIDGE, command = lambda: charClick("O"))
 nO.grid(row=6, column=16)
-nP = Button(root, text="P", padx=10, pady=10, command = lambda: charClick("P"))
+nP = Button(root, text="P", padx=10, pady=10,relief=RIDGE, command = lambda: charClick("P"))
 nP.grid(row=6, column=18)
 #middlerow
-nA = Button(root, text="A", padx=10, pady=10, command = lambda: charClick("A"))
+nA = Button(root, text="A", padx=10, pady=10,relief=RIDGE, command = lambda: charClick("A"))
 nA.grid(row=7, column=1)
-nS = Button(root, text="S", padx=10, pady=10, command = lambda: charClick("S"))
+nS = Button(root, text="S", padx=10, pady=10,relief=RIDGE, command = lambda: charClick("S"))
 nS.grid(row=7, column=3)
-nD = Button(root, text="D", padx=10, pady=10, command = lambda: charClick("D"))
+nD = Button(root, text="D", padx=10, pady=10,relief=RIDGE, command = lambda: charClick("D"))
 nD.grid(row=7, column=5)
-nF = Button(root, text="F", padx=10, pady=10, command = lambda: charClick("F"))
+nF = Button(root, text="F", padx=10, pady=10,relief=RIDGE, command = lambda: charClick("F"))
 nF.grid(row=7, column=7)
-nG = Button(root, text="G", padx=10, pady=10, command = lambda: charClick("G"))
+nG = Button(root, text="G", padx=10, pady=10,relief=RIDGE, command = lambda: charClick("G"))
 nG.grid(row=7, column=9)
-nH = Button(root, text="H", padx=10, pady=10, command = lambda: charClick("H"))
+nH = Button(root, text="H", padx=10, pady=10,relief=RIDGE, command = lambda: charClick("H"))
 nH.grid(row=7, column=11)
-nJ = Button(root, text="J", padx=10, pady=10, command = lambda: charClick("J"))
+nJ = Button(root, text="J", padx=10, pady=10,relief=RIDGE, command = lambda: charClick("J"))
 nJ.grid(row=7, column=13)
-nK = Button(root, text="K", padx=10, pady=10, command = lambda: charClick("K"))
+nK = Button(root, text="K", padx=10, pady=10,relief=RIDGE, command = lambda: charClick("K"))
 nK.grid(row=7, column=15)
-nL = Button(root, text="L", padx=10, pady=10, command = lambda: charClick("L"))
+nL = Button(root, text="L", padx=10, pady=10,relief=RIDGE, command = lambda: charClick("L"))
 nL.grid(row=7, column=17)
 #bottomrow
-nZ = Button(root, text="Z", padx=10, pady=10, command = lambda: charClick("Z"))
+nZ = Button(root, text="Z", padx=10, pady=10,relief=RIDGE, command = lambda: charClick("Z"))
 nZ.grid(row=8, column=2)
-nX = Button(root, text="X", padx=10, pady=10, command = lambda: charClick("X"))
+nX = Button(root, text="X", padx=10, pady=10,relief=RIDGE, command = lambda: charClick("X"))
 nX.grid(row=8, column=4)
-nC = Button(root, text="C", padx=10, pady=10, command = lambda: charClick("C"))
+nC = Button(root, text="C", padx=10, pady=10,relief=RIDGE, command = lambda: charClick("C"))
 nC.grid(row=8, column=6)
-nV = Button(root, text="V", padx=10, pady=10, command = lambda: charClick("V"))
+nV = Button(root, text="V", padx=10, pady=10,relief=RIDGE, command = lambda: charClick("V"))
 nV.grid(row=8, column=8)
-nB = Button(root, text="B", padx=10, pady=10, command = lambda: charClick("B"))
+nB = Button(root, text="B", padx=10, pady=10,relief=RIDGE, command = lambda: charClick("B"))
 nB.grid(row=8, column=10)
-nN = Button(root, text="N", padx=10, pady=10, command = lambda: charClick("N"))
+nN = Button(root, text="N", padx=10, pady=10,relief=RIDGE, command = lambda: charClick("N"))
 nN.grid(row=8, column=12)
-nM = Button(root, text="M", padx=10, pady=10, command = lambda: charClick("M"))
+nM = Button(root, text="M", padx=10, pady=10,relief=RIDGE, command = lambda: charClick("M"))
 nM.grid(row=8, column=14)
 #space between keyboards
-srow8 = Label(root,text="         ")
-srow8.grid(row=9,column=0,columnspan=18)
+srow8 = Label(root,bg = "#575757",pady=0,text="                                                                                                                                                                                                                                                                                                                                        ")
+srow8.grid(row=9,column=0,columnspan=30)
 
 #Encryption button
-eB = Button(root, text="Run Encryption", padx=2, pady=2, command = lambda: charClick("AA"))
+eB = Button(root, text="Run Encryption", padx=2, pady=2,bg= "#D0D0D0" , command = lambda: charClick("AA"))
 eB.grid(row=12, column=14, columnspan=3)
 
-pB = Button(root, text="Apply Plugboard", padx=2, pady=2,command = lambda: applyplug())
-pB.grid(row=15, column=14, columnspan=3)
+pB = Button(root, text="Apply Plugboard", padx=2, pady=2,bg= "#D0D0D0" ,command = lambda: applyplug())
+pB.grid(row=16, column=14, columnspan=3)
 
 #textboxes
-clabel = Label(root,text="Encrypted Message")
+clabel = Label(root,text="Encrypted Message",bg="#9C9C9C")
 clabel.grid(row=11,column=0,columnspan=18)
 
-ctext = Entry(root,width=50,borderwidth=3)
+ctext = Entry(root,width=50,borderwidth=3,background="Black",fg="White",font =7)
 ctext.grid(row=12,column=0,columnspan=18)
 
-nlabel = Label(root,text="Normal Message")
+nlabel = Label(root,text="Normal Message",bg="#9C9C9C")
 nlabel.grid(row=13,column=0,columnspan=18)
 
-ntext = Entry(root,width=50,borderwidth=3)
+ntext = Entry(root,width=50,borderwidth=3,font=7)
 ntext.grid(row=14,column=0,columnspan=18)
 
-plabel = Label(root, text="Plugboard Pairs")
+plabel = Label(root, text="Plugboard Pairs",bg="#9C9C9C")
 plabel.grid(row=15,column=0,columnspan=18)
 
-ptext = Entry(root,width=50, borderwidth=3)
+ptext = Entry(root,width=50, borderwidth=3,fg = "#373737")
 ptext.grid(row=16,column=0,columnspan=18)
 counter = 0
 charOut = 'a'
@@ -365,23 +368,24 @@ def charClick(abc):     #still need to make
         ctext.insert(0, str(current) + str(letter))
         # print(letter)
 # Section for Bombe
-bombebutton = Button(root,text="Go to Bombe Window",command = lambda: bombewindow())
+bombebutton = Button(root,text="Go to Bombe Window",bg = "#CB6F00",command = lambda: bombewindow())
 bombebutton.grid(row=14,column=0,columnspan = 4)
 def bombewindow():
     secondwindow = Toplevel()#creating second window
+    secondwindow['background'] = '#D87600'
     secondwindow.title("Bombe")
-    cLabel = Label(secondwindow,text="Enter the encrypted message into Bombe")
+    cLabel = Label(secondwindow,text="Enter the encrypted message into Bombe",bg = "#D87600")
     cLabel.grid(row=0,column=0)
     global cMessage
-    cMessage = Entry(secondwindow, width=50, borderwidth=3)
+    cMessage = Entry(secondwindow, width=50, borderwidth=3,font=7,background="Black",fg="White")
     cMessage.grid(row=1,column=0)
-    decryptb = Button(secondwindow,text = "Run decryption",command = lambda: callbombe())
+    decryptb = Button(secondwindow,text = "Run decryption",bg= "#D0D0D0",command = lambda: callbombe())
     decryptb.grid(row=1,column=1)
-    space1 = Label(secondwindow, text="                   ")
+    space1 = Label(secondwindow, text="                   ",bg = "#D87600")
     space1.grid(row=2, column=0)
-    combination = Label(secondwindow, text="The combination of rotors found")
+    combination = Label(secondwindow, text="The combination of rotors found",bg = "#D87600")
     combination.grid(row=3, column=0)
-    numtries = Label(secondwindow, text="Combinations Tried:")
+    numtries = Label(secondwindow, text="Combinations Tried:",bg = "#D87600")
     numtries.grid(row=3, column=1)
     global ncombination
     ncombination = Entry(secondwindow, width=50, borderwidth=3)
@@ -389,12 +393,12 @@ def bombewindow():
     global tries
     tries = Entry(secondwindow, width=10, borderwidth=3)
     tries.grid(row=4, column=1)
-    space2 = Label(secondwindow, text="                   ")
+    space2 = Label(secondwindow, text="                   ",bg = "#D87600")
     space2.grid(row=5, column=0)
-    nLabel = Label(secondwindow, text="Decrypted message")
+    nLabel = Label(secondwindow, text="Decrypted message",bg = "#D87600")
     nLabel.grid(row=6, column=0)
     global decryptm
-    decryptm = Entry(secondwindow, width=50, borderwidth=3)
+    decryptm = Entry(secondwindow, width=50, borderwidth=3,font=7)
     decryptm.grid(row=7, column=0)
 def setcombo(s):
     ncombination.delete(0, END)
@@ -430,16 +434,16 @@ var.set("Choose a Day")
 day = OptionMenu(root,var,*options)
 day.grid(row=0,column=11,columnspan=3,sticky=N)
 
-labelday = Label(root,text="(Day,'p1,p2,p3,p4,p5,p6,p7,p7,p9,p10',r1,off1,r2,off2,r3,off3,n/a")
+labelday = Label(root,text="(Day,'p1,p2,p3,p4,p5,p6,p7,p7,p9,p10',r1,off1,r2,off2,r3,off3,n/a",bg="#9C9C9C",fg="#FFFFFF")
 labelday.grid(row=0,column=14,columnspan=21,stick=N)
 
-daye = Entry(root,width=50,borderwidth=3)
+daye = Entry(root,width=50,borderwidth=5,fg = "#373737")
 daye.grid(row=0,column= 14,columnspan=21 )
 
-chooseday = Button(root,text="Confirm Day",command = lambda:insertday())
+chooseday = Button(root,text="Confirm Day",bg= "#D0D0D0" ,command = lambda:insertday())
 chooseday.grid(row=0,column=11,columnspan=3)
 
-pluglabel = Label(root,text="p1,p2,p3,p4,p5,p6,p7,p8,p9,p10")
+pluglabel = Label(root,text="p1,p2,p3,p4,p5,p6,p7,p8,p9,p10",bg = "#9C9C9C")
 pluglabel.grid(row=20,column=4,columnspan=10)
 
 def insertday():

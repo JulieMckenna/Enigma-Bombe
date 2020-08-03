@@ -10,7 +10,6 @@ Will be using Python and creating a user interface for people to encrypt and dec
 
 To use this: 
 - Download the code (Clone this repo)
-- Run CreateDB.py to create the database (Need to fix this file or delete this section)
 - Use Main.py to run the GUI - settings are set by the user through the GUI
 - The GUI includes both the Enigma machine and Bombe machine
 - GUI uses enigma.py to run an Enigma machine

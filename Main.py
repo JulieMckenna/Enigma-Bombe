@@ -1,4 +1,6 @@
 from tkinter import *
+from tkinter import messagebox
+
 from enigma import *
 from bombegui import *
 import DatabaseFunctions
@@ -337,6 +339,20 @@ def charClick(abc):     #still need to make
         #print(counter)
         incrementCounter()
     else:
+        normaltext = ntext.get()
+        if(normaltext.isupper() == False):
+            message = "Your Entry must be all CAPS!"
+            messagebox.showinfo("Syntax Error", message)
+            ntext.delete(0, END)
+            return
+        elif((" " in normaltext) == True):
+            message = "Entry should contain no spaces!"
+            messagebox.showinfo("Syntax Error", message)
+            ntext.delete(0, END)
+            return
+        else:
+            pass
+
         applyplug()
         if show == 1:
             charOut2 = enigma(settings, [], rotorPass[2], rotorPass[1], rotorPass[0], REFLECTOR_B, off3.get() - 1, off2.get() - 1, off1.get() - 1, True)
@@ -365,9 +381,14 @@ def bombewindow():
     space1.grid(row=2, column=0)
     combination = Label(secondwindow, text="The combination of rotors found")
     combination.grid(row=3, column=0)
+    numtries = Label(secondwindow, text="Combinations Tried:")
+    numtries.grid(row=3, column=1)
     global ncombination
     ncombination = Entry(secondwindow, width=50, borderwidth=3)
     ncombination.grid(row=4, column=0)
+    global tries
+    tries = Entry(secondwindow, width=10, borderwidth=3)
+    tries.grid(row=4, column=1)
     space2 = Label(secondwindow, text="                   ")
     space2.grid(row=5, column=0)
     nLabel = Label(secondwindow, text="Decrypted message")
@@ -381,14 +402,25 @@ def setcombo(s):
 def setdecrpt(m):
     decryptm.delete(0, END)
     decryptm.insert(0, m)
+def setattempts(a):
+    tries.delete(0,END)
+    tries.insert(0,a)
 def callbombe():
     mess = cMessage.get()
     #print(mess)
     bombe3(mess, rotorPass[2], rotorPass[1], rotorPass[0])#calling from bombegui.py
+    if(getstatus() == False):
+        message = "Bombe was unable to find settings\n Make sure plugboard is empty and message from enigma has 'HELLOWORLD' at the end of message"
+        messagebox.showinfo("Bombe Error", message)
+        return
+    else:
+        pass
     s = retrivesettings()
     m = retrivemessage()
+    a = gettries()
     setcombo(s)
     setdecrpt(m)
+    setattempts(a)
 
 #Day selection from database
 options = [1,2,3,4,5,6,7,8,9,10]

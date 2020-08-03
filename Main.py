@@ -5,6 +5,9 @@ from enigma import *
 from bombegui import *
 import DatabaseFunctions
 import time
+#creates the db files
+db = DatabaseFunctions.CreateDatabases()
+del db
 edb = DatabaseFunctions.EnigmaDatabase()
 root = Tk()
 

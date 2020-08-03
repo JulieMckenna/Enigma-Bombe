@@ -51,7 +51,7 @@ User input: Date of message (can be used to get the configuration from a databas
   - These strings are prog
 - The 3 rotors (int)
 - The offsets for the 3 rotors (int)
-- The reflector
+- The reflector (char)
 
 ## Bombe:
 - This is a very complicated machine. We had to simplify it down or else it would have taken too long to do
@@ -76,6 +76,9 @@ User input: Date of message (can be used to get the configuration from a databas
 
 ### Bombe Database:
 - Will hold the correct configurations from the enigma machine that it is trying to emulate
+- The table containing the discovered Enigma configurations is virtually identical to that of the Enigma machine itself, except:
+  1. There is no plugboard
+  2. Instead of saving the configurations by "Day" as the primary key, they are given a config ID
 
 ## GUI
 The package we used for our GUI was TkInter. TkInter is the default GUI package that comes with Python. There are many functions that come along with the package, the functions we used are:

@@ -26,10 +26,29 @@ def setmessage(finalmessage):
     global m
     m = finalmessage
 
+def setstatus(flag1):
+    global flag
+    flag = flag1
+    return
 
+def getstatus():
+    global flag
+    flag1 = flag
+    return flag1
+def settries(num):
+    global tries
+    tries = num
+    return
+def gettries():
+    global tries
+    tries1 = tries
+    return tries1
 def bombe3(emessage,rotorptwo,rotorpone,rotorpzero):
     global s
     global m
+    global flag
+    flag = True
+    global tries
     numOfAttempts = 0
     reflector = REFLECTOR_B
     #find possible encryptions first - to then solve with decrption
@@ -53,12 +72,14 @@ def bombe3(emessage,rotorptwo,rotorpone,rotorpzero):
                 if outputText[(len(inputText)-10):] == crib:
                     #means that the correct settings have been found
                     #print("Settings have been found!")
-                    finalsettings = "Off1: " + str(i) + " Off2: " + str(j) + " Off3: " + str(k)
+                    #finalsettings = "Off1: " + str(i) + " Off2: " + str(j) + " Off3: " + str(k)
+                    finalsettings = " Off3: " + str(k) + " Off2: " + str(j) + " Off1: " + str(i)
                     setsettings(finalsettings)
                     # this is where the insert query
                     # prints the decrypted message
                     finalmessage = outputText[0:(len(outputText) - 10)]
                     setmessage(finalmessage)
+                    settries(numOfAttempts)
                     print("Number of combinations tried: " + str(numOfAttempts))
                     return
                 del machine
@@ -72,12 +93,14 @@ def bombe3(emessage,rotorptwo,rotorpone,rotorpzero):
                 #checks if th last 10 letters of the "decrypted" message = helloworld
                 if outputText[(len(inputText)-10):] == crib:
                     #means that the correct settings have been found
-                    finalsettings = "Off1: " + str(i) + " Off2: " + str(j) + " Off3: " + str(k)
+                    #finalsettings = "Off1: " + str(i) + " Off2: " + str(j) + " Off3: " + str(k)
+                    finalsettings = " Off3: " + str(k) + " Off2: " + str(j) + " Off1: " + str(i)
                     setsettings(finalsettings)
                     # this is where the insert query
                     # prints the decrypted message
                     finalmessage = outputText[0:(len(outputText) - 10)]
                     setmessage(finalmessage)
+                    settries(numOfAttempts)
                     print("Number of combinations tried: " + str(numOfAttempts))
                     return
                 del machine
@@ -91,12 +114,14 @@ def bombe3(emessage,rotorptwo,rotorpone,rotorpzero):
                 #checks if th last 10 letters of the "decrypted" message = helloworld
                 if outputText[(len(inputText)-10):] == crib:
                     #means that the correct settings have been found
-                    finalsettings = "Off1: " + str(i) + " Off2: " + str(j) + " Off3: " + str(k)
+                    #finalsettings = "Off1: " + str(i) + " Off2: " + str(j) + " Off3: " + str(k)
+                    finalsettings = " Off3: " + str(k) + " Off2: " + str(j) + " Off1: " + str(i)
                     setsettings(finalsettings)
                     # this is where the insert query
                     # prints the decrypted message
                     finalmessage = outputText[0:(len(outputText) - 10)]
                     setmessage(finalmessage)
+                    settries(numOfAttempts)
                     print("Number of combinations tried: " + str(numOfAttempts))
                     return
                 del machine
@@ -110,12 +135,14 @@ def bombe3(emessage,rotorptwo,rotorpone,rotorpzero):
                 #checks if th last 10 letters of the "decrypted" message = helloworld
                 if outputText[(len(inputText)-10):] == crib:
                     #means that the correct settings have been found
-                    finalsettings = "Off1: " + str(i) + " Off2: " + str(j) + " Off3: " + str(k)
+                    #finalsettings = "Off1: " + str(i) + " Off2: " + str(j) + " Off3: " + str(k)
+                    finalsettings = " Off3: " + str(k) + " Off2: " + str(j) + " Off1: " + str(i)
                     setsettings(finalsettings)
                     # this is where the insert query
                     # prints the decrypted message
                     finalmessage = outputText[0:(len(outputText) - 10)]
                     setmessage(finalmessage)
+                    settries(numOfAttempts)
                     print("Number of combinations tried: " + str(numOfAttempts))
                     return
                 del machine
@@ -129,16 +156,23 @@ def bombe3(emessage,rotorptwo,rotorpone,rotorpzero):
                 #checks if th last 10 letters of the "decrypted" message = helloworld
                 if outputText[(len(inputText)-10):] == crib:
                     #means that the correct settings have been found
-                    finalsettings = "Off1: " + str(i) + " Off2: " + str(j) + " Off3: " + str(k)
+                    #finalsettings = "Off1: " + str(i) + " Off2: " + str(j) + " Off3: " + str(k)
+                    finalsettings = " Off3: " + str(k) + " Off2: " + str(j) + " Off1: " + str(i)
                     setsettings(finalsettings)
                     # this is where the insert query
                     # prints the decrypted message
                     finalmessage = outputText[0:(len(outputText) - 10)]
                     setmessage(finalmessage)
+                    settries(numOfAttempts)
                     print("Number of combinations tried: " + str(numOfAttempts))
                     return
                 del machine
     print("Nothing found")
+    flag = False
+    setstatus(flag)
+
+
+
 #main()
 
 

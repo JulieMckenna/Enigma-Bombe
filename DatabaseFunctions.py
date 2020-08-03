@@ -1,7 +1,7 @@
 # classes of functions to create the enigma/bombe databases and interface with them
 # author: Chandler Berry
 
-import sqlite3 #, openpyxl
+import sqlite3, os
 
 class CreateDatabases:
         
@@ -33,6 +33,12 @@ class CreateDatabases:
         s.execute(sched)
         s.close()
 
+        insert = self.enigma.cursor()
+        configs = [(1, 'ABCDEFGHIJ', 'LMNOPQRSTU', 1, 17, 2, 3, 4, 2, 'B'), (2, 'LMNOPQRSTU', 'ABCDEFGHIJ', 3, 13, 2, 16, 4, 2, 'B'), (3, 'QWERTYUIOP', 'LKJHGFDSAZ', 5, 14, 3, 11, 1, 5, 'B'), (4, 'ZXCVBNMLKJ', 'HGFDSAPOIU', 3, 4, 1, 12, 3, 16, 'B'), (5, 'QAZWSXEDCR', 'FVTGBYHNUJ', 2, 18, 4, 14, 3, 8, 'B'), (6, 'QZECTBUMIL', 'PLOKIJUHYG', 1, 2, 3, 25, 4, 22, 'B'), (7, 'ALQPWODJUR', 'NTIGFUDOWQ', 4, 25, 2, 15, 5, 5, 'B'), (8, 'LSIDUCBKEQ', 'UBHVGYCXTA', 5, 11, 3, 2, 1, 11, 'B'), (9, 'PQLAMZSUDI', 'YUIKJHBNML', 2, 5, 5, 11, 3, 18, 'B'), (10, 'EORPFLSABN', 'DOFVKCLXQM', 4, 12, 2, 24, 5, 6, 'B')]
+        for c in configs:
+            insert.execute('INSERT INTO Schedule VALUES (' + str(c[0]) + ', \'' + c[1] + '\', \'' + c[2] + '\', ' + str(c[3]) + ', ' + str(c[4]) + ', ' + str(c[5]) + ', ' + str(c[6]) + ', ' + str(c[7]) + ', ' + str(c[8]) + ', \'' + c[9] + '\');')
+        insert.close()
+        self.enigma.commit()
         print('created enigma database')
 
     # create the bombe database, this can also be used to reset the database
@@ -65,14 +71,23 @@ class CreateDatabases:
 
         print('created bombe database')
 
-    # initialize class
+    # initialize class, refresh databases
     def __init__(self):
+        # delete pre-existing db files
+        dbNames = ['EnigmaDB.db', 'BombeDB.db']
+        for file in dbNames:
+            if os.path.exists(file):
+                os.remove(file)
         # create enigma db connection
         self.enigma = sqlite3.connect('EnigmaDB.db')
         print('enigma database connection established')
+        self.createEnigmaDB()
+        print('Enigma database created')
         # create bombe db connection
         self.bombe = sqlite3.connect('BombeDB.db')
         print('bombe database connection established\n')
+        self.createBombeDB()
+        print('Bombe database created')
 
     # close db connections
     def __del__(self):
@@ -88,31 +103,6 @@ class EnigmaDatabase:
         # create enigma db connection
         self.connection = sqlite3.connect('EnigmaDB.db')
         print('enigma database connection established')
-
-    # add enigma schedule to db with data provided by an excel file
-    # file path of test file (Chandler) --- 'G:\\gitrepos\\Enigma-Bombe\\enigma.xlsx'
-    # def createEnigmaSchedule(self, filePath):
-    #     try:
-    #         # open xlsx file and get the number of rows, each row indicates an enigma configuration for a particular day
-    #         sched = openpyxl.load_workbook(filePath)
-    #         activeSched = sched.active
-    #         # get the configuration for each day 
-    #         for i in range(1, activeSched.max_row + 1):
-    #             getConfig = []
-    #             # fill getConfig list with data from the row in the spreadsheet
-    #             for j in range(1, activeSched.max_column + 1):
-    #                 getCell = activeSched.cell(row = i, column = j)
-    #                 getConfig.append(getCell.value)
-    #             # query insert configuration into the db
-    #             insertConfig = ('INSERT INTO Schedule VALUES (' + str(getConfig[0]) + ', \'' + getConfig[1] + '\', \'' + getConfig[2] + '\', ' + str(getConfig[3]) + ', ' + str(getConfig[4]) + ', ' + str(getConfig[5]) + ', ' + str(getConfig[6]) + ', ' + str(getConfig[7]) + ', ' + str(getConfig[8]) + ', \'' + getConfig[9] + '\');')
-    #             # run query
-    #             e = self.connection.cursor()
-    #             e.execute(insertConfig)
-    #             print('Config for day ' + str(getConfig[0]) + ' inserted into db.')
-    #             e.close()
-    #             self.connection.commit()
-    #     except TypeError:
-    #         pass
 
     # get schedule from enigma database when function is provided with a day
     def getConfiguration(self, day):
@@ -198,71 +188,3 @@ class BombeDatabase:
 # Sources:
 # help with xlsx file support found at https://www.geeksforgeeks.org/python-reading-excel-file-using-openpyxl-module/#:~:text=Openpyxl%20is%20a%20Python%20library,changes%20based%20on%20some%20criteria.
 # destructors in python: https://www.geeksforgeeks.org/destructors-in-python/
-
-###########################################
-##### NOT USING THIS IN THE BETA TEST #####
-###########################################
-# create table script for CapturedMsg table
-# capturedMsg = '''
-# CREATE TABLE CapturedMsg
-# (
-#     MessageID       INT     PRIMARY KEY NOT NULL,
-#     EncryptedMsg    TEXT    NOT NULL,
-#     IsDecrypted     INT     NOT NULL,
-#     DecryptedMsg    TEXT,
-#     Day             INT     NOT NULL
-# );
-# '''        
-# # create CapturedMsg table
-# capMsg = self.bombe.cursor()
-# capMsg.execute(capturedMsg)
-# capMsg.close()
-
-# insert message captured into database
-# def insertCapturedMsg(self, msg, day):
-#     try:
-#         # logic to create new message ID
-#         # get the largest value message ID that is stored in the database, if there are no messages stored, this query will return null
-#         getMsgID = 'SELECT MAX(MessageID) FROM CapturedMsg'
-#         b = self.connection.cursor()
-#         b.execute(getMsgID)
-#         msgID = b.fetchone()
-#         b.close()
-#         newID = None
-#         # if there are no messages stored in the database, then the message ID will be 1
-#         if msgID[0] == None:
-#             newID = 1
-#         # if there are messages stored in the database, then take the largest value message ID and add 1
-#         else:
-#             newID = msgID[0] + 1
-#         # insert new captured message into the database
-#         insertMessage = 'INSERT INTO CapturedMsg VALUES (' + str(newID) + ', \'' + msg + '\', 0, NULL, ' + str(day) + ');'
-#         b = self.connection.cursor()
-#         b.execute(insertMessage)
-#         b.close()
-#         self.connection.commit()
-#         print('Message saved.')
-#     except sqlite3.OperationalError:
-#         print('\nError when trying to insert values, please check the database connection and/or values being input.\n')
-#     except sqlite3.IntegrityError:
-#         print('\nError when trying to insert values, this configuration already exists in the database.\n')
-
-# get CapturedMsg from bombe db
-# def getCapturedMsg(self, msgID):
-#     # find message in database with matching message id
-#     getMessage = 'SELECT * FROM CapturedMsg WHERE MessageID = ' + str(msgID)
-#     b = self.connection.cursor()
-#     b.execute(getMessage)
-#     msgData = b.fetchone()
-#     b.close()
-#     # if message is not found, print that to the user
-#     if msgData == None:
-#         returnMsg = 'No message in database with that ID.'
-#     else:
-#         # if message is not decrypted, just print the encrypted message
-#         if msgData[2] == 0:
-#             returnMsg = '\nMessage is not decrypted:\nEncrypted message: [' + msgData[1] + ']\n'
-#         # if message is decrypted, print both the encryped message and the decrypted message
-#         elif msgData[2] == 1:
-#             returnMsg = '\nMessage is decrypted:\nEncrypted message: [' + msgData[1] + ']\nDecrypted message: [' + msgData[4] + ']\n'
-#     return returnMsg

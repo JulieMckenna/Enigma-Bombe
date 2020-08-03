@@ -3,6 +3,13 @@
 ## Context
 Our project was to create a simulated Enigma machine as well as Bombe machine. These two machines were based on the ones used in World War 2. The Enigma was used by the Germans to encode its messages, while the Bombe was used by the Allied Forces to “crack” the Enigma and decode the messages. An Enigma machine is quite complicated, it has 3 main components, a plugboard, rotors, and a reflector. We simulated an Enigma machine in python that would represent the physical electromechanical machine, as well as created a GUI that the user could interact with that looking similarly to what the physical machine looked like. After completing the Enigma portion, we moved on to Bombe which is a much more complicated machine. Bombe is basically multiple Enigma machines working at the same time to find the settings and decode a message. With the Bombe there is a crib, which is what the decoded message should equal. During World War 2, all the messages that were sent by the Germans started and ended the same way, this allowed the Bombe to work more effectively. Instead of guessing at what the whole message could mean, the crib only checked those phrases that were known to be there. The steps of Bombe are to take the encrypted message, run it through an Enigma machine (vary the settings each time), and then check if that output equaled the crib. If the decrypted message equaled the crib then the settings have been found and the rest of the message can be decoded, otherwise it keeps looking for the correct settings. These two machines worked to encode and decode messages during the War and can still be used today to encrypt messages. 
 
+## Tutorial:
+### Step by step guide:
+  https://github.com/JulieMckenna/Enigma-Bombe/blob/master/UserGuide.txt
+
+### Video Tutorials:
+-Engima https://youtu.be/4P57gY-H6rU
+-Bombe https://youtu.be/akjj7EOkeg4
 
 
 ## Setup and User Guide
@@ -100,10 +107,3 @@ p1-p10: Plugboard pair 1-10
   The enigma portion of the GUI uses all the functions stated above. The labels are used to define the various parts of the enigma machine, like defining the contents of an entry box or labeling a rotor. Users can interact with the buttons by simply pressing it. For example, if the button ‘H’ is pressed, the program will perform the function that is triggered by pressing ‘H’. In this case, the function is called CharcterClick(“H”), Which passes in ‘H’ as a parameter. Scale is used primarily to set the offset of our rotors in the enigma machine. OptionMenu is used for two things: to select a day to retrieve settings for that day or to choose which rotors are operating. Clicking “Choose a Day” will reveal a drop-down menu of the days that are available for selection (only 10 days). Pressing a rotor will display the 5 rotors that are available to use. The entry boxes are dependent on the actions of a button. When a character is pressed, the normal character and encrypted character are display in their respective entry boxes. If the user is typing a message into an entry field, a button should be linked to the entry box to retrieve the message and perform the desired function.
 #### Bombe:
   The Bombe window can only be accessed by pressing the button ‘Go to Bombe Window’ on the enigma terminal. This window is much simpler than the enigma window. When the user enters the encrypted message, pressing the button “Run Encryption” will retrieve the message from the entry box and pass it into the Bombe machine
-
-## Tutorial:
-### Step by step guide:
-  https://github.com/JulieMckenna/Enigma-Bombe/blob/master/UserGuide.txt
-### Video Tutorials:
--Engima https://youtu.be/4P57gY-H6rU
--Bombe https://youtu.be/akjj7EOkeg4

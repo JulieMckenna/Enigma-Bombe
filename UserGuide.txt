@@ -17,7 +17,7 @@ Enigma:
 
 	Using a regular keyboard:
 	1.  Click in the Normal Message text box and type in a message to be encrypted
-		(THE LETTERS MUST ALL BE UPPERCASE, and no spaces)
+		(THE LETTERS MUST ALL BE UPPERCASE, and no spaces or numbers)
 	2.  Click Run Encryption to run the text through the enigma machine
 	3.  The encrypted text will be displayed in the Encrypted Message text box
 	

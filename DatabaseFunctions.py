@@ -32,7 +32,7 @@ class CreateDatabases:
         s = self.enigma.cursor()
         s.execute(sched)
         s.close()
-
+        # insert into db
         insert = self.enigma.cursor()
         configs = [(1, 'ABCDEFGHIJ', 'LMNOPQRSTU', 1, 17, 2, 3, 4, 2, 'B'), (2, 'LMNOPQRSTU', 'ABCDEFGHIJ', 3, 13, 2, 16, 4, 2, 'B'), (3, 'QWERTYUIOP', 'LKJHGFDSAZ', 5, 14, 3, 11, 1, 5, 'B'), (4, 'ZXCVBNMLKJ', 'HGFDSAPOIU', 3, 4, 1, 12, 3, 16, 'B'), (5, 'QAZWSXEDCR', 'FVTGBYHNUJ', 2, 18, 4, 14, 3, 8, 'B'), (6, 'QZECTBUMIL', 'PLOKIJUHYG', 1, 2, 3, 25, 4, 22, 'B'), (7, 'ALQPWODJUR', 'NTIGFUDOWQ', 4, 25, 2, 15, 5, 5, 'B'), (8, 'LSIDUCBKEQ', 'UBHVGYCXTA', 5, 11, 3, 2, 1, 11, 'B'), (9, 'PQLAMZSUDI', 'YUIKJHBNML', 2, 5, 5, 11, 3, 18, 'B'), (10, 'EORPFLSABN', 'DOFVKCLXQM', 4, 12, 2, 24, 5, 6, 'B')]
         for c in configs:
@@ -43,13 +43,10 @@ class CreateDatabases:
 
     # create the bombe database, this can also be used to reset the database
     def createBombeDB(self):
-        # drop tables if they exist before creating them
-        tables = ['KnownConfig', 'CapturedMsg']
-        for t in tables:
-            tbl = self.bombe.cursor()
-            tbl.execute('DROP TABLE IF EXISTS ' + t)
-            tbl.close()
-
+        # drop KnownConfig table
+        tbl = self.bombe.cursor()
+        tbl.execute('DROP TABLE IF EXISTS KnownConfig')
+        tbl.close()
         # create table script for KnownConfig table
         knownConfig = '''
         CREATE TABLE KnownConfig
@@ -61,7 +58,8 @@ class CreateDatabases:
             Offset2             INT         NOT NULL,
             ActiveR3            INT         NOT NULL,
             Offset3             INT         NOT NULL,
-            Reflector           TEXT        NOT NULL
+            Reflector           TEXT        NOT NULL,
+            DecryptedMsg        TEXT
         );
         '''
         # create KnownConfig table
@@ -69,32 +67,32 @@ class CreateDatabases:
         kC.execute(knownConfig)
         kC.close()
 
-        print('created bombe database')
-
     # initialize class, refresh databases
     def __init__(self):
-        # delete pre-existing db files
+        # delete pre-existing db file for enigma
         dbNames = ['EnigmaDB.db', 'BombeDB.db']
-        for file in dbNames:
-            if os.path.exists(file):
-                os.remove(file)
+        if os.path.exists(dbNames[0]):
+            os.remove(dbNames[0])
         # create enigma db connection
-        self.enigma = sqlite3.connect('EnigmaDB.db')
+        self.enigma = sqlite3.connect(dbNames[0])
         print('enigma database connection established')
         self.createEnigmaDB()
-        print('Enigma database created')
-        # create bombe db connection
-        self.bombe = sqlite3.connect('BombeDB.db')
-        print('bombe database connection established\n')
-        self.createBombeDB()
-        print('Bombe database created')
+        # create bombe db connection, if statement to avoid deleting the bombe db if it was already created, to save configurations found
+        if not os.path.exists('BombeDB.db'):
+            self.bombe = sqlite3.connect(dbNames[1])
+            print('bombe database created, connection established')
+            self.createBombeDB()
+        else:
+            self.bombe = sqlite3.connect(dbNames[1])
+            print('bombe database connection established')
 
     # close db connections
     def __del__(self):
         self.enigma.close()
-        print('\nenigma database connection closed')
-        self.bombe.close()
-        print('bombe database connection closed')
+        print('enigma database connection closed')
+        if os.path.exists('BombeDB.db'):
+            self.bombe.close()
+            print('bombe database connection closed')
 
 class EnigmaDatabase: 
     
@@ -138,7 +136,7 @@ class BombeDatabase:
         print('bombe database connection established')
 
     # insert the correct configuration when it is found by the bombe machine
-    def insertKnownConfig(self, activeR1, offset1, activeR2, offset2, activeR3, offset3, reflector):
+    def insertKnownConfig(self, activeR1, offset1, activeR2, offset2, activeR3, offset3, reflector, decryptedMessage):
         try:
             # create ID for primary key of db tuple
             getMaxConfigID = 'SELECT MAX(ID) FROM KnownConfig'
@@ -153,7 +151,7 @@ class BombeDatabase:
             # if there are known configurations stored in the database, then take the largest value ID and add 1
             else:
                 newID = maxID[0] + 1
-            insertConfig = 'INSERT INTO KnownConfig VALUES (' + str(newID) + ', ' + str(activeR1) + ', ' + str(offset1) + ', ' + str(activeR2) + ', ' + str(offset2) + ', ' + str(activeR3) + ', ' + str(offset3) + ', \'' + reflector + '\');'
+            insertConfig = 'INSERT INTO KnownConfig VALUES (' + str(newID) + ', ' + str(activeR1) + ', ' + str(offset1) + ', ' + str(activeR2) + ', ' + str(offset2) + ', ' + str(activeR3) + ', ' + str(offset3) + ', \'' + reflector + '\', \'' + decryptedMessage + '\');'
             b = self.connection.cursor()
             b.execute(insertConfig)
             b.close()

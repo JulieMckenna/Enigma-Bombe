@@ -1,4 +1,5 @@
 from enigma import enigma
+import DatabaseFunctions
 
 
 ROTOR_I =   "EKMFLGDQVZNTOWYHXUSPAIBRCJ"
@@ -75,10 +76,14 @@ def bombe3(emessage,rotorptwo,rotorpone,rotorpzero):
                     #finalsettings = "Off1: " + str(i) + " Off2: " + str(j) + " Off3: " + str(k)
                     finalsettings = " Off3: " + str(k) + " Off2: " + str(j) + " Off1: " + str(i)
                     setsettings(finalsettings)
-                    # this is where the insert query
                     # prints the decrypted message
                     finalmessage = outputText[0:(len(outputText) - 10)]
                     setmessage(finalmessage)
+                    b_db = DatabaseFunctions.BombeDatabase()
+                    b_db.insertKnownConfig(1, str(i), 2, str(j), 3, str(k), 'B', finalmessage)
+                    settingsList = b_db.getKnownConfig(1, str(i), 2, str(j), 3, str(k), 'B')
+                    print("Settings are: Rotor I at offset: "+ str(settingsList[2]) +" Rotor II at offset: "+ str(settingsList[4]) + " Rotor III at offset: " + str(settingsList[6]))
+                    del b_db
                     settries(numOfAttempts)
                     print("Number of combinations tried: " + str(numOfAttempts))
                     return
@@ -96,10 +101,14 @@ def bombe3(emessage,rotorptwo,rotorpone,rotorpzero):
                     #finalsettings = "Off1: " + str(i) + " Off2: " + str(j) + " Off3: " + str(k)
                     finalsettings = " Off3: " + str(k) + " Off2: " + str(j) + " Off1: " + str(i)
                     setsettings(finalsettings)
-                    # this is where the insert query
                     # prints the decrypted message
                     finalmessage = outputText[0:(len(outputText) - 10)]
                     setmessage(finalmessage)
+                    b_db = DatabaseFunctions.BombeDatabase()
+                    b_db.insertKnownConfig(1, str(i), 2, str(j), 3, str(k), 'B', finalmessage)
+                    settingsList = b_db.getKnownConfig(1, str(i), 2, str(j), 3, str(k), 'B')
+                    print("Settings are: Rotor I at offset: "+ str(settingsList[2]) +" Rotor II at offset: "+ str(settingsList[4]) + " Rotor III at offset: " + str(settingsList[6]))
+                    del b_db
                     settries(numOfAttempts)
                     print("Number of combinations tried: " + str(numOfAttempts))
                     return
@@ -117,10 +126,14 @@ def bombe3(emessage,rotorptwo,rotorpone,rotorpzero):
                     #finalsettings = "Off1: " + str(i) + " Off2: " + str(j) + " Off3: " + str(k)
                     finalsettings = " Off3: " + str(k) + " Off2: " + str(j) + " Off1: " + str(i)
                     setsettings(finalsettings)
-                    # this is where the insert query
                     # prints the decrypted message
                     finalmessage = outputText[0:(len(outputText) - 10)]
                     setmessage(finalmessage)
+                    b_db = DatabaseFunctions.BombeDatabase()
+                    b_db.insertKnownConfig(1, str(i), 2, str(j), 3, str(k), 'B', finalmessage)
+                    settingsList = b_db.getKnownConfig(1, str(i), 2, str(j), 3, str(k), 'B')
+                    print("Settings are: Rotor I at offset: "+ str(settingsList[2]) +" Rotor II at offset: "+ str(settingsList[4]) + " Rotor III at offset: " + str(settingsList[6]))
+                    del b_db
                     settries(numOfAttempts)
                     print("Number of combinations tried: " + str(numOfAttempts))
                     return
@@ -138,10 +151,14 @@ def bombe3(emessage,rotorptwo,rotorpone,rotorpzero):
                     #finalsettings = "Off1: " + str(i) + " Off2: " + str(j) + " Off3: " + str(k)
                     finalsettings = " Off3: " + str(k) + " Off2: " + str(j) + " Off1: " + str(i)
                     setsettings(finalsettings)
-                    # this is where the insert query
-                    # prints the decrypted message
+                   # prints the decrypted message
                     finalmessage = outputText[0:(len(outputText) - 10)]
                     setmessage(finalmessage)
+                    b_db = DatabaseFunctions.BombeDatabase()
+                    b_db.insertKnownConfig(1, str(i), 2, str(j), 3, str(k), 'B', finalmessage)
+                    settingsList = b_db.getKnownConfig(1, str(i), 2, str(j), 3, str(k), 'B')
+                    print("Settings are: Rotor I at offset: "+ str(settingsList[2]) +" Rotor II at offset: "+ str(settingsList[4]) + " Rotor III at offset: " + str(settingsList[6]))
+                    del b_db
                     settries(numOfAttempts)
                     print("Number of combinations tried: " + str(numOfAttempts))
                     return
@@ -159,10 +176,14 @@ def bombe3(emessage,rotorptwo,rotorpone,rotorpzero):
                     #finalsettings = "Off1: " + str(i) + " Off2: " + str(j) + " Off3: " + str(k)
                     finalsettings = " Off3: " + str(k) + " Off2: " + str(j) + " Off1: " + str(i)
                     setsettings(finalsettings)
-                    # this is where the insert query
                     # prints the decrypted message
                     finalmessage = outputText[0:(len(outputText) - 10)]
                     setmessage(finalmessage)
+                    b_db = DatabaseFunctions.BombeDatabase()
+                    b_db.insertKnownConfig(1, str(i), 2, str(j), 3, str(k), 'B', finalmessage)
+                    settingsList = b_db.getKnownConfig(1, str(i), 2, str(j), 3, str(k), 'B')
+                    print("Settings are: Rotor I at offset: "+ str(settingsList[2]) +" Rotor II at offset: "+ str(settingsList[4]) + " Rotor III at offset: " + str(settingsList[6]))
+                    del b_db
                     settries(numOfAttempts)
                     print("Number of combinations tried: " + str(numOfAttempts))
                     return

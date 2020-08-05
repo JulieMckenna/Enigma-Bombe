@@ -75,10 +75,11 @@ User input: Date of message (can be used to get the configuration from a databas
   b. deletes that instance of the Enigma machine and repeats those steps with different setttings until the settings are found
 
 ### Bombe Database:
-- Will hold the correct configurations from the enigma machine that it is trying to emulate
+- Will log the correct configurations from the enigma machine that it is trying to emulate
 - The table containing the discovered Enigma configurations is virtually identical to that of the Enigma machine itself, except:
   1. There is no plugboard
   2. Instead of saving the configurations by "Day" as the primary key, they are given a config ID
+  3. The decrypted message that was used to crack the Enigma configuration is stored as well.
 
 ## GUI
 The package we used for our GUI was TkInter. TkInter is the default GUI package that comes with Python. There are many functions that come along with the package, the functions we used are:
